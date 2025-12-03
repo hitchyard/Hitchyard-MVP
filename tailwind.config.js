@@ -11,6 +11,9 @@ module.exports = {
         'charcoal-black': '#1A1D21',
         'deep-green': '#0B1F1A',
       },
+      fontFamily: {
+        spartan: ['League Spartan', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
+      },
     },
   },
   plugins: [],
