@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../utils/supabase/client";
+import { signUpAction } from "./actions";
 
 export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -18,11 +19,14 @@ export default function SignUpPage() {
     setLoading(true);
 
     try {
-      const sb = supabase();
-      const { error: signUpError } = await sb.auth.signUp({ email, password });
+      const result = await signUpAction({
+        email,
+        password,
+        zip_code: zipCode,
+      });
 
-      if (signUpError) {
-        setError(signUpError.message);
+      if (result.error) {
+        setError(result.error);
         setLoading(false);
         return;
       }
@@ -31,6 +35,7 @@ export default function SignUpPage() {
       setSuccess(true);
       setEmail("");
       setPassword("");
+      setZipCode("");
     } catch (err) {
       setError((err as Error)?.message ?? String(err));
     } finally {
@@ -94,8 +99,6 @@ export default function SignUpPage() {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
             aria-label="Email"
           />
-        </div>
-
         <div>
           <label className="block text-sm font-medium mb-1 text-charcoal-black" htmlFor="password">
             Password
@@ -111,6 +114,25 @@ export default function SignUpPage() {
             aria-label="Password"
           />
         </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1 text-charcoal-black" htmlFor="zip_code">
+            ZIP Code
+          </label>
+          <input
+            id="zip_code"
+            type="text"
+            required
+            maxLength={5}
+            placeholder="e.g., 90210"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+            aria-label="ZIP Code"
+          />
+        </div>
+
+        {error && (
 
         {error && (
           <div role="alert" className="text-sm text-red-600">
