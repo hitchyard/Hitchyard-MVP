@@ -1,0 +1,44 @@
+/* Global styles for Hitchyard app router */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;600;700&display=swap');
+
+:root {
+  --brand-charcoal: #1A1D21;
+  --brand-deep-forest: #0B1F1A;
+  --text-on-dark: #E6E7E8;
+  --muted: #A3A5A6;
+  --radius: 0.5rem;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  font-family: 'League Spartan', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--brand-charcoal);
+  color: var(--text-on-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Utility designers may extend with Tailwind; these base rules provide brand tone */
+a { color: var(--text-on-dark); }
+
+/* Form elements */
+input, textarea, select, button {
+  font-family: inherit;
+}
+
+/* A subtle container style for inner content */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.04);
+}
