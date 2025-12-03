@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import LoadsClient from "./LoadsClient";
 import { redirect } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -85,74 +86,12 @@ export default async function LoadsPage() {
 
           {/* Loads Section */}
           <section>
-            {loads.length === 0 ? (
-              <div className="bg-white bg-opacity-5 rounded-lg p-12 text-center">
-                <p className="text-gray-400 text-lg">
-                  No loads available at this time. Check back soon!
-                </p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto rounded-lg border border-gray-700">
-                <table className="w-full bg-white bg-opacity-5">
-                  <thead>
-                    <tr className="border-b border-gray-700 bg-charcoal-black">
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Origin ZIP
-                      </th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Destination ZIP
-                      </th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Weight (lbs)
-                      </th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Commodity Type
-                      </th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Posted
-                      </th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-white">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {loads.map((load, index) => (
-                      <tr
-                        key={load.id}
-                        className={`border-b border-gray-700 ${
-                          index % 2 === 0 ? "bg-opacity-3" : "bg-opacity-1"
-                        } hover:bg-opacity-5 transition`}
-                      >
-                        <td className="px-6 py-4 text-gray-200 font-medium">
-                          {load.origin_zip}
-                        </td>
-                        <td className="px-6 py-4 text-gray-200 font-medium">
-                          {load.destination_zip}
-                        </td>
-                        <td className="px-6 py-4 text-gray-200">
-                          {load.load_weight.toLocaleString()} lbs
-                        </td>
-                        <td className="px-6 py-4 text-gray-200">
-                          {load.commodity_type}
-                        </td>
-                        <td className="px-6 py-4 text-gray-400 text-sm">
-                          {new Date(load.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4">
-                          <button
-                            className="inline-flex items-center justify-center px-4 py-2 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold text-sm"
-                            aria-label={`Bid on load from ${load.origin_zip} to ${load.destination_zip}`}
-                          >
-                            Bid on Load
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+            {/* LoadsClient handles interactive table and bid modal on the client side */}
+            {/* Server passes loads to a client component for interactivity */}
+            <div id="loads-client-root">
+              {/* @ts-ignore - passing server data to client component */}
+              <LoadsClient loads={loads} />
+            </div>
           </section>
 
           {/* Back to Dashboard Link */}
