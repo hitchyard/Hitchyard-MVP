@@ -41,17 +41,32 @@ const zipCodeMap: Record<string, { lat: number; lon: number }> = {
   "98101": { lat: 47.6052, lon: -122.3324 }, // Seattle, WA
 };
 
+const GRIT_CLUB_ANCHOR_ZIP = "84101";
+const TARGET_RADIUS_MILES = 250;
+
+interface OperatingIdentifiers {
+  dotNumber?: string;
+  stateOperatingId?: string;
+}
+
 /**
- * Check if a user's ZIP code is within 250 miles of Salt Lake City
+ * Check if a user's ZIP code is within 250 miles of the anchor ZIP (84101)
+ * and verify they have a DOT number or a state operating ID.
  * @param userZip The user's ZIP code
- * @returns true if within 250 miles, false otherwise
+ * @param ids Optional operating identifiers (DOT or state ID)
+ * @returns true if within 250 miles and at least one ID is present, false otherwise
  */
-export async function checkDistance(userZip: string): Promise<boolean> {
+export async function checkDistance(
+  userZip: string,
+  ids?: OperatingIdentifiers
+): Promise<boolean> {
   try {
-    // Salt Lake City target coordinates (ZIP 84101)
-    const saltLakeCityLat = 40.7608;
-    const saltLakeCityLon = -111.891;
-    const targetRadiusMiles = 250;
+    const anchorCoordinates = zipCodeMap[GRIT_CLUB_ANCHOR_ZIP];
+
+    if (!anchorCoordinates) {
+      console.warn(`Anchor ZIP ${GRIT_CLUB_ANCHOR_ZIP} not found in lookup map`);
+      return false;
+    }
 
     // Look up coordinates for the user's ZIP code
     const userCoordinates = zipCodeMap[userZip.trim()];
@@ -66,20 +81,23 @@ export async function checkDistance(userZip: string): Promise<boolean> {
     const distance = haversineDistance(
       userCoordinates.lat,
       userCoordinates.lon,
-      saltLakeCityLat,
-      saltLakeCityLon
+      anchorCoordinates.lat,
+      anchorCoordinates.lon
     );
 
-    // Return true if distance is within target radius
-    const isWithinRadius = distance <= targetRadiusMiles;
+    const isWithinRadius = distance <= TARGET_RADIUS_MILES;
+
+    const hasOperatingId = Boolean(
+      ids?.dotNumber?.trim() || ids?.stateOperatingId?.trim()
+    );
 
     console.log(
-      `Distance from ZIP ${userZip} to Salt Lake City: ${distance.toFixed(
+      `Distance from ZIP ${userZip} to ${GRIT_CLUB_ANCHOR_ZIP}: ${distance.toFixed(
         2
-      )} miles. Within ${targetRadiusMiles} mile radius: ${isWithinRadius}`
+      )} miles. Within ${TARGET_RADIUS_MILES} mile radius: ${isWithinRadius}. Operating ID present: ${hasOperatingId}`
     );
 
-    return isWithinRadius;
+    return isWithinRadius && hasOperatingId;
   } catch (err) {
     console.error("Error checking distance:", (err as Error)?.message ?? String(err));
     return false;
