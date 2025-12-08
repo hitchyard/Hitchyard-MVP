@@ -7,10 +7,12 @@ import { useFormState, useFormStatus } from "react-dom";
 import { supabase } from "../../utils/supabase/client";
 import { acceptBidAction } from "./actions";
 import { createConnectAccountLink } from "../actions/stripe";
+import PaymentSetupBanner from "../components/PaymentSetupBanner";
 
 interface UserProfile {
   first_name: string | null;
   stripe_account_id: string | null;
+  stripe_payment_method_id: string | null;
   user_role: string | null;
 }
 
@@ -139,6 +141,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [firstName, setFirstName] = useState<string | null>(null);
   const [stripeAccountId, setStripeAccountId] = useState<string | null>(null);
+  const [stripePaymentMethodId, setStripePaymentMethodId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loads, setLoads] = useState<Load[]>([]);
   const [bidsMap, setBidsMap] = useState<Record<string, Bid[]>>({});
@@ -166,7 +169,7 @@ export default function DashboardPage() {
         // Fetch user profile
         const { data, error: profileError } = await sb
           .from("user_profiles")
-          .select("first_name, stripe_account_id, user_role")
+          .select("first_name, stripe_account_id, stripe_payment_method_id, user_role")
           .eq("id", user.id)
           .single();
 
@@ -176,6 +179,7 @@ export default function DashboardPage() {
           const profile = data as UserProfile;
           setFirstName(profile.first_name);
           setStripeAccountId(profile.stripe_account_id);
+          setStripePaymentMethodId(profile.stripe_payment_method_id);
           setUserRole(profile.user_role);
         }
 
@@ -259,6 +263,15 @@ export default function DashboardPage() {
           Welcome, {firstName || "User"}
         </h1>
         <p className="text-gray-400 mb-8">Manage and post your loads here.</p>
+
+        {/* Payment Setup Banner for Shippers */}
+        {userRole === "shipper" && (
+          <PaymentSetupBanner
+            stripePaymentMethodId={stripePaymentMethodId}
+            userRole={userRole}
+            onPaymentAdded={() => setRefreshKey((k) => k + 1)}
+          />
+        )}
 
         {/* Payout Setup Banner for Carriers */}
         {userRole === "carrier" && <PayoutSetupBanner stripeAccountId={stripeAccountId} />}
