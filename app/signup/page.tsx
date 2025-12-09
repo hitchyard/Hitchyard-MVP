@@ -99,6 +99,7 @@ export default function SignUpPage() {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
             aria-label="Email"
           />
+        </div>
         <div>
           <label className="block text-sm font-medium mb-1 text-charcoal-black" htmlFor="password">
             Password
@@ -131,8 +132,6 @@ export default function SignUpPage() {
             aria-label="ZIP Code"
           />
         </div>
-
-        {error && (
 
         {error && (
           <div role="alert" className="text-sm text-red-600">
