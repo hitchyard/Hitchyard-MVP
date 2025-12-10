@@ -33,7 +33,7 @@ export async function acceptBidAction({ load_id, bid_id }: AcceptBidInput) {
     }
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2023-10-16" });
+    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-11-17.clover" });
 
     const {
       data: { user },

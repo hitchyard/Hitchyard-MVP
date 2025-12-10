@@ -38,7 +38,7 @@ export async function createConnectAccountLink(): Promise<ActionResult> {
     }
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2023-10-16" });
+    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-11-17.clover" });
 
     const {
       data: { user },
@@ -108,7 +108,7 @@ export async function setupShipperPayment(): Promise<SetupIntentResult> {
     }
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2023-10-16" });
+    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-11-17.clover" });
 
     // Authenticate the user
     const {
@@ -189,7 +189,7 @@ export async function savePaymentMethod(setupIntentId: string): Promise<SavePaym
     }
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
-    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2023-10-16" });
+    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-11-17.clover" });
 
     // Authenticate the user
     const {
