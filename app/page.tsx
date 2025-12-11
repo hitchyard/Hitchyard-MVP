@@ -6,47 +6,95 @@ export default function Page() {
       <div className="w-full max-w-5xl">
         
         {/* Header and Branding */}
-        <header className="text-center mb-10">
-          <h1 className="text-5xl font-bold font-spartan text-white">Hitchyard</h1>
-          <p className="text-lg text-gray-300 mt-3">
-            Local freight marketplace that connects businesses with verified independent box-truck carriers for short-haul deliveries within 250 miles of the Salt Lake area.
-          </p>
-        </header>
+        'use client';
 
-        {/* Value Proposition & Grit Club Highlight */}
-        <section className="bg-dark-gray p-10 rounded-xl shadow-2xl mb-12">
-          <h2 className="text-3xl font-semibold text-deep-forest-green mb-4 text-center">
-            Connect. Verify. Ship.
-          </h2>
-          <p className="text-gray-200 text-center max-w-2xl mx-auto">
-            Join the **Grit Club**—our invite-only network of high-trust carriers and shippers—to ensure secure load matching and reliable, predictable service in the regional short-haul market.
-          </p>
-        </section>
+        import React, { useState } from 'react';
 
-        {/* Call-to-Action Buttons */}
-        <div className="flex justify-center space-x-6">
-          
-          {/* Sign In Button */}
-          <Link href="/login" passHref>
-            <button className="px-8 py-3 bg-white text-charcoal-black font-semibold rounded-lg shadow-md hover:bg-gray-200 transition duration-300 transform hover:scale-105">
-              Sign In
-            </button>
-          </Link>
+        // Use brand colors defined in globals.css via Tailwind arbitrary values
+        const CHARCOAL = 'var(--brand-charcoal)';
+        const GREEN = 'var(--brand-deep-forest)';
 
-          {/* Sign Up Button (Primary Action) */}
-          <Link href="/signup" passHref>
-            <button className="px-8 py-3 bg-deep-forest-green text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 transform hover:scale-105">
-              Get Started (Sign Up)
-            </button>
-          </Link>
-          
-        </div>
-        
-        {/* Footer Note */}
-        <footer className="mt-12 text-center text-gray-500 text-sm">
-          &copy; 2025 Hitchyard. Built on Trust.
-        </footer>
-      </div>
-    </main>
-  );
-}
+        export default function PrelaunchWaitlist() {
+          const [isSubmitted, setIsSubmitted] = useState(false);
+
+          // This function would be replaced with your actual API call to save the lead
+          const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            // Simulate API submission delay
+            setTimeout(() => {
+              setIsSubmitted(true);
+              // In a real app, you would send the data to your CRM/DB here
+              console.log('Lead submitted and qualified!');
+            }, 1000);
+          };
+
+          if (isSubmitted) {
+            return (
+              <main className="w-full max-w-2xl text-center p-10 mt-20">
+                <h1 
+                  className="text-4xl sm:text-5xl tracking-tighter font-extrabold mb-4" 
+                  style={{ fontFamily: 'Cinzel Bold, serif', color: CHARCOAL }}
+                >
+                  Your Access Position is Secured.
+                </h1>
+                <p className="text-lg text-gray-700 max-w-md mx-auto mb-10">
+                  The moment our full broker authority is activated, you will be the first to be onboarded.
+                  You have secured your place in the new standard.
+                </p>
+                <div className="text-sm text-gray-500 mt-12">
+                  Compliance Verified. Ready for Q4 2025.
+                </div>
+              </main>
+            );
+          }
+
+          return (
+            <main className="w-full max-w-4xl text-center p-8 mt-20">
+              <h1 
+                className="text-5xl sm:text-7xl tracking-tighter font-extrabold mb-6" 
+                style={{ fontFamily: 'Cinzel Bold, serif', color: CHARCOAL }}
+              >
+                The Standard Has Arrived.
+              </h1>
+              <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-12 font-light">
+                Hitchyard is the new operating system for enterprise logistics. Secure verified access now and be ready to transact the moment our broker authority is activated.
+              </p>
+
+              {/* Qualification Form (Structured and Geometric) */}
+              <div className="card max-w-md mx-auto p-8 shadow-2xl">
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    required
+                    className="p-3 border border-gray-300 rounded-md focus:ring-0 focus:border-gray-500 transition duration-150 text-base text-gray-800"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Official Company Email"
+                    required
+                    className="p-3 border border-gray-300 rounded-md focus:ring-0 focus:border-gray-500 transition duration-150 text-base text-gray-800"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Company Name"
+                    required
+                    className="p-3 border border-gray-300 rounded-md focus:ring-0 focus:border-gray-500 transition duration-150 text-base text-gray-800"
+                  />
+                  <button
+                    type="submit"
+                    className="p-3 mt-4 text-white font-semibold rounded-md transition duration-200 hover:opacity-90 shadow-lg"
+                    style={{ backgroundColor: GREEN }}
+                  >
+                    SECURE VERIFIED ACCESS
+                  </button>
+                </form>
+              </div>
+
+              <div className="text-sm text-gray-500 mt-12">
+                <p>This is a B2B platform. Broker authority pending.</p>
+                <p>Compliance verified. Ready for Q4 2025.</p>
+              </div>
+            </main>
+          );
+        }
