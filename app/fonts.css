@@ -1,0 +1,24 @@
+/* Ruler Archetype Typography System (Source: Brand Guide) */
+
+@font-face {
+  font-family: 'Cinzel Bold';
+  src: url('/fonts/Cinzel-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'League Spartan';
+  src: url('/fonts/LeagueSpartan-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Utility Classes for easy use in TSX */
+.font-cinzel {
+    font-family: 'Cinzel Bold', serif;
+}
+
+.font-spartan {
+    font-family: 'League Spartan', sans-serif;
+}
