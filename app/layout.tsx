@@ -1,12 +1,5 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { League_Spartan } from 'next/font/google';
-
-const spartan = League_Spartan({
-  subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
-  variable: '--font-spartan',
-});
 
 export const metadata: Metadata = {
   title: 'Hitchyard - The New Standard in Logistics',
@@ -19,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={spartan.variable}>
+    <html lang="en">
       <body className="font-spartan min-h-screen antialiased flex flex-col items-center justify-center">
         {children}
       </body>
