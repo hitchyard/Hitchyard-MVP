@@ -194,36 +194,22 @@ export default function RegistrationFunnel() {
 
   // Single top-level return statement (unconditional)
   return (
-    // Outer container for fixed video background and charcoal overlay
-    <div className="min-h-screen relative overflow-hidden flex flex-col items-center">
-      
-      {/* Background Video Element */}
-      <video
-        autoPlay
-        loop
-        muted
-        className="fixed inset-0 object-cover w-full h-full z-0"
-        src="/video/hitchyard-intro.mp4" 
-      />
+    <div
+      // Deep charcoal background for full-page wrapper
+      style={{ backgroundColor: CHARCOAL }}
+      className="min-h-screen w-full font-spartan text-white"
+    >
+      {/* 1. Header Area: Provides structure and branding */}
+      <header className="p-6 md:p-8 w-full max-w-5xl mx-auto">
+        <h1 className="text-3xl font-bold font-cinzel tracking-widest text-white">
+          <span className="text-5xl" style={{ color: GREEN }}>H</span>ITCHYARD
+        </h1>
+      </header>
 
-      {/* Charcoal Overlay */}
-      <div 
-        className="fixed inset-0 z-10" 
-        style={{ backgroundColor: CHARCOAL, opacity: 0.6 }} 
-      />
-
-      {/* Content Wrapper (Relative to the fixed background) */}
-      <div className="relative z-20 w-full max-w-5xl text-center p-8 pt-20 pb-20 flex-grow flex flex-col items-center">
-        
-        {/* Logo Mark */}
-        <div className="mb-10 text-6xl font-extrabold font-cinzel" style={{ color: WHITE }}>
-            H
-        </div>
-
-        {/* The Content: Conditionally rendered JSX based on the step state */}
+      {/* 2. Main Content Container: Centers and limits the width of the funnel content */}
+      <main className="flex flex-col items-center justify-start p-6 md:p-12 w-full max-w-4xl mx-auto">
         {Content}
-        
-      </div>
+      </main>
     </div>
   );
 }
