@@ -23,9 +23,9 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
           return;
         }
 
-        const apiKey = 'patWuRCpbn4vr1uc2.1218ff1d00870c14cd26a1ac44e2faf0e6c7a924f5e473878c01c14e530181a9';
-        const baseId = 'app4qYpj81N8RlSaa';
-        const tableId = 'tblNaiawVnrlcgTR9';
+        const apiKey = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY;
+        const baseId = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID || 'app4qYpj81N8RlSaa';
+        const tableId = process.env.NEXT_PUBLIC_AIRTABLE_TABLE_ID || 'tblNaiawVnrlcgTR9';
 
         const url = `https://api.airtable.com/v0/${baseId}/${tableId}`;
 
