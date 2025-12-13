@@ -74,6 +74,7 @@ const GritClubLanding = () => {
           password: formData.password,
           userType: 'Carrier',
           complianceDate: formData.complianceDate,
+          companyName: formData.companyName,
           zipCode: formData.zipCode,
           cargoPolicyNumber: formData.cargoPolicyNumber,
           autoLiabilityPolicyNumber: formData.autoLiabilityPolicyNumber,

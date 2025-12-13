@@ -67,6 +67,7 @@ export default function RegistrationFunnel() {
           password: formData.password,
           userType: 'Carrier',
           complianceDate: formData.complianceDate,
+          companyName: formData.companyName,
           zipCode: formData.zipCode,
           cargoPolicyNumber: formData.cargoPolicyNumber,
           autoLiabilityPolicyNumber: formData.autoLiabilityPolicyNumber,
@@ -107,31 +108,41 @@ export default function RegistrationFunnel() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1A1A1A] flex flex-col items-center justify-center p-4">
-      {/* Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-cinzel font-bold text-[#FFFFFF] mb-2">
-          <span className="text-[#0B1F1A]">H</span>ITCHYARD
-        </h1>
-        <p className="text-[#E0E0E0] font-spartan text-lg">The Grit Club Freight Network</p>
-      </div>
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center bg-no-repeat relative"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070')",
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-[#1A1D21] opacity-70 z-0"></div>
 
-      {/* Main Content Container */}
-      <div className="w-full max-w-md">
+      {/* Main Content Container - White Card */}
+      <div className="relative z-10 w-full max-w-2xl bg-white shadow-2xl rounded-lg p-10">
         
+        {/* Logo/Wordmark */}
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-[family-name:var(--font-cinzel)] font-bold text-[#1A1D21] tracking-tight uppercase">
+            HITCHYARD
+          </h1>
+        </div>
+
         {/* STEP 1: TYPE SELECTION */}
         {step === 'TYPE_SELECTION' && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-cinzel font-bold text-[#FFFFFF] text-center mb-8">
-              Who Are You?
+            <h2 className="text-3xl font-[family-name:var(--font-cinzel)] font-bold text-[#1A1D21] text-center mb-4">
+              APPLY FOR ACCESS.
             </h2>
+            <p className="text-center text-gray-600 font-[family-name:var(--font-league-spartan)] text-lg mb-8">
+              The Vetting Process for America's Most Reliable Carriers.
+            </p>
 
             <button
               onClick={handleTypeSelection}
-              className="w-full p-6 border-2 border-[#0B1F1A] rounded-lg text-center hover:bg-[#0B1F1A] transition-colors duration-200"
+              className="w-full p-6 border-2 border-[#0B1F1A] rounded-lg text-center hover:bg-[#0B1F1A] hover:text-white transition-colors duration-200 bg-white"
             >
-              <p className="text-[#FFFFFF] font-cinzel text-xl font-bold">CARRIER</p>
-              <p className="text-[#E0E0E0] font-spartan text-sm mt-2">
+              <p className="font-[family-name:var(--font-cinzel)] text-xl font-bold text-[#1A1D21]">CARRIER</p>
+              <p className="font-[family-name:var(--font-league-spartan)] text-sm mt-2 text-gray-600">
                 Join the Grit Club dispatch network
               </p>
             </button>
@@ -141,9 +152,12 @@ export default function RegistrationFunnel() {
         {/* STEP 2: REGISTRATION FORM */}
         {step === 'REGISTRATION_FORM' && (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <h2 className="text-2xl font-cinzel font-bold text-[#FFFFFF] text-center mb-6">
-              Carrier Registration
+            <h2 className="text-3xl font-[family-name:var(--font-cinzel)] font-bold text-[#1A1D21] text-center mb-2">
+              APPLY FOR ACCESS.
             </h2>
+            <p className="text-center text-gray-600 font-[family-name:var(--font-league-spartan)] text-lg mb-6">
+              The Vetting Process for America's Most Reliable Carriers.
+            </p>
 
             {error && (
               <div className="p-4 bg-red-900/30 border border-red-600 rounded-lg">
@@ -158,7 +172,7 @@ export default function RegistrationFunnel() {
               value={formData.fullName}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -168,7 +182,7 @@ export default function RegistrationFunnel() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -178,7 +192,7 @@ export default function RegistrationFunnel() {
               value={formData.password}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -188,7 +202,7 @@ export default function RegistrationFunnel() {
               value={formData.companyName}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -196,7 +210,7 @@ export default function RegistrationFunnel() {
               name="complianceDate"
               value={formData.complianceDate}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -206,7 +220,7 @@ export default function RegistrationFunnel() {
               value={formData.zipCode}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -216,7 +230,7 @@ export default function RegistrationFunnel() {
               value={formData.cargoPolicyNumber}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <input
@@ -226,21 +240,21 @@ export default function RegistrationFunnel() {
               value={formData.autoLiabilityPolicyNumber}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+              className="w-full px-4 py-3 bg-white border-2 border-gray-300 rounded-lg text-[#1A1D21] placeholder-gray-500 font-[family-name:var(--font-league-spartan)] focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-[#0B1F1A] text-[#FFFFFF] font-cinzel font-bold rounded-lg hover:bg-[#0F2A24] transition-colors duration-200 disabled:opacity-50"
+              className="w-full py-4 mt-6 bg-[#0B1F1A] text-white font-[family-name:var(--font-cinzel)] font-bold text-lg uppercase tracking-wider rounded-lg hover:bg-[#0F2A24] transition-colors duration-200 disabled:opacity-50 shadow-lg"
             >
-              {isLoading ? 'Registering...' : 'REGISTER'}
+              {isLoading ? 'SUBMITTING APPLICATION...' : 'SUBMIT APPLICATION'}
             </button>
 
             <button
               type="button"
               onClick={() => setStep('TYPE_SELECTION')}
-              className="w-full py-2 text-[#E0E0E0] font-spartan text-sm hover:text-[#FFFFFF] transition-colors"
+              className="w-full py-2 text-gray-600 font-[family-name:var(--font-league-spartan)] text-sm hover:text-[#1A1D21] transition-colors"
             >
               Back
             </button>
@@ -251,10 +265,10 @@ export default function RegistrationFunnel() {
         {step === 'SUCCESS_WAIT' && (
           <div className="text-center space-y-4">
             <div className="w-16 h-16 mx-auto bg-[#0B1F1A] rounded-full flex items-center justify-center">
-              <span className="text-2xl text-[#FFFFFF]">✓</span>
+              <span className="text-2xl text-white">✓</span>
             </div>
-            <h2 className="text-2xl font-cinzel font-bold text-[#FFFFFF]">Registration Complete</h2>
-            <p className="text-[#E0E0E0] font-spartan">
+            <h2 className="text-2xl font-[family-name:var(--font-cinzel)] font-bold text-[#1A1D21]">APPLICATION SUBMITTED</h2>
+            <p className="text-gray-600 font-[family-name:var(--font-league-spartan)]">
               Welcome to the Grit Club. Redirecting to your dashboard...
             </p>
           </div>
