@@ -9,7 +9,15 @@ const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password, userType, complianceDate } = await req.json();
+    const {
+      email,
+      password,
+      userType,
+      complianceDate,
+      zipCode,
+      cargoPolicyNumber,
+      autoLiabilityPolicyNumber,
+    } = await req.json();
 
     // --- STEP 1: Supabase Authentication (Server-Side Sign-Up) ---
     // Creates the user in auth.users table
@@ -41,7 +49,11 @@ export async function POST(req: NextRequest) {
           email: email,
           user_type: userType,
           compliance_date: complianceDate,
-          grit_club_verified: true, // Initial verification for Grit Club carriers
+          zip_code: zipCode,
+          cargo_policy: cargoPolicyNumber,
+          auto_policy: autoLiabilityPolicyNumber,
+          salt_lake_area_check: zipCode?.startsWith('84') || false, // mock prefix check for Utah
+          grit_club_verified: false, // kept false until manual dispatcher review
         },
       ]);
 

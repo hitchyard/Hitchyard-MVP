@@ -14,19 +14,22 @@ export default function RegistrationFunnel() {
   
   const [step, setStep] = useState('TYPE_SELECTION');
   const [formData, setFormData] = useState({
-    userType: '',
+    userType: 'Carrier',
     fullName: '',
     email: '',
     password: '',
     companyName: '',
     complianceDate: '',
+    zipCode: '',
+    cargoPolicyNumber: '',
+    autoLiabilityPolicyNumber: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleTypeSelection = (type: string) => {
-    setFormData({ ...formData, userType: type });
+  const handleTypeSelection = () => {
+    setFormData({ ...formData, userType: 'Carrier' });
     setStep('REGISTRATION_FORM');
   };
 
@@ -37,8 +40,22 @@ export default function RegistrationFunnel() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
+
+    // Basic client-side validation for required vetting fields
+    const zipRegex = /^\d{5}(?:-\d{4})?$/;
+    if (!zipRegex.test(formData.zipCode)) {
+      setError('Enter a valid US ZIP code.');
+      setIsLoading(false);
+      return;
+    }
+    if (!formData.cargoPolicyNumber.trim() || !formData.autoLiabilityPolicyNumber.trim()) {
+      setError('Cargo and Auto Liability policy numbers are required.');
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       // Call the server-side sign-up endpoint
@@ -48,8 +65,11 @@ export default function RegistrationFunnel() {
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
-          userType: formData.userType,
+          userType: 'Carrier',
           complianceDate: formData.complianceDate,
+          zipCode: formData.zipCode,
+          cargoPolicyNumber: formData.cargoPolicyNumber,
+          autoLiabilityPolicyNumber: formData.autoLiabilityPolicyNumber,
         }),
       });
 
@@ -77,7 +97,7 @@ export default function RegistrationFunnel() {
       // SUCCESS: Show success state then redirect
       setStep('SUCCESS_WAIT');
       setTimeout(() => {
-        router.push(formData.userType === 'carrier' ? '/carrier-platform' : '/shipper-platform');
+        router.push('/carrier-platform');
       }, 2000);
     } catch (err) {
       console.error('Registration error:', err);
@@ -107,22 +127,12 @@ export default function RegistrationFunnel() {
             </h2>
 
             <button
-              onClick={() => handleTypeSelection('carrier')}
+              onClick={handleTypeSelection}
               className="w-full p-6 border-2 border-[#0B1F1A] rounded-lg text-center hover:bg-[#0B1F1A] transition-colors duration-200"
             >
               <p className="text-[#FFFFFF] font-cinzel text-xl font-bold">CARRIER</p>
               <p className="text-[#E0E0E0] font-spartan text-sm mt-2">
                 Join the Grit Club dispatch network
-              </p>
-            </button>
-
-            <button
-              onClick={() => handleTypeSelection('shipper')}
-              className="w-full p-6 border-2 border-[#0B1F1A] rounded-lg text-center hover:bg-[#0B1F1A] transition-colors duration-200"
-            >
-              <p className="text-[#FFFFFF] font-cinzel text-xl font-bold">SHIPPER</p>
-              <p className="text-[#E0E0E0] font-spartan text-sm mt-2">
-                Post loads and manage dispatches
               </p>
             </button>
           </div>
@@ -132,7 +142,7 @@ export default function RegistrationFunnel() {
         {step === 'REGISTRATION_FORM' && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <h2 className="text-2xl font-cinzel font-bold text-[#FFFFFF] text-center mb-6">
-              {formData.userType === 'carrier' ? 'Carrier' : 'Shipper'} Registration
+              Carrier Registration
             </h2>
 
             {error && (
@@ -187,6 +197,36 @@ export default function RegistrationFunnel() {
               value={formData.complianceDate}
               onChange={handleInputChange}
               className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+            />
+
+            <input
+              type="text"
+              name="zipCode"
+              placeholder="Zip Code"
+              value={formData.zipCode}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+            />
+
+            <input
+              type="text"
+              name="cargoPolicyNumber"
+              placeholder="Cargo Policy Number"
+              value={formData.cargoPolicyNumber}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
+            />
+
+            <input
+              type="text"
+              name="autoLiabilityPolicyNumber"
+              placeholder="Auto Liability Policy Number"
+              value={formData.autoLiabilityPolicyNumber}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-3 bg-[#252525] border border-[#333333] rounded-lg text-[#FFFFFF] placeholder-[#666666] font-spartan focus:outline-none focus:border-[#0B1F1A]"
             />
 
             <button
