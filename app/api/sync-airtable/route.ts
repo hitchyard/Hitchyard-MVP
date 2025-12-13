@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 import Airtable from 'airtable';
 
 // Initialize Airtable Base
-// Ensure AIRTABLE_API_KEY and AIRTABLE_BASE_ID are in your .env.local
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID as string);
+// Ensure AIRTABLE_PAT and AIRTABLE_BASE_ID are in your environment variables
+const base = new Airtable({ apiKey: process.env.AIRTABLE_PAT }).base(process.env.AIRTABLE_BASE_ID as string);
 
 // The name of the table/Base where your team tracks carrier vetting
 const CARRIER_VETTING_TABLE = 'Carrier Vetting Queue'; 
