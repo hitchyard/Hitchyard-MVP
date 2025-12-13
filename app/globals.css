@@ -1,6 +1,6 @@
 @import './fonts.css';
 
-/* Global styles for Hitchyard app router - IMPLEMENTING RULER ARCHETYPE LIGHT THEME */
+/* Global styles for Hitchyard app router - IMPLEMENTING RULER ARCHETYPE DARK THEME */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,10 +13,10 @@
   --brand-deep-forest: #0B1F1A; /* Secondary Trust Color for CTAs [cite: 17, 19] */
   --contrast-white: #FFFFFF; /* Pure White Contrast Color  */
   
-  /* UI Colors */
-  --background: var(--contrast-white); /* White background for a clean, imperial look [cite: 46, 119] */
-  --text-primary: var(--brand-charcoal); /* Charcoal text on light backgrounds [cite: 8] */
-  --muted: #A3A5A6; /* Gray for borders/dividers */
+  /* UI Colors - Dark Theme */
+  --background: #1A1A1A; /* Soft dark gray background for reduced eye strain */
+  --text-primary: #E0E0E0; /* Soft off-white text for dark mode */
+  --muted: #666666; /* Gray for borders/dividers in dark mode */
   --radius: 0.5rem;
 }
 
@@ -33,7 +33,7 @@ html {
 
 body {
   margin: 0;
-  /* Apply white background and charcoal text */
+  /* Apply dark background and soft off-white text */
   background-color: var(--background); 
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
@@ -51,8 +51,8 @@ input, textarea, select, button {
 
 /* A subtle container style to reflect 'structured' and 'premium' tone [cite: 95, 98] */
 .card {
-  /* Subtle, controlled gray background and border */
-  background: #F8F8F8; 
+  /* Subtle, controlled dark gray background and border for dark theme */
+  background: #2A2A2A; 
   border-radius: var(--radius);
   border: 1px solid var(--muted);
 }
