@@ -1,48 +1,67 @@
+// src/app/RoleSelect.tsx - REVISED FOR ABERCROMBIE STYLE
+
 "use client";
 
+// Assuming you still need to select a role, but the style is now bright/lifestyle
 export default function RoleSelect() {
   const handleRoleSelect = (role: string) => {
     console.log(`Role Selected: ${role}`);
-    // Add navigation logic here (e.g., router.push('/signup?role=...'))
+    // Add navigation logic here
   };
 
+  // Switch to a bright background with dark text
   return (
-    <div className="bg-[#1A1D21] min-h-screen text-white flex items-center justify-center p-8">
-      <div className="max-w-xl w-full">
-        {/* HITCHYARD. The System of Record. (Cinzel Bold / Ruler Archetype) */}
-        <header className="text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl font-extrabold font-serif tracking-tight text-white uppercase [font-family:Cinzel,serif]">
-            HITCHYARD. The System of Record.
+    <div className="bg-white min-h-screen text-gray-900">
+      
+      {/* 1. E-COMMERCE STYLE HEADER - Wide and bright */}
+      <header className="py-4 px-6 border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-800">
+            HITCHYARD (A&F Style Logo Placeholder)
           </h1>
-        </header>
+          {/* Placeholder for navigation links, cart, search icon */}
+          <nav className="hidden md:flex space-x-6 text-sm font-medium">
+             <a href="#" className="hover:underline">Loads</a>
+             <a href="#" className="hover:underline">About</a>
+             <a href="#" className="hover:underline">Contact</a>
+          </nav>
+        </div>
+      </header>
 
-        {/* ESTABLISH YOUR ACCESS RIGHTS. (League Spartan style / Structured) */}
-        <div className="text-center mb-12 border-t border-b border-white/10 py-6">
-          <h2 className="text-xl font-semibold mb-3 tracking-wide uppercase [font-family:LeagueSpartan,sans-serif]">
-            ESTABLISH YOUR ACCESS RIGHTS.
-          </h2>
-          <p className="text-gray-300 text-base">
-            Hitchyard is the definitive operating system for enterprise logistics. Select your authorized role to proceed.
-          </p>
+      {/* 2. MAIN CONTENT - Wide, top-aligned content */}
+      <div className="max-w-7xl mx-auto p-8">
+        
+        {/* LIFESTYLE IMAGE / CALLOUT AREA */}
+        <div className="w-full h-80 bg-gray-100 mb-12 flex items-center justify-center border border-gray-300">
+            {/* THIS IS WHERE YOU ADD A LARGE, LIFESTYLE-FOCUSED PHOTO (Trucks, Roads, People) */}
+            <h2 className="text-3xl font-light text-gray-600">
+                [Large, Bright Lifestyle Photo Placeholder Here]
+            </h2>
         </div>
 
-        {/* Role Selection Buttons */}
-        <div className="space-y-4">
-          <button
-            onClick={() => handleRoleSelect('Shipper')}
-            className="w-full text-white bg-[#1A1D21] border border-white/20 hover:bg-[#2A2D31] transition py-5 px-6 font-bold uppercase tracking-widest shadow-lg"
-          >
-            ENTERPRISE LOGISTICS PARTNER
-            <span className="block text-xs font-normal opacity-75">(Shipper / Freight Broker)</span>
-          </button>
+        {/* ROLE SELECTION BLOCK - Simple, centered below the photo */}
+        <div className="max-w-md mx-auto">
+             <h3 className="text-2xl font-semibold mb-6 text-center">
+                Access Hitchyard Network
+             </h3>
+             <div className="space-y-4">
+               {/* Shipper Button - Bright, less priority */}
+               <button
+                 onClick={() => handleRoleSelect('Shipper')}
+                 className="w-full text-gray-800 bg-white border border-gray-300 hover:bg-gray-50 transition py-4 px-6 font-semibold shadow-sm"
+               >
+                 LOGISTICS PARTNER SIGN-UP
+               </button>
 
-          <button
-            onClick={() => handleRoleSelect('Carrier')}
-            className="w-full text-white bg-[#0B1F1A] border border-white/20 hover:bg-[#1B2F2A] transition py-5 px-6 font-bold uppercase tracking-widest shadow-lg"
-          >
-            VERIFIED CARRIER
-            <span className="block text-xs font-normal opacity-75">(Motor Carrier / Fleet Owner)</span>
-          </button>
+               {/* Carrier Button - High contrast, primary action */}
+               <button
+                 onClick={() => handleRoleSelect('Carrier')}
+                 // The primary button should be dark and bold in this style
+                 className="w-full text-white bg-black hover:bg-gray-800 transition py-4 px-6 font-semibold shadow-md"
+               >
+                 VERIFIED CARRIER APPLICATION
+               </button>
+             </div>
         </div>
       </div>
     </div>

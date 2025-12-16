@@ -1,11 +1,12 @@
 @import './fonts.css';
 
+/* --- Add these imports for your custom fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@400;700&display=swap');
+
 /* Global styles for Hitchyard app router - IMPLEMENTING RULER ARCHETYPE DARK THEME */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;600;700&display=swap');
 
 :root {
   /* Brand Colors from Guide */
