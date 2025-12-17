@@ -6,8 +6,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^5.4.1",
-    "@stripe/stripe-js": "^8.5.3",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.48.0",
     "airtable": "^0.12.2",
@@ -15,8 +13,7 @@
     "lucide-react": "^0.561.0",
     "next": "^14.2.11",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "stripe": "^20.0.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^24.10.2",

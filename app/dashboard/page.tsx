@@ -6,8 +6,9 @@ import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { supabase } from "../../utils/supabase/client";
 import { acceptBidAction } from "./actions";
-import { createConnectAccountLink } from "../actions/stripe";
-import PaymentSetupBanner from "../components/PaymentSetupBanner";
+// TODO: Re-enable after PayCargo integration
+// import { createConnectAccountLink } from "../actions/stripe";
+// import PaymentSetupBanner from "../components/PaymentSetupBanner";
 
 interface UserProfile {
   first_name: string | null;
@@ -88,7 +89,8 @@ function SubmitButton() {
   );
 }
 
-function PayoutSetupBanner({ stripeAccountId }: { stripeAccountId: string | null }) {
+// TODO: Re-enable after PayCargo integration
+/* function PayoutSetupBanner({ stripeAccountId }: { stripeAccountId: string | null }) {
   const router = useRouter();
   const [isPending, startTransition] = React.useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -135,7 +137,7 @@ function PayoutSetupBanner({ stripeAccountId }: { stripeAccountId: string | null
       </div>
     </div>
   );
-}
+} */
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -264,17 +266,18 @@ export default function DashboardPage() {
         </h1>
         <p className="text-gray-400 mb-8">Manage and post your loads here.</p>
 
+        {/* TODO: Re-enable after PayCargo integration */}
         {/* Payment Setup Banner for Shippers */}
-        {userRole === "shipper" && (
+        {/* {userRole === "shipper" && (
           <PaymentSetupBanner
             stripePaymentMethodId={stripePaymentMethodId}
             userRole={userRole}
             onPaymentAdded={() => setRefreshKey((k) => k + 1)}
           />
-        )}
+        )} */}
 
         {/* Payout Setup Banner for Carriers */}
-        {userRole === "carrier" && <PayoutSetupBanner stripeAccountId={stripeAccountId} />}
+        {/* {userRole === "carrier" && <PayoutSetupBanner stripeAccountId={stripeAccountId} />} */}
 
         <div className="mt-8 mb-12">
           <Link
