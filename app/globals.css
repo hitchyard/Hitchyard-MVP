@@ -23,23 +23,19 @@
 
 html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  /* Secondary Typeface for all app text  */
-  font-family: 'League Spartan', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  /* Apply dark background and soft off-white text */
-  background-color: var(--background); 
-  color: var(--text-primary);
+  /* Removed dark theme - pages control their own styling */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
 }
 
 /* Links/Action elements should use the Deep Forest Green for Trust/CTAs [cite: 61, 75] */

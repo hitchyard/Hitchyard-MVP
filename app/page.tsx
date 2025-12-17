@@ -1,69 +1,102 @@
-// src/app/RoleSelect.tsx - REVISED FOR ABERCROMBIE STYLE
+// HITCHYARD - RULER ARCHETYPE LANDING PAGE
+// Authoritative, Structured, Premium Load Matching Platform
 
 "use client";
 
-// Assuming you still need to select a role, but the style is now bright/lifestyle
-export default function RoleSelect() {
-  const handleRoleSelect = (role: string) => {
-    console.log(`Role Selected: ${role}`);
-    // Add navigation logic here
+import { useRouter } from "next/navigation";
+import { CheckCircle2, Shield, Truck } from "lucide-react";
+
+export default function HomePage() {
+  const router = useRouter();
+
+  const handleCarrierApplication = () => {
+    console.log("Redirecting to Carrier Application");
+    router.push("/signup?role=carrier");
   };
 
-  // Switch to a bright background with dark text
   return (
-    <div className="bg-white min-h-screen text-gray-900">
-      
-      {/* 1. E-COMMERCE STYLE HEADER - Wide and bright */}
-      <header className="py-4 px-6 border-b border-gray-200 shadow-sm">
+    <div className="bg-charcoal-black min-h-screen text-contrast-white">
+      {/* NAVIGATION - Authority Top Bar */}
+      <nav className="bg-charcoal-black border-b border-white/10 py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-800">
-            HITCHYARD (A&F Style Logo Placeholder)
+          <h1 className="text-2xl font-cinzel font-bold tracking-tight uppercase">
+            HITCHYARD
           </h1>
-          {/* Placeholder for navigation links, cart, search icon */}
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
-             <a href="#" className="hover:underline">Loads</a>
-             <a href="#" className="hover:underline">About</a>
-             <a href="#" className="hover:underline">Contact</a>
-          </nav>
+          <div className="flex gap-6 font-spartan text-sm font-medium">
+            <a href="#" className="hover:text-deep-forest-green transition">LOADS</a>
+            <a href="#" className="hover:text-deep-forest-green transition">CARRIERS</a>
+            <a href="#" className="hover:text-deep-forest-green transition">CONTACT</a>
+          </div>
         </div>
-      </header>
+      </nav>
 
-      {/* 2. MAIN CONTENT - Wide, top-aligned content */}
-      <div className="max-w-7xl mx-auto p-8">
-        
-        {/* LIFESTYLE IMAGE / CALLOUT AREA */}
-        <div className="w-full h-80 bg-gray-100 mb-12 flex items-center justify-center border border-gray-300">
-            {/* THIS IS WHERE YOU ADD A LARGE, LIFESTYLE-FOCUSED PHOTO (Trucks, Roads, People) */}
-            <h2 className="text-3xl font-light text-gray-600">
-                [Large, Bright Lifestyle Photo Placeholder Here]
-            </h2>
+      {/* HERO SECTION - Cinzel Bold Statement */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-6xl md:text-7xl font-cinzel font-extrabold uppercase tracking-tight mb-6">
+            THE SYSTEM OF RECORD
+          </h2>
+          <p className="text-xl font-spartan text-white/80 max-w-2xl mx-auto mb-12">
+            Hitchyard is the definitive operating system for enterprise logistics. 
+            Verified carriers. Vetted shippers. Zero chaos.
+          </p>
+          
+          {/* Primary CTA */}
+          <button
+            onClick={handleCarrierApplication}
+            className="bg-deep-forest-green text-white font-spartan font-semibold text-lg px-8 py-4 hover:bg-green-800 transition shadow-lg uppercase tracking-wide"
+          >
+            APPLY AS VERIFIED CARRIER
+          </button>
         </div>
+      </section>
 
-        {/* ROLE SELECTION BLOCK - Simple, centered below the photo */}
-        <div className="max-w-md mx-auto">
-             <h3 className="text-2xl font-semibold mb-6 text-center">
-                Access Hitchyard Network
-             </h3>
-             <div className="space-y-4">
-               {/* Shipper Button - Bright, less priority */}
-               <button
-                 onClick={() => handleRoleSelect('Shipper')}
-                 className="w-full text-gray-800 bg-white border border-gray-300 hover:bg-gray-50 transition py-4 px-6 font-semibold shadow-sm"
-               >
-                 LOGISTICS PARTNER SIGN-UP
-               </button>
+      {/* FEATURES - Structured Grid with Icons */}
+      <section className="py-16 px-6 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="text-center p-8">
+              <Shield className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
+              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
+                VERIFIED ACCESS
+              </h3>
+              <p className="font-spartan text-white/70">
+                Every carrier is vetted with insurance verification and compliance checks.
+              </p>
+            </div>
 
-               {/* Carrier Button - High contrast, primary action */}
-               <button
-                 onClick={() => handleRoleSelect('Carrier')}
-                 // The primary button should be dark and bold in this style
-                 className="w-full text-white bg-black hover:bg-gray-800 transition py-4 px-6 font-semibold shadow-md"
-               >
-                 VERIFIED CARRIER APPLICATION
-               </button>
-             </div>
+            {/* Feature 2 */}
+            <div className="text-center p-8">
+              <Truck className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
+              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
+                LOAD MATCHING
+              </h3>
+              <p className="font-spartan text-white/70">
+                Clean, fast load marketplace connecting shippers with trusted carriers.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="text-center p-8">
+              <CheckCircle2 className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
+              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
+                STRUCTURED CONTROL
+              </h3>
+              <p className="font-spartan text-white/70">
+                Authoritative platform with strict vetting and transparent bidding.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-8 px-6 border-t border-white/10 mt-20">
+        <div className="max-w-7xl mx-auto text-center font-spartan text-sm text-white/50">
+          <p>© 2025 HITCHYARD. The Standard in Enterprise Logistics.</p>
+        </div>
+      </footer>
     </div>
   );
 }
