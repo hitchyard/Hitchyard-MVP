@@ -1,18 +1,16 @@
-@import './fonts.css';
-
-/* --- Add these imports for your custom fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@400;700&display=swap');
-
-/* Global styles for Hitchyard app router - IMPLEMENTING RULER ARCHETYPE DARK THEME */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Font imports for Hitchyard brand typography */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@400;700&display=swap');
+
+/* Custom global styles for Hitchyard - RULER ARCHETYPE */
 :root {
   /* Brand Colors from Guide */
-  --brand-charcoal: #1A1D21; /* Primary Authority Color [cite: 8, 10] */
-  --brand-deep-forest: #0B1F1A; /* Secondary Trust Color for CTAs [cite: 17, 19] */
-  --contrast-white: #FFFFFF; /* Pure White Contrast Color  */
+  --brand-charcoal: #1A1D21; /* Primary Authority Color */
+  --brand-deep-forest: #0B1F1A; /* Secondary Trust Color for CTAs */
+  --contrast-white: #FFFFFF; /* Pure White Contrast Color */
   
   /* UI Colors - Dark Theme */
   --background: #1A1A1A; /* Soft dark gray background for reduced eye strain */
@@ -33,20 +31,22 @@ html {
 }
 
 body {
-  /* Removed dark theme - pages control their own styling */
+  /* Pages control their own styling - no default background */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Links/Action elements should use the Deep Forest Green for Trust/CTAs [cite: 61, 75] */
-a { color: var(--brand-deep-forest); } 
+/* Links/Action elements use Deep Forest Green for Trust/CTAs */
+a { 
+  color: var(--brand-deep-forest); 
+} 
 
 /* Form elements */
 input, textarea, select, button {
   font-family: inherit;
 }
 
-/* A subtle container style to reflect 'structured' and 'premium' tone [cite: 95, 98] */
+/* Subtle container style reflecting 'structured' and 'premium' tone */
 .card {
   /* Subtle, controlled dark gray background and border for dark theme */
   background: #2A2A2A; 
