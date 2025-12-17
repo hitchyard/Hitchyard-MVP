@@ -9,14 +9,28 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 1. BRAND COLORS (Must be exactly these values)
+        // Core brand colors for high-contrast accents
         'charcoal-black': '#1A1D21',
+        'hitchyard-charcoal': '#1A1D21',  // Used for text/accents
         'deep-forest-green': '#0B1F1A',
+        'hitchyard-green': '#0B1F1A',     // Used for buttons/trust elements
         'pure-white': '#FFFFFF',
-        // Optional: A light gray for subtle backgrounds/dividers
+        
+        // New Light Mode Surface & Text Colors
+        'surface': '#FFFFFF',             // Pure White (A&F-style background)
+        'surface-secondary': '#F8F8F8',   // Light Gray (subtle section backgrounds)
+        'secondary-surface': '#F8F8F8',   // Alias
+        'text-primary': '#1A1D21',        // Charcoal Black (main text)
+        'text-secondary': '#4B5563',      // Dark Gray (supporting text)
         'off-white-bg': '#F5F5F7',
       },
       fontFamily: {
+        // 2. TYPOGRAPHY SYSTEM
+        'serif': ['Cinzel', 'serif'],
+        'cinzel-bold': ['Cinzel', 'serif'],
+        'sans': ['League Spartan', 'sans-serif'],
+        'league-spartan': ['League Spartan', 'sans-serif'],
+      },
         // 2. TYPOGRAPHY SYSTEM
         // Primary for headings (HITCHYARD, Access Network)
         'serif': ['Cinzel', 'serif'],

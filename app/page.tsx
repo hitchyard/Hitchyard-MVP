@@ -1,10 +1,12 @@
 // HITCHYARD - RULER ARCHETYPE LANDING PAGE
 // Authoritative, Structured, Premium Load Matching Platform
+// Light Theme - Abercrombie & Fitch Inspired Design
 
 "use client";
 
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Shield, Truck } from "lucide-react";
+import HitchyardCard from "./components/HitchyardCard";
 
 export default function HomePage() {
   const router = useRouter();
@@ -15,85 +17,112 @@ export default function HomePage() {
   };
 
   return (
-    <div className="bg-charcoal-black min-h-screen text-contrast-white">
-      {/* NAVIGATION - Authority Top Bar */}
-      <nav className="bg-charcoal-black border-b border-white/10 py-4 px-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-cinzel font-bold tracking-tight uppercase">
-            HITCHYARD
+    <div className="min-h-screen bg-surface">
+      {/* ASPIRATIONAL HERO SECTION - Full-width, minimal, clean */}
+      <header 
+        className="relative h-screen flex items-center justify-center bg-cover bg-center" 
+        style={{ 
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/video/hero-bg-placeholder.jpg)',
+          backgroundColor: '#1A1D21' 
+        }}
+      >
+        <div className="text-center relative z-10 px-6 max-w-5xl">
+          <h1 className="text-6xl md:text-8xl font-cinzel-bold text-white uppercase tracking-widest drop-shadow-lg mb-6">
+            HITCHYARD.
           </h1>
-          <div className="flex gap-6 font-spartan text-sm font-medium">
-            <a href="#" className="hover:text-deep-forest-green transition">LOADS</a>
-            <a href="#" className="hover:text-deep-forest-green transition">CARRIERS</a>
-            <a href="#" className="hover:text-deep-forest-green transition">CONTACT</a>
-          </div>
-        </div>
-      </nav>
-
-      {/* HERO SECTION - Cinzel Bold Statement */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-6xl md:text-7xl font-cinzel font-extrabold uppercase tracking-tight mb-6">
-            THE SYSTEM OF RECORD
-          </h2>
-          <p className="text-xl font-spartan text-white/80 max-w-2xl mx-auto mb-12">
-            Hitchyard is the definitive operating system for enterprise logistics. 
-            Verified carriers. Vetted shippers. Zero chaos.
+          <p className="text-xl md:text-2xl text-white font-league-spartan drop-shadow-md mb-12 max-w-2xl mx-auto">
+            The New Standard in Global Freight Authority.
           </p>
-          
-          {/* Primary CTA */}
           <button
             onClick={handleCarrierApplication}
-            className="bg-deep-forest-green text-white font-spartan font-semibold text-lg px-8 py-4 hover:bg-green-800 transition shadow-lg uppercase tracking-wide"
+            className="px-10 py-4 bg-hitchyard-green text-white font-bold uppercase tracking-wider 
+                       hover:bg-hitchyard-charcoal transition-colors duration-300 rounded-lg shadow-lg"
           >
-            APPLY AS VERIFIED CARRIER
+            Explore Verified Lanes
           </button>
         </div>
-      </section>
+      </header>
 
-      {/* FEATURES - Structured Grid with Icons */}
-      <section className="py-16 px-6 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="text-center p-8">
-              <Shield className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
-              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
-                VERIFIED ACCESS
-              </h3>
-              <p className="font-spartan text-white/70">
-                Every carrier is vetted with insurance verification and compliance checks.
-              </p>
-            </div>
+      {/* MAIN CONTENT - Light background with premium cards */}
+      <main className="container mx-auto px-6 py-20">
+        
+        <h2 className="text-4xl md:text-5xl font-cinzel-bold text-center text-text-primary mb-16 uppercase tracking-widest">
+          Curated Services
+        </h2>
 
-            {/* Feature 2 */}
-            <div className="text-center p-8">
-              <Truck className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
-              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
-                LOAD MATCHING
-              </h3>
-              <p className="font-spartan text-white/70">
-                Clean, fast load marketplace connecting shippers with trusted carriers.
-              </p>
-            </div>
+        {/* CARD GRID SECTION - Premium A&F style cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
+          
+          <HitchyardCard
+            imageSrc="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+            title="Verified Carrier Network"
+            subtitle="Access pre-vetted, trusted carriers with verified insurance and compliance."
+            href="/signup?role=carrier"
+          />
 
-            {/* Feature 3 */}
-            <div className="text-center p-8">
-              <CheckCircle2 className="w-12 h-12 mx-auto mb-4 text-deep-forest-green stroke-1" />
-              <h3 className="text-xl font-cinzel font-bold uppercase mb-3">
-                STRUCTURED CONTROL
-              </h3>
-              <p className="font-spartan text-white/70">
-                Authoritative platform with strict vetting and transparent bidding.
-              </p>
+          <HitchyardCard
+            imageSrc="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800"
+            title="Premium Load Matching"
+            subtitle="AI-powered matching system connecting shippers with ideal carriers."
+            href="/loads"
+          />
+
+          <HitchyardCard
+            imageSrc="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800"
+            title="Secure Transactions"
+            subtitle="Enterprise-grade payment processing with transparent pricing."
+            href="/dashboard"
+          />
+          
+        </div>
+
+        {/* FEATURES SECTION - Clean, minimal feature highlights */}
+        <section className="py-16 bg-surface-secondary rounded-lg">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-12">
+              
+              {/* Feature 1 */}
+              <div className="text-center">
+                <Shield className="w-16 h-16 mx-auto mb-6 text-hitchyard-green" />
+                <h3 className="text-xl font-cinzel-bold uppercase mb-3 text-text-primary tracking-wider">
+                  VERIFIED ACCESS
+                </h3>
+                <p className="font-league-spartan text-text-secondary leading-relaxed">
+                  Every carrier is vetted with insurance verification and compliance checks.
+                </p>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="text-center">
+                <Truck className="w-16 h-16 mx-auto mb-6 text-hitchyard-green" />
+                <h3 className="text-xl font-cinzel-bold uppercase mb-3 text-text-primary tracking-wider">
+                  LOAD MATCHING
+                </h3>
+                <p className="font-league-spartan text-text-secondary leading-relaxed">
+                  Clean, fast load marketplace connecting shippers with trusted carriers.
+                </p>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="text-center">
+                <CheckCircle2 className="w-16 h-16 mx-auto mb-6 text-hitchyard-green" />
+                <h3 className="text-xl font-cinzel-bold uppercase mb-3 text-text-primary tracking-wider">
+                  STRUCTURED CONTROL
+                </h3>
+                <p className="font-league-spartan text-text-secondary leading-relaxed">
+                  Authoritative platform with strict vetting and transparent bidding.
+                </p>
+              </div>
+              
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FOOTER */}
-      <footer className="py-8 px-6 border-t border-white/10 mt-20">
-        <div className="max-w-7xl mx-auto text-center font-spartan text-sm text-white/50">
+      </main>
+
+      {/* FOOTER - Minimal, clean */}
+      <footer className="py-12 px-6 border-t border-gray-200 bg-surface">
+        <div className="max-w-7xl mx-auto text-center font-league-spartan text-sm text-text-secondary">
           <p>© 2025 HITCHYARD. The Standard in Enterprise Logistics.</p>
         </div>
       </footer>
