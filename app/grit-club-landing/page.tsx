@@ -114,7 +114,7 @@ const GritClubLanding = () => {
       className="min-h-screen p-8 flex items-center justify-center"
       style={{ backgroundColor: CHARCOAL_BLACK }}
     >
-      <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 p-8 bg-white shadow-2xl rounded-lg">
+      <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 p-8 bg-white  rounded-none">
         <div className="flex flex-col justify-center space-y-6">
           <h1 className="text-4xl font-cinzel mb-4" style={{ color: DEEP_FOREST_GREEN }}>
             SECURE YOUR STANDING. JOIN THE GRIT CLUB.
@@ -124,7 +124,7 @@ const GritClubLanding = () => {
             250-mile Salt Lake radius.
           </p>
 
-          <div className="p-4 rounded-lg border-2 border-deep-green" style={{ backgroundColor: '#F8F8F8' }}>
+          <div className="p-4 rounded-none border-2 border-deep-green" style={{ backgroundColor: '#F8F8F8' }}>
             <h3 className="text-lg font-cinzel text-charcoal mb-2">THE INSURANCE STANDARD</h3>
             <p className="text-sm font-league-spartan">
               Hitchyard requires all carriers to match our Contingent Liability policy limits to qualify for vetting:
@@ -140,11 +140,11 @@ const GritClubLanding = () => {
           </p>
         </div>
 
-        <div className="p-6 rounded-lg border border-gray-300">
+        <div className="p-6 rounded-none border border-gray-300">
           <h2 className="text-2xl font-cinzel text-charcoal mb-6">STEP 1: GRIT CLUB VETTING</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-3 rounded border border-red-500 bg-red-50 text-red-700 text-sm font-league-spartan">
+              <div className="p-3 rounded-none border border-red-500 bg-red-50 text-red-700 text-sm font-league-spartan">
                 {error}
               </div>
             )}
@@ -156,7 +156,7 @@ const GritClubLanding = () => {
               value={formData.fullName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -166,7 +166,7 @@ const GritClubLanding = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -176,7 +176,7 @@ const GritClubLanding = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -186,7 +186,7 @@ const GritClubLanding = () => {
               value={formData.companyName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -195,7 +195,7 @@ const GritClubLanding = () => {
               placeholder="Compliance Date"
               value={formData.complianceDate}
               onChange={handleChange}
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <h3 className="text-lg font-cinzel pt-4 pb-2 border-t mt-4" style={{ borderColor: DEEP_FOREST_GREEN }}>
@@ -209,7 +209,7 @@ const GritClubLanding = () => {
               value={formData.zipCode}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -219,7 +219,7 @@ const GritClubLanding = () => {
               value={formData.cargoPolicyNumber}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <input
@@ -229,12 +229,12 @@ const GritClubLanding = () => {
               value={formData.autoLiabilityPolicyNumber}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded focus:outline-none"
+              className="w-full px-4 py-3 border rounded-none focus:outline-none"
             />
 
             <button
               type="submit"
-              className="w-full py-3 text-white text-lg font-bold rounded mt-6"
+              className="w-full py-3 text-white text-lg font-bold rounded-none mt-6"
               style={{ backgroundColor: DEEP_FOREST_GREEN }}
               disabled={isLoading}
             >

@@ -3,6 +3,8 @@
 
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
@@ -88,7 +90,7 @@ export default function LoginPage() {
         </div>
 
         {/* LOGIN FORM */}
-        <div className="bg-white/5 border border-white/10 rounded-lg p-8">
+        <div className="bg-white/5 border border-white/10 rounded-none p-8">
           <h2 className="text-2xl font-serif font-bold uppercase text-white mb-6 text-center">
             SECURE ACCESS
           </h2>
@@ -105,7 +107,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-charcoal-black border border-white/20 rounded text-white font-sans focus:outline-none focus:border-deep-forest-green transition"
+                className="w-full px-4 py-3 bg-charcoal-black border border-white/20 rounded-none text-white font-sans focus:outline-none focus:border-deep-forest-green transition"
                 placeholder="your@email.com"
               />
             </div>
@@ -121,14 +123,14 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-charcoal-black border border-white/20 rounded text-white font-sans focus:outline-none focus:border-deep-forest-green transition"
+                className="w-full px-4 py-3 bg-charcoal-black border border-white/20 rounded-none text-white font-sans focus:outline-none focus:border-deep-forest-green transition"
                 placeholder="Enter your password"
               />
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-900/20 border border-red-500/50 rounded p-3">
+              <div className="bg-red-900/20 border border-red-500/50 rounded-none p-3">
                 <p className="text-sm font-sans text-red-300">{error}</p>
               </div>
             )}

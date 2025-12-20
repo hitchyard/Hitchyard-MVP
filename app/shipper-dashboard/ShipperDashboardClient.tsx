@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Package, MapPin, Calendar, Weight, DollarSign, TrendingUp, Plus, Loader2, CheckCircle, XCircle } from "lucide-react";
 import AILoadMatcher from "./AILoadMatcher";
 import { acceptBidAndPay } from "../actions/acceptBidAndPay";
+import Disclaimer from "../components/Disclaimer";
 
 interface Load {
   id: string;
@@ -125,7 +126,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
       {/* NAVIGATION - Authority Top Bar */}
       <nav className="bg-charcoal-black border-b border-white/10 py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-serif font-bold tracking-tight uppercase text-white">
+          <h1 className="text-2xl font-serif font-bold tracking-[0.8em] uppercase text-white">
             HITCHYARD
           </h1>
           <div className="flex gap-6 font-sans text-sm font-medium text-white">
@@ -147,14 +148,14 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
         <main className="flex-1 max-w-7xl mx-auto px-12 py-12">
           {/* SUCCESS/ERROR NOTIFICATIONS */}
           {successMessage && (
-            <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+            <div className="mb-6 bg-green-50 border border-green-200 rounded-none p-4 flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
               <p className="text-sm font-sans text-green-800 font-semibold">{successMessage}</p>
             </div>
           )}
 
           {errorMessage && (
-            <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
+            <div className="mb-6 bg-red-50 border border-red-200 rounded-none p-4 flex items-center gap-3">
               <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
               <p className="text-sm font-sans text-red-800">{errorMessage}</p>
             </div>
@@ -163,10 +164,10 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
           {/* HEADER SECTION */}
           <div className="flex justify-between items-center mb-12">
             <div>
-              <h2 className="text-5xl md:text-6xl font-serif font-extrabold uppercase tracking-tight text-charcoal-black mb-2">
+              <h2 className="text-5xl md:text-6xl font-serif font-extrabold uppercase tracking-[0.8em] text-charcoal-black mb-2">
                 LOAD MANAGEMENT CENTER
               </h2>
-              <p className="text-lg font-sans text-gray-600">
+              <p className="text-lg font-sans text-[#1A1D21]">
                 {loads.length} active load{loads.length !== 1 ? "s" : ""} • {bids.length} total bid{bids.length !== 1 ? "s" : ""}
               </p>
             </div>
@@ -199,26 +200,26 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
               </button>
             </div>
           ) : (
-            <div className="bg-white border border-gray-100 rounded-lg overflow-hidden">
+            <div className="bg-white border border-gray-100 rounded-none overflow-hidden">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-white">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Load Details
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Route
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Weight
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Bids
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
                       Action
                     </th>
                   </tr>
@@ -229,26 +230,26 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                     const pendingBids = loadBids.filter((bid) => bid.status === "pending");
 
                     return (
-                      <tr key={load.id} className="hover:bg-gray-50 transition">
+                      <tr key={load.id} className="transition">
                         <td className="px-6 py-4">
                           <div className="font-sans">
                             <div className="font-semibold text-charcoal-black">
                               {load.commodity_type || "Freight"}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-[#1A1D21]">
                               ID: {load.id.slice(0, 8)}
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="font-sans text-sm text-gray-700">
+                          <div className="font-sans text-sm text-[#1A1D21]">
                             <div>{formatLocation(load, "origin")}</div>
-                            <div className="text-gray-400">→</div>
+                            <div className="text-[#1A1D21]">→</div>
                             <div>{formatLocation(load, "destination")}</div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="font-sans text-sm text-gray-700">
+                          <div className="font-sans text-sm text-[#1A1D21]">
                             {load.load_weight.toLocaleString()} lbs
                           </div>
                         </td>
@@ -264,7 +265,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                                 {pendingBids.length} pending
                               </span>
                             ) : (
-                              <span className="text-gray-400">No bids</span>
+                              <span className="text-[#1A1D21]">No bids</span>
                             )}
                           </div>
                         </td>
@@ -277,7 +278,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                               {load.id === selectedLoadId ? "HIDE BIDS" : "REVIEW BIDS"}
                             </button>
                           ) : (
-                            <span className="text-gray-400 font-sans text-xs">—</span>
+                            <span className="text-[#1A1D21] font-sans text-xs">—</span>
                           )}
                         </td>
                       </tr>
@@ -290,8 +291,8 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
 
           {/* BID REVIEW SECTION */}
           {selectedLoadId && (
-            <div className="mt-8 bg-white border border-gray-100 rounded-lg p-6">
-              <h3 className="text-2xl font-serif font-bold uppercase text-charcoal-black mb-6">
+            <div className="mt-8 bg-white border border-gray-100 rounded-none p-6">
+              <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.8em] text-charcoal-black mb-6">
                 BIDS RECEIVED
               </h3>
               <div className="space-y-4">
@@ -303,11 +304,11 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                       className="flex justify-between items-center border-b border-gray-100 pb-4"
                     >
                       <div className="font-sans">
-                        <div className="text-sm text-gray-500">Carrier ID: {bid.carrier_id.slice(0, 8)}</div>
+                        <div className="text-sm text-[#1A1D21]">Carrier ID: {bid.carrier_id.slice(0, 8)}</div>
                         <div className="text-lg font-semibold text-charcoal-black">
                           ${bid.bid_amount.toLocaleString()}
                         </div>
-                        <div className="text-xs text-gray-400">
+                        <div className="text-xs text-[#1A1D21]">
                           Submitted {formatDate(bid.created_at)}
                         </div>
                       </div>
@@ -336,6 +337,9 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
 
         {/* AI SIDEBAR */}
         <AILoadMatcher loads={loads} bids={bids} />
+
+        {/* IMPERIAL DISCLAIMER FOOTER */}
+        <Disclaimer />
       </div>
     </div>
   );

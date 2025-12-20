@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { submitVettingAction } from "./actions";
@@ -51,7 +53,7 @@ export default function VettingPage() {
         <h1 className="text-3xl font-spartan font-semibold text-white mb-2">Start Shipper Vetting</h1>
         <p className="text-gray-400 mb-6">Provide the details below to begin the verification process. A structured review will follow and you will be notified of the outcome.</p>
 
-        <div className="bg-white rounded-lg shadow p-8">
+        <div className="bg-white rounded-none p-8">
           {success ? (
             <div className="text-center">
               <svg className="w-12 h-12 text-deep-green mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -70,7 +72,7 @@ export default function VettingPage() {
                   required
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                  className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                   placeholder="Full legal company name"
                 />
               </div>
@@ -83,7 +85,7 @@ export default function VettingPage() {
                   required
                   value={dotNumber}
                   onChange={(e) => setDotNumber(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                  className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                   placeholder="Department of Transportation number"
                 />
               </div>
@@ -94,7 +96,7 @@ export default function VettingPage() {
                   id="legal_entity"
                   value={legalEntity}
                   onChange={(e) => setLegalEntity(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                  className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                 >
                   <option>LLC</option>
                   <option>Corporation</option>
@@ -109,7 +111,7 @@ export default function VettingPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-md disabled:opacity-60 hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black font-semibold"
+                  className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-none disabled:opacity-60 hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black font-semibold"
                 >
                   {loading ? (
                     <>
@@ -124,7 +126,7 @@ export default function VettingPage() {
                   )}
                 </button>
 
-                <button type="button" onClick={() => router.back()} className="px-6 py-3 bg-gray-200 text-charcoal-black rounded-md hover:bg-gray-300 focus:ring-2 focus:ring-charcoal-black font-semibold">
+                <button type="button" onClick={() => router.back()} className="px-6 py-3 bg-gray-200 text-charcoal-black rounded-none hover:bg-gray-300 focus:ring-2 focus:ring-charcoal-black font-semibold">
                   Cancel
                 </button>
               </div>

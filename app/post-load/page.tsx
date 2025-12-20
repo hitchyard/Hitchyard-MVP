@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { postLoadAction } from "./actions";
@@ -89,7 +91,7 @@ function PostLoadPageContent() {
           Submit your shipment details for carriers to view and bid on.
         </p>
 
-        <div className="bg-white rounded-lg shadow p-8">
+        <div className="bg-white rounded-none p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
@@ -106,7 +108,7 @@ function PostLoadPageContent() {
                 placeholder="e.g., 90210"
                 value={originZip}
                 onChange={(e) => setOriginZip(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                 aria-label="Origin ZIP Code"
               />
             </div>
@@ -126,7 +128,7 @@ function PostLoadPageContent() {
                 placeholder="e.g., 10001"
                 value={destinationZip}
                 onChange={(e) => setDestinationZip(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                 aria-label="Destination ZIP Code"
               />
             </div>
@@ -147,7 +149,7 @@ function PostLoadPageContent() {
                 placeholder="e.g., 5000"
                 value={loadWeight}
                 onChange={(e) => setLoadWeight(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                 aria-label="Load Weight"
               />
             </div>
@@ -166,7 +168,7 @@ function PostLoadPageContent() {
                 placeholder="e.g., Electronics, Furniture, Textiles"
                 value={commodityType}
                 onChange={(e) => setCommodityType(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-deep-green"
+                className="w-full px-4 py-2 border rounded-none focus:outline-none focus:ring-2 focus:ring-deep-green"
                 aria-label="Commodity Type"
               />
             </div>
@@ -181,7 +183,7 @@ function PostLoadPageContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-deep-green text-white rounded-md disabled:opacity-60 hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-deep-green text-white rounded-none disabled:opacity-60 hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold"
               >
                 {loading && (
                   <svg
@@ -212,7 +214,7 @@ function PostLoadPageContent() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-6 py-3 bg-gray-300 text-charcoal-black rounded-md hover:bg-gray-400 focus:ring-2 focus:ring-charcoal-black transition font-semibold"
+                className="px-6 py-3 bg-gray-300 text-charcoal-black rounded-none hover:bg-gray-400 focus:ring-2 focus:ring-charcoal-black transition font-semibold"
               >
                 Cancel
               </button>

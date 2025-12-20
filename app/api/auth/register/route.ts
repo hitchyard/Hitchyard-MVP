@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
       complianceDate,
       companyName,
       zipCode,
+      mcNumber,
+      dotNumber,
       cargoPolicyNumber,
       autoLiabilityPolicyNumber,
     } = parsedBody;
@@ -98,7 +100,7 @@ export async function POST(req: NextRequest) {
           zip_code: zipCode,
           cargo_policy: cargoPolicyNumber,
           auto_policy: autoLiabilityPolicyNumber,
-          dot_number: 'N/A',
+          dot_number: dotNumber || 'N/A',
           legal_entity_type: 'CORP',
           is_reviewed: false,
           salt_lake_area_check: zipCode?.startsWith('84') || false,
@@ -124,7 +126,36 @@ export async function POST(req: NextRequest) {
       }),
     }).catch((err) => console.error('Airtable sync failed (non-blocking):', err));
 
-    // --- STEP 4: Success Response ---
+    // --- STEP 4: Trigger Supabase Edge Function for Ansonia Credit Check (Fire and Forget) ---
+    // Call Supabase Edge Function to check carrier credit
+    if (mcNumber) {
+      const supabaseFunctionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/check-carrier-credit`;
+      fetch(supabaseFunctionUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          mc_number: mcNumber,
+          dot_number: dotNumber || null,
+          company_name: companyName,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            console.warn(`[REGISTER] Ansonia check returned ${res.status}, user still registered with PENDING status`);
+          } else {
+            console.log(`[REGISTER] Ansonia check initiated for user ${userId}`);
+          }
+        })
+        .catch((err) => {
+          console.error('[REGISTER] Ansonia check failed (non-blocking):', err);
+        });
+    }
+
+    // --- STEP 5: Success Response ---
     return NextResponse.json(
       { message: 'User successfully registered.', userId, userType },
       { status: 201 }

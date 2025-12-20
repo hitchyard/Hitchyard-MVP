@@ -125,7 +125,7 @@ export default function AILoadMatcher({ loads, bids }: AILoadMatcherProps) {
                     key={load.id}
                     onClick={() => getSmartRecommendation(load.id)}
                     disabled={loading && selectedLoadId === load.id}
-                    className="w-full text-left bg-white/5 border border-white/10 rounded p-4 hover:border-deep-forest-green transition disabled:opacity-50"
+                    className="w-full text-left bg-white/5 border border-white/10 rounded-none p-4 hover:border-deep-forest-green transition disabled:opacity-50"
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div className="font-sans text-sm font-semibold text-white">
@@ -159,7 +159,7 @@ export default function AILoadMatcher({ loads, bids }: AILoadMatcherProps) {
 
         {/* RECOMMENDATION RESULT */}
         {recommendation && (
-          <div className="border border-deep-forest-green/30 rounded-lg p-4 bg-deep-forest-green/10">
+          <div className="border border-deep-forest-green/30 rounded-none p-4 bg-deep-forest-green/10">
             <div className="flex items-center gap-2 mb-3">
               <CheckCircle className="w-5 h-5 text-deep-forest-green" />
               <h4 className="text-sm font-sans font-bold uppercase text-white">
@@ -182,9 +182,9 @@ export default function AILoadMatcher({ loads, bids }: AILoadMatcherProps) {
                   Confidence Score
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 bg-white/10 rounded-full h-2">
+                  <div className="flex-1 bg-white/10 rounded-none h-2">
                     <div
-                      className="bg-deep-forest-green h-2 rounded-full transition-all duration-500"
+                      className="bg-deep-forest-green h-2 rounded-none transition-all duration-500"
                       style={{ width: `${recommendation.confidence}%` }}
                     />
                   </div>

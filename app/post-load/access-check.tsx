@@ -37,7 +37,7 @@ export default async function PostLoadAccessCheck({ children }: Props) {
             <p className="text-gray-300 mb-6">You must be signed in to access this page.</p>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black"
+              className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black"
             >
               Sign Up / Sign In
             </Link>
@@ -74,14 +74,14 @@ export default async function PostLoadAccessCheck({ children }: Props) {
     // Access denied for other roles
     return (
       <main className="min-h-screen flex items-center justify-center bg-charcoal-black p-8">
-        <div className="max-w-2xl text-center bg-white bg-opacity-5 rounded-lg p-8">
+        <div className="max-w-2xl text-center bg-white bg-opacity-5 rounded-none p-8">
           <h1 className="text-2xl font-semibold font-spartan text-white mb-4">Access Denied: Account Vetting Required to Post Loads.</h1>
           <p className="text-gray-300 mb-6">
             Your account does not currently have permission to post loads. Complete the vetting process to enable posting privileges.
           </p>
           <Link
             href="/vetting"
-            className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black"
+            className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black"
           >
             Start Vetting
           </Link>

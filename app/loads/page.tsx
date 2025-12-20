@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from "react";
 import Link from "next/link";
 import LoadsClient from "./LoadsClient";
@@ -98,7 +100,7 @@ export default async function LoadsPage() {
           <div className="mt-8">
             <Link
               href="/dashboard"
-              className="inline-flex items-center justify-center px-6 py-3 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition font-semibold"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gray-700 text-white hover:bg-gray-600 transition font-semibold rounded-none"
             >
               Back to Dashboard
             </Link>

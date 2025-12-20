@@ -2,27 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font imports for Hitchyard brand typography */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@400;700&display=swap');
+/* Font imports for Hitchyard A&F High-Luxury Aesthetic */
+/* Cinzel: 400, 700 (bold), 800, 900 | League Spartan: 300, 400, 600, 700 */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@300;400;600;700&display=swap');
 
-/* Custom global styles for Hitchyard - RULER ARCHETYPE */
+/* A&F HIGH-LUXURY AESTHETIC - Global Styles */
 :root {
-  /* Brand Colors from Guide */
-  --brand-charcoal: #1A1D21; /* Primary Authority Color */
-  --brand-deep-forest: #0B1F1A; /* Secondary Trust Color for CTAs */
-  --contrast-white: #FFFFFF; /* Pure White Contrast Color */
+  /* Brand Colors */
+  --brand-charcoal: #1A1D21;      /* PRIMARY: Authority */
+  --brand-forest: #0B1F1A;        /* SECONDARY: Trust/CTAs */
+  --contrast-white: #FFFFFF;      /* Contrast */
   
-  /* UI Colors - Dark Theme */
-  --background: #1A1A1A; /* Soft dark gray background for reduced eye strain */
-  --text-primary: #E0E0E0; /* Soft off-white text for dark mode */
-  --muted: #666666; /* Gray for borders/dividers in dark mode */
-  --radius: 0.5rem;
+  /* IMPERIAL AUTHORITY: Zero border radius */
+  --radius: 0;
+}
+
+/* ZERO BORDER RADIUS ENFORCEMENT */
+* {
+  border-radius: 0 !important;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-size: 14px; /* A&F body text: 12-14px */
 }
 
 html {
@@ -31,25 +35,56 @@ html {
 }
 
 body {
-  /* Pages control their own styling - no default background */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 14px;
+  color: var(--brand-charcoal);
 }
 
-/* Links/Action elements use Deep Forest Green for Trust/CTAs */
+/* Cinzel Bold for all headlines - Imperial Authority */
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5em; /* MASTER DIRECTIVE: tracking-[0.5em] minimum */
+}
+
+h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+/* Ensure Cinzel Bold loads correctly */
+.font-cinzel-bold,
+.font-serif.font-bold {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+}
+
+/* Links: Minimal hover effect */
 a { 
-  color: var(--brand-deep-forest); 
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
 } 
 
-/* Form elements */
-input, textarea, select, button {
-  font-family: inherit;
+a:hover {
+  opacity: 0.6;
 }
 
-/* Subtle container style reflecting 'structured' and 'premium' tone */
+/* Form elements - no borders, no rounded corners */
+input, textarea, select, button {
+  font-family: inherit;
+  border-radius: 0;
+}
+
+/* Remove all card shadows and borders globally */
 .card {
-  /* Subtle, controlled dark gray background and border for dark theme */
-  background: #2A2A2A; 
-  border-radius: var(--radius);
-  border: 1px solid var(--muted);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
 }

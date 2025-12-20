@@ -78,7 +78,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
 
     return (
       <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full mx-4">
+        <div className="bg-white p-8 rounded-none  max-w-md w-full mx-4">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-cinzel text-2xl font-bold" style={{ color: DEEP_FOREST_GREEN }}>
               PLACE BID
@@ -89,7 +89,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
                 setBidAmount('');
                 setSelectedLoad(null);
               }}
-              className="p-1 hover:bg-gray-100 rounded transition"
+              className="p-1 hover:bg-gray-100 rounded-none transition"
             >
               <X size={24} />
             </button>
@@ -99,7 +99,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
             Submitting bid for <strong>Load #{selectedLoad.id}</strong>
           </p>
 
-          <div className="mb-6 p-4 bg-gray-50 rounded">
+          <div className="mb-6 p-4 bg-gray-50 rounded-none">
             <p className="text-sm text-gray-600 font-spartan mb-2">Company:</p>
             <p className="font-spartan font-semibold text-gray-900">{selectedLoad.companyName}</p>
           </div>
@@ -113,14 +113,14 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
               placeholder="Enter your bid amount"
               value={bidAmount}
               onChange={(e) => setBidAmount(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 font-spartan"
+              className="w-full px-4 py-2 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600 font-spartan"
             />
           </div>
 
           <button
             onClick={handleSubmitBid}
             disabled={!bidAmount}
-            className="w-full py-3 text-white font-bold rounded-lg transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed font-cinzel"
+            className="w-full py-3 text-white font-bold rounded-none transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed font-cinzel"
             style={{ backgroundColor: DEEP_FOREST_GREEN }}
           >
             SUBMIT BID
@@ -132,7 +132,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
 
   if (loading) {
     return (
-      <div className="w-full bg-[#0B1F1A] border border-[#1A1D21] rounded-lg p-8 flex flex-col items-center justify-center min-h-[300px]">
+      <div className="w-full bg-[#0B1F1A] border border-[#1A1D21] rounded-none p-8 flex flex-col items-center justify-center min-h-[300px]">
         <div className="animate-spin mb-4">
           <TrendingUp className="w-8 h-8 text-[#0B1F1A]" stroke="#FFFFFF" />
         </div>
@@ -143,7 +143,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
 
   if (error) {
     return (
-      <div className="w-full bg-[#1A1A1A] border border-red-900 rounded-lg p-8 flex flex-col items-center justify-center">
+      <div className="w-full bg-[#1A1A1A] border border-red-900 rounded-none p-8 flex flex-col items-center justify-center">
         <p className="text-red-300 font-spartan text-lg font-semibold">{error}</p>
         <p className="text-[#666666] font-spartan text-sm mt-2">Unable to connect to Airtable. Please try again later.</p>
       </div>
@@ -152,7 +152,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
 
   return (
     <div className="w-full">
-      <div className="bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden">
+      <div className="bg-[#1A1A1A] rounded-none border border-[#333333] overflow-hidden">
         {/* Header */}
         <div className="bg-[#0B1F1A] px-6 py-4 border-b border-[#333333]">
           <h2 className="text-[#FFFFFF] font-cinzel text-xl font-bold">Active Dispatch Queue</h2>
@@ -184,7 +184,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
                     )}
                   </div>
                   <div className="ml-4 flex flex-col gap-2">
-                    <span className="inline-block px-3 py-1 bg-[#0B1F1A] text-[#FFFFFF] font-spartan text-xs font-semibold rounded">
+                    <span className="inline-block px-3 py-1 bg-[#0B1F1A] text-[#FFFFFF] font-spartan text-xs font-semibold rounded-none">
                       Available
                     </span>
                     <button
@@ -192,7 +192,7 @@ export default function LoadsDispatchModule({ loadsData = [] }) {
                         setSelectedLoad(load);
                         setIsModalOpen(true);
                       }}
-                      className="px-4 py-2 text-white font-bold rounded transition duration-150 font-cinzel text-sm"
+                      className="px-4 py-2 text-white font-bold rounded-none transition duration-150 font-cinzel text-sm"
                       style={{ backgroundColor: DEEP_FOREST_GREEN }}
                     >
                       Place Bid

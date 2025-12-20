@@ -19,14 +19,14 @@ const mockComplianceStatus = [
 
 // Component for the Compliance Ledger
 const ComplianceLedger = () => (
-  <div className="p-6 rounded-lg bg-white shadow-xl border border-gray-200">
+  <div className="p-6 rounded-none bg-white  border border-gray-200">
     <h3 className="font-cinzel text-xl text-charcoal mb-4">COMPLIANCE LEDGER</h3>
     <ul className="space-y-3">
       {mockComplianceStatus.map((item) => (
         <li key={item.label} className="flex justify-between items-center text-league-spartan">
           <span className="text-charcoal">{item.label}</span>
           <span 
-            className="px-3 py-1 rounded text-white text-sm font-bold"
+            className="px-3 py-1 rounded-none text-white text-sm font-bold"
             style={{ backgroundColor: item.color }} 
           >
             {item.status}
@@ -58,7 +58,7 @@ export default function HitchyardPlatformShell() {
         className="min-h-screen p-8 flex flex-col items-center justify-center text-center"
         style={{ backgroundColor: CHARCOAL }}
       >
-        <div className="max-w-xl p-10 bg-white rounded-lg shadow-2xl mb-8">
+        <div className="max-w-xl p-10 bg-white rounded-none  mb-8">
           <h1 className="text-4xl font-cinzel text-green-700 mb-4">
             THE HITCHYARD STANDARD IS IMMINENT.
           </h1>
@@ -85,7 +85,7 @@ export default function HitchyardPlatformShell() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden p-2 rounded hover:bg-gray-800 transition"
+            className="md:hidden p-2 rounded-none hover:bg-gray-800 transition"
           >
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -96,14 +96,14 @@ export default function HitchyardPlatformShell() {
 
         {/* User Profile / System Status */}
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded" style={{ backgroundColor: 'rgba(11, 31, 26, 0.3)' }}>
+          <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-none" style={{ backgroundColor: 'rgba(11, 31, 26, 0.3)' }}>
             <span className="text-xs font-semibold text-gray-400">USER ID:</span>
             <span className="font-mono text-sm" style={{ color: GREEN }}>VERIFIED_UID_001</span>
           </div>
-          <button className="p-2 rounded hover:bg-gray-800 transition">
+          <button className="p-2 rounded-none hover:bg-gray-800 transition">
             <Bell size={20} />
           </button>
-          <button className="p-2 rounded hover:bg-gray-800 transition">
+          <button className="p-2 rounded-none hover:bg-gray-800 transition">
             <Settings size={20} />
           </button>
         </div>

@@ -3,12 +3,22 @@
 import { NextResponse } from 'next/server';
 import Airtable from 'airtable';
 
-// Initialize Airtable Base
-// Ensure AIRTABLE_PAT and AIRTABLE_BASE_ID are in your environment variables
-const base = new Airtable({ apiKey: process.env.AIRTABLE_PAT }).base(process.env.AIRTABLE_BASE_ID as string);
-
 // The name of the table/Base where your team tracks carrier vetting
-const CARRIER_VETTING_TABLE = 'Carrier Vetting Queue'; 
+const CARRIER_VETTING_TABLE = 'Carrier Vetting Queue';
+
+/**
+ * Initialize Airtable only when needed to avoid build-time errors
+ */
+function getAirtableBase() {
+  const apiKey = process.env.AIRTABLE_PAT;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  
+  if (!apiKey || !baseId) {
+    throw new Error('Airtable configuration missing. Set AIRTABLE_PAT and AIRTABLE_BASE_ID in environment variables.');
+  }
+  
+  return new Airtable({ apiKey }).base(baseId);
+} 
 
 export async function POST(req: Request) {
   try {
@@ -24,6 +34,9 @@ export async function POST(req: Request) {
     if (!email || !user_id) {
       return NextResponse.json({ error: 'Missing required profile data.' }, { status: 400 });
     }
+
+    // Get Airtable base (lazy initialization)
+    const base = getAirtableBase();
 
     // 1. Create a new record in Airtable for the manual review team
     await base(CARRIER_VETTING_TABLE).create([

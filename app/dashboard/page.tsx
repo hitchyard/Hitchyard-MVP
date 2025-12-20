@@ -1,11 +1,14 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { supabase } from "../../utils/supabase/client";
 import { acceptBidAction } from "./actions";
+import Disclaimer from "../components/Disclaimer";
 // TODO: Re-enable after PayCargo integration
 // import { createConnectAccountLink } from "../actions/stripe";
 // import PaymentSetupBanner from "../components/PaymentSetupBanner";
@@ -69,7 +72,7 @@ function AcceptBidButton({
       <input type="hidden" name="bid_id" value={bidId} />
       <SubmitButton />
       {showSuccess && (
-        <span className="text-sm text-white bg-deep-green px-3 py-1 rounded-md">Load assigned</span>
+        <span className="text-sm text-white bg-deep-green px-3 py-1 rounded-none">Load assigned</span>
       )}
       {state.error && <span className="text-sm text-red-500">{state.error}</span>}
     </form>
@@ -82,7 +85,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="px-4 py-2 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] font-semibold disabled:opacity-60"
+      className="px-4 py-2 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] font-semibold disabled:opacity-60"
     >
       {pending ? "Assigning..." : "Accept Bid"}
     </button>
@@ -116,7 +119,7 @@ function SubmitButton() {
   }
 
   return (
-    <div className="bg-yellow-50 border-l-4 border-deep-green p-6 mb-8 rounded-md shadow-md">
+    <div className="bg-yellow-50 border-l-4 border-deep-green p-6 mb-8 rounded-none ">
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-charcoal-black mb-2">
@@ -128,7 +131,7 @@ function SubmitButton() {
           <button
             onClick={handleSetupPayouts}
             disabled={isPending}
-            className="px-6 py-3 bg-deep-green text-white font-semibold rounded-md hover:bg-[#0e2b26] disabled:opacity-60 transition"
+            className="px-6 py-3 bg-deep-green text-white font-semibold rounded-none hover:bg-[#0e2b26] disabled:opacity-60 transition"
           >
             {isPending ? "Redirecting..." : "Set Up Payouts (Required)"}
           </button>
@@ -235,7 +238,7 @@ export default function DashboardPage() {
     return (
       <main className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin inline-block w-8 h-8 border-4 border-deep-green border-t-transparent rounded-full"></div>
+          <div className="animate-spin inline-block w-8 h-8 border-4 border-deep-green border-t-transparent rounded-none"></div>
           <p className="mt-4 text-gray-400">Loading dashboard...</p>
         </div>
       </main>
@@ -249,7 +252,7 @@ export default function DashboardPage() {
           <p className="text-red-500">{error}</p>
           <button
             onClick={() => router.push("/signup")}
-            className="mt-4 px-4 py-2 bg-deep-green text-white rounded-md hover:bg-[#0e2b26]"
+            className="mt-4 px-4 py-2 bg-deep-green text-white rounded-none hover:bg-[#0e2b26]"
           >
             Back to Sign Up
           </button>
@@ -282,7 +285,7 @@ export default function DashboardPage() {
         <div className="mt-8 mb-12">
           <Link
             href="/post-load"
-            className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold"
+            className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold"
           >
             Post a New Load
           </Link>
@@ -295,7 +298,7 @@ export default function DashboardPage() {
           </h2>
 
           {loads.length === 0 ? (
-            <div className="bg-white bg-opacity-5 rounded-lg p-8 text-center">
+            <div className="bg-white bg-opacity-5 rounded-none p-8 text-center">
               <p className="text-gray-400">
                 No loads posted yet. Start by{" "}
                 <Link href="/post-load" className="text-deep-green hover:underline">
@@ -305,7 +308,7 @@ export default function DashboardPage() {
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-lg border border-gray-700">
+            <div className="overflow-x-auto rounded-none border border-gray-700">
               <table className="w-full bg-white bg-opacity-5">
                 <thead>
                   <tr className="border-b border-gray-700 bg-charcoal-black">
@@ -339,7 +342,7 @@ export default function DashboardPage() {
                         <td className="px-6 py-4 text-gray-200">{load.load_weight.toLocaleString()}</td>
                         <td className="px-6 py-4">
                           <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                            className={`inline-block px-3 py-1 rounded-none text-xs font-semibold ${
                               load.status === "posted"
                                 ? "bg-deep-green text-white"
                                 : load.status === "assigned"
@@ -362,7 +365,7 @@ export default function DashboardPage() {
                             ) : (
                               <ul className="space-y-3">
                                 {bidsMap[load.id].map((bid) => (
-                                  <li key={bid.id} className="flex items-center justify-between bg-white bg-opacity-3 rounded-md p-3">
+                                  <li key={bid.id} className="flex items-center justify-between bg-white bg-opacity-3 rounded-none p-3">
                                     <div>
                                       <div className="text-gray-200 font-medium">Carrier: {bid.carrier_id}</div>
                                       <div className="text-gray-400 text-sm">Placed: {new Date(bid.created_at).toLocaleString()}</div>
@@ -389,6 +392,9 @@ export default function DashboardPage() {
             </div>
           )}
         </section>
+
+      {/* IMPERIAL DISCLAIMER FOOTER */}
+      <Disclaimer />
       </div>
     </main>
   );

@@ -49,11 +49,11 @@ export default function LoadsClient({ loads }: Props) {
     <div>
       <section>
         {loads.length === 0 ? (
-          <div className="bg-white bg-opacity-5 rounded-lg p-12 text-center">
-            <p className="text-gray-400 text-lg">No loads available at this time. Check back soon!</p>
+          <div className="bg-white bg-opacity-5 p-12 text-center rounded-none">
+            <p className="text-gray-400 text-lg">No loads available at the moment. Check back soon.</p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-gray-700">
+          <div className="overflow-x-auto border border-gray-700 rounded-none">
             <table className="w-full bg-white bg-opacity-5">
               <thead>
                 <tr className="border-b border-gray-700 bg-charcoal-black">
@@ -79,7 +79,7 @@ export default function LoadsClient({ loads }: Props) {
                     <td className="px-6 py-4">
                       <button
                         onClick={() => openModal(load.id)}
-                        className="inline-flex items-center justify-center px-4 py-2 bg-deep-green text-white rounded-md hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold text-sm"
+                        className="inline-flex items-center justify-center px-4 py-2 bg-deep-green text-white hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold text-sm rounded-none"
                         aria-label={`Bid on load from ${load.origin_zip} to ${load.destination_zip}`}
                       >
                         Bid on Load
@@ -93,13 +93,21 @@ export default function LoadsClient({ loads }: Props) {
         )}
       </section>
 
-      <BidModal loadId={selectedLoadId ?? ""} open={modalOpen} onClose={closeModal} onSuccess={handleBidSuccess} />
+      <BidModal 
+        loadId={selectedLoadId ?? ""} 
+        open={modalOpen} 
+        onClose={closeModal} 
+        onSuccess={handleBidSuccess}
+        isVerified={true}
+      />
 
-      {/* Toast Notification */}
+      {/* Imperial Toast Notification */}
       {showToast && toastMessage && (
-        <div className="fixed top-6 right-6 z-50">
-          <div className="px-4 py-2 rounded-md shadow-md bg-deep-green text-white font-medium">
-            {toastMessage}
+        <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-[100]">
+          <div className="bg-[#0B1F1A] px-12 py-6 ">
+            <p className="text-white font-serif text-xl uppercase tracking-[0.4em] text-center">
+              {toastMessage}
+            </p>
           </div>
         </div>
       )}
