@@ -173,91 +173,90 @@ export default function HitchyardHome() {
       <section className="min-h-screen bg-[#0B1F1A] text-white flex items-center justify-center text-center px-8">
         import React from 'react';
 
-        export default function AbercrombieGallery() {
+        export default function SovereignFunnel() {
           return (
             <main className="bg-white text-[#1A1D21] font-sans selection:bg-[#0B1F1A] selection:text-white">
-              {/* Sovereign Navigation: Minimal & Wide */}
-              <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-12 py-6 flex justify-between items-center text-[11px] tracking-[0.5em] uppercase font-bold">
+              {/* Sovereign Navigation */}
+              <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md px-12 py-6 flex justify-between items-center text-[11px] tracking-[0.5em] uppercase font-bold border-b border-gray-100">
                 <span>HITCHYARD</span>
                 <div className="hidden md:flex space-x-12">
-                  <a href="#protocol" className="hover:opacity-50 transition">The Protocol</a>
-                  <a href="/register" className="hover:opacity-50 transition font-black text-[#0B1F1A]">Apply</a>
-                  <a href="/login" className="hover:opacity-50 transition">Sign In</a>
+                  <a href="#problem" className="hover:opacity-50 transition">The Problem</a>
+                  <a href="#solution" className="hover:opacity-50 transition">The Protocol</a>
+                  <a href="/register" className="text-[#0B1F1A] font-black underline underline-offset-8">Apply Now</a>
                 </div>
               </nav>
 
-              {/* HERO: The Big Visual Statement */}
-              <section className="relative h-screen flex items-center justify-center pt-20">
-                <div className="absolute inset-0 z-0 p-8">
+              {/* HERO: The Emotional Hook */}
+              <section className="relative h-screen flex flex-col items-center justify-center pt-20 px-6">
+                <div className="absolute inset-0 z-0">
                   <img 
                     src="https://images.unsplash.com/photo-1519003300449-424ad0ee0456?q=80&w=2500&auto=format&fit=crop" 
-                    className="w-full h-full object-cover grayscale brightness-110" 
-                    alt="Elite Logistics"
+                    className="w-full h-full object-cover grayscale opacity-20" 
+                    alt="Industry Reality"
                   />
-                  {/* Subtle White Gradient Overlay */}
-                  <div className="absolute inset-0 bg-white/20" />
                 </div>
-                <div className="relative z-10 text-center">
-                  <h1 className="text-[14vw] leading-none font-black tracking-[-0.05em] uppercase text-[#1A1D21]">
-                    HITCHYARD
+                <div className="relative z-10 text-center max-w-5xl">
+                  <h1 className="text-[10vw] md:text-[8vw] leading-none font-black tracking-tighter uppercase mb-8">
+                    RECLAIM <br/>CERTAINTY.
                   </h1>
-                  <p className="text-[13px] tracking-[0.8em] font-bold uppercase mt-4">
-                    The Sovereign Standard in Freight
+                  <p className="text-[16px] md:text-[20px] tracking-[0.2em] font-light uppercase max-w-2xl mx-auto leading-relaxed">
+                    The industry is in chaos. Rates are volatile. Trust is gone. We built the Sovereign Protocol to fix it.
                   </p>
+                  <div className="mt-12 flex justify-center">
+                     <div className="h-[100px] w-[1px] bg-[#1A1D21]/20"></div>
+                  </div>
                 </div>
               </section>
 
-              {/* PILLAR I: VETTING (The Art Gallery Space) */}
-              <section id="protocol" className="py-[300px] bg-white text-center px-10 border-b border-gray-100">
-                <h2 className="text-[10vw] font-black tracking-tighter leading-none uppercase mb-16">
-                  VETTING
-                </h2>
-                <div className="max-w-xl mx-auto">
-                  <p className="text-[14px] leading-loose tracking-[0.3em] uppercase opacity-70">
-                    We reject 90% of applicants. The Grit Club represents the absolute exclusion of risk for the Salt Lake market.
-                  </p>
+              {/* THE PROBLEM: ClickFunnels Psychology */}
+              <section id="problem" className="py-40 bg-white px-10">
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+                  <div className="space-y-8">
+                    <h2 className="text-6xl font-black uppercase tracking-tighter">The Broker <br/>Failure.</h2>
+                    <p className="text-lg opacity-80 leading-relaxed">
+                      Standard brokers profit from your desperation. They hide margins, slow-walk payments, and gamble with your cargo. In a recession, you can't afford "standard."
+                    </p>
+                  </div>
+                  <div className="aspect-video bg-[#1A1D21] flex items-center justify-center text-white p-12 text-center border-8 border-gray-50">
+                     <p className="text-xs tracking-[0.5em] uppercase opacity-50">[ PLACEHOLDER: THE MECHANISM VIDEO ]</p>
+                  </div>
                 </div>
               </section>
 
-              {/* FULL WIDTH IMAGE BREAK (Like a Catalog Spread) */}
-              <section className="h-[90vh] w-full relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2500&auto=format&fit=crop" 
-                  className="w-full h-full object-cover grayscale"
-                  alt="The Machine"
-                />
-              </section>
-
-              {/* PILLAR II: PRECISION */}
-              <section className="py-[300px] bg-white text-center px-10">
-                <h2 className="text-[10vw] font-black tracking-tighter leading-none uppercase mb-16">
-                  PRECISION
-                </h2>
-                <div className="max-w-xl mx-auto">
-                  <p className="text-[14px] leading-loose tracking-[0.3em] uppercase opacity-70">
-                    Market-locked rates. Total financial transparency. A sovereign engine designed for enterprise predictability.
-                  </p>
+              {/* THE SOLUTION: The 3 Pillars of Authority */}
+              <section id="solution" className="py-40 bg-[#1A1D21] text-white">
+                <div className="max-w-7xl mx-auto px-10">
+                  <div className="grid md:grid-cols-3 gap-16 text-center">
+                    <div className="space-y-6">
+                      <h3 className="text-3xl font-black uppercase tracking-widest">Vetting</h3>
+                      <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">We filter the noise. Only the top 10% of carriers move Sovereign freight.</p>
+                    </div>
+                    <div className="space-y-6">
+                      <h3 className="text-3xl font-black uppercase tracking-widest">Precision</h3>
+                      <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">Market-locked rates. No haggling. No surprises. Financial law.</p>
+                    </div>
+                    <div className="space-y-6">
+                      <h3 className="text-3xl font-black uppercase tracking-widest">Velocity</h3>
+                      <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">Automated settlement. QuickPay is not an option; it is the standard.</p>
+                    </div>
+                  </div>
                 </div>
               </section>
 
-              {/* THE GRIT CLUB: The Only Green Section (Exclusivity) */}
-              <section className="py-[250px] bg-[#0B1F1A] text-white text-center">
-                <h3 className="text-[7vw] font-black tracking-tighter uppercase mb-6">THE GRIT CLUB</h3>
-                <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">By Invitation Only</p>
-        
+              {/* THE CTA: The Grit Club Funnel */}
+              <section className="py-60 bg-white text-center px-10">
+                <h2 className="text-[6vw] font-black tracking-tighter uppercase mb-12">Join the Elite.</h2>
+                <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">BY INVITATION ONLY</p>
                 <a 
                   href="/register" 
-                  className="inline-block px-24 py-8 border-2 border-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-white hover:text-[#0B1F1A] transition-all duration-500"
+                  className="inline-block px-24 py-8 bg-[#0B1F1A] text-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-[#1A1D21] transition-all duration-500"
                 >
-                  Apply For Admission
+                  Apply for Admission
                 </a>
               </section>
 
-              {/* FOOTER: Minimalist Disclaimer */}
-              <footer className="bg-white py-40 text-center">
-                <div className="text-[10px] tracking-[0.5em] opacity-30 uppercase">
-                  HITCHYARD LLC • Licensed Freight Broker • Sovereign Protocol 01
-                </div>
+              <footer className="py-20 border-t border-gray-100 text-center opacity-40 text-[9px] tracking-[0.4em] uppercase">
+                HITCHYARD • THE SOVEREIGN PROTOCOL • SALT LAKE CITY, UT
               </footer>
             </main>
           );
