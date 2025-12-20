@@ -28,16 +28,8 @@ export default function SovereignFunnel() {
       {/* HERO: The Emotional Hook */}
       <section className="relative h-screen flex flex-col items-center justify-center pt-20 px-6">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1519003300449-424ad0ee0456?q=80&w=2500&auto=format&fit=crop"
-            className="w-full h-full object-cover grayscale opacity-20"
-            alt="Industry Reality"
-          />
-        </div>
-        <div className="relative z-10 text-center max-w-5xl">
-          <h1 className="text-[10vw] md:text-[8vw] leading-none font-black tracking-tighter uppercase mb-8">
-            THE STANDARD OF ABSOLUTE CERTAINTY.
-          </h1>
+          <a href="#solution" className="hover:opacity-50 transition">The Protocol</a>
+          <a href="/register" className="text-[#0B1F1A] font-black underline underline-offset-8">Request a Briefing</a>
           <p className="text-[16px] md:text-[20px] tracking-[0.2em] font-light uppercase max-w-2xl mx-auto leading-relaxed">
             In a marketplace of noise, silence is ultimate leverage.
           </p>
@@ -90,19 +82,12 @@ export default function SovereignFunnel() {
           </div>
         </div>
       </section>
-          <a
-            href="/register"
-            className="text-[#0B1F1A] font-black underline underline-offset-8"
-          >
-            Request a Briefing
-          </a>
-        <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">
-          BY INVITATION ONLY
-        </p>
-        <a
-          href="/register"
-          className="inline-block px-24 py-8 bg-[#0B1F1A] text-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-[#1A1D21] transition-all duration-500"
-        >
+
+      {/* THE CTA: Exclusive Invitation */}
+      <section className="py-60 bg-white text-center px-10">
+        <h2 className="text-[6vw] font-black tracking-tighter uppercase mb-12">The Sovereign Circle.</h2>
+        <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">BY INVITATION ONLY</p>
+        <a href="/register" className="inline-block px-24 py-8 bg-[#0B1F1A] text-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-[#1A1D21] transition-all duration-500">
           Request a Briefing
         </a>
       </section>
