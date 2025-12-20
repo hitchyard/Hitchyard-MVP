@@ -4,6 +4,8 @@ import React from "react";
 export default function SovereignFunnel() {
   return (
     <main className="bg-white text-[#1A1D21] font-sans selection:bg-[#0B1F1A] selection:text-white">
+      {/* LUXURY NOISE OVERLAY */}
+      <div className="luxury-noise" aria-hidden />
       {/* Sovereign Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md px-12 py-6 flex justify-between items-center text-[11px] tracking-[0.5em] uppercase font-bold border-b border-gray-100">
         <span>HITCHYARD</span>
@@ -34,10 +36,10 @@ export default function SovereignFunnel() {
         </div>
         <div className="relative z-10 text-center max-w-5xl">
           <h1 className="text-[10vw] md:text-[8vw] leading-none font-black tracking-tighter uppercase mb-8">
-            ORDER RESTORED.
+            THE STANDARD OF ABSOLUTE CERTAINTY.
           </h1>
           <p className="text-[16px] md:text-[20px] tracking-[0.2em] font-light uppercase max-w-2xl mx-auto leading-relaxed">
-            Chaos recedes. Volatility is governed. Settlement is certain.
+            In a marketplace of noise, silence is ultimate leverage.
           </p>
           <div className="mt-12 flex justify-center">
             <div className="h-[100px] w-[1px] bg-[#1A1D21]/20"></div>
@@ -54,8 +56,8 @@ export default function SovereignFunnel() {
               Disorder.
             </h2>
             <p className="text-lg opacity-80 leading-relaxed">
-              Fragmented infrastructure breeds mediocrity. Chaos distorts rates.
-              Opaque settlement erodes planning. We operate above the noise.
+              Fragmented infrastructure. Mediocrity entrenched. Chaos distorts rates.
+              Opaque settlement erodes planning.
             </p>
           </div>
           <div className="aspect-video bg-[#1A1D21] flex items-center justify-center text-white p-12 text-center border-8 border-gray-50">
@@ -69,43 +71,31 @@ export default function SovereignFunnel() {
       {/* THE SOLUTION: The 3 Pillars of Authority */}
       <section id="solution" className="py-40 bg-[#1A1D21] text-white">
         <div className="max-w-7xl mx-auto px-10">
+          <div className="text-center mb-16">
+            <h3 className="text-2xl font-black uppercase tracking-[0.4em]">THE SOVEREIGN PROTOCOL</h3>
+          </div>
           <div className="grid md:grid-cols-3 gap-16 text-center">
             <div className="space-y-6">
-              <h3 className="text-3xl font-black uppercase tracking-widest">
-                Vetting
-              </h3>
-              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                We implement governance of capacity. The lower ninety is
-                excluded. Legacy-grade reliability.
-              </p>
+              <h3 className="text-3xl font-black uppercase tracking-widest">Architectural Clarity</h3>
+              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">Governance of capacity. The lower ninety is excluded. Legacy reliability.</p>
             </div>
             <div className="space-y-6">
-              <h3 className="text-3xl font-black uppercase tracking-widest">
-                Precision
-              </h3>
-              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                We enforce protocol: market-locked rates and transparent
-                settlement. Empire-grade predictability.
-              </p>
+              <h3 className="text-3xl font-black uppercase tracking-widest">Protocol Governance</h3>
+              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">Market-locked rates. Transparent settlement. Empire-grade predictability.</p>
             </div>
             <div className="space-y-6">
-              <h3 className="text-3xl font-black uppercase tracking-widest">
-                Velocity
-              </h3>
-              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                We accelerate settlement. Cash moves on schedule. The system
-                endures.
-              </p>
+              <h3 className="text-3xl font-black uppercase tracking-widest">Legacy Infrastructure</h3>
+              <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">Disciplined settlement. Cash on schedule. Systems that endure.</p>
             </div>
           </div>
         </div>
       </section>
-
-      {/* THE CTA: The Grit Club Funnel */}
-      <section className="py-60 bg-white text-center px-10">
-        <h2 className="text-[6vw] font-black tracking-tighter uppercase mb-12">
-          The Sovereign Circle.
-        </h2>
+          <a
+            href="/register"
+            className="text-[#0B1F1A] font-black underline underline-offset-8"
+          >
+            Request a Briefing
+          </a>
         <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">
           BY INVITATION ONLY
         </p>
@@ -113,7 +103,7 @@ export default function SovereignFunnel() {
           href="/register"
           className="inline-block px-24 py-8 bg-[#0B1F1A] text-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-[#1A1D21] transition-all duration-500"
         >
-          Request Access to the Protocol
+          Request a Briefing
         </a>
       </section>
 
