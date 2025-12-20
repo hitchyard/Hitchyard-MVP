@@ -3,6 +3,10 @@
 import './globals.css';
 import './fonts.css';
 import { Component, ReactNode } from 'react';
+import { Cinzel, League_Spartan } from 'next/font/google';
+const cinzel = Cinzel({ subsets: ['latin'], weight: ['400', '700', '900'], display: 'swap', variable: '--font-cinzel' });
+const spartan = League_Spartan({ subsets: ['latin'], weight: ['400', '600', '700'], display: 'swap', variable: '--font-spartan' });
+
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -89,7 +93,7 @@ export default function RootLayout({
         <title>HITCHYARD | The Standard in Global Freight Authority</title>
         <meta name="description" content="The Standard in Global Freight Authority. Premium freight marketplace connecting vetted carriers with trusted shippers." />
       </head>
-      <body className="antialiased">
+      <body className={`${cinzel.variable} ${spartan.variable} antialiased`}>
         <ErrorBoundary>
           {children}
         </ErrorBoundary>
