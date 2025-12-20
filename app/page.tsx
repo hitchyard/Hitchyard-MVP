@@ -171,27 +171,95 @@ export default function HitchyardHome() {
 
       {/* GRIT CLUB GATEKEEPER - SOVEREIGN TONE */}
       <section className="min-h-screen bg-[#0B1F1A] text-white flex items-center justify-center text-center px-8">
-        <div className="max-w-3xl space-y-10">
-          <h3 className="font-serif font-black text-6xl tracking-[1.1em] uppercase text-white">ELITE CAPACITY. STRICTLY VETTED.</h3>
-          <p className="font-sans text-[10px] tracking-[0.5em] uppercase text-white/70">BY INVITATION ONLY.</p>
-          <button
-            onClick={() => router.push('/register')}
-            className="mx-auto border border-white/20 text-white px-20 py-8 font-sans text-xs tracking-[1em] uppercase rounded-none hover:bg-white hover:text-black transition-all duration-700"
-          >
-            APPLY FOR ADMISSION
-          </button>
-        </div>
-      </section>
+        import React from 'react';
 
-      {/* ENDING NEGATIVE SPACE */}
-      <footer className="min-h-screen bg-[#1A1D21] flex items-center justify-center text-center px-8">
-        <div className="max-w-3xl">
-          <p className="font-sans text-[10px] tracking-[0.6em] uppercase text-white/60">
-            HITCHYARD • THE IMPERIAL STANDARD
-          </p>
-        </div>
-      </footer>
-    </div>
-  );
-}
+        export default function AbercrombieGallery() {
+          return (
+            <main className="bg-white text-[#1A1D21] font-sans selection:bg-[#0B1F1A] selection:text-white">
+              {/* Sovereign Navigation: Minimal & Wide */}
+              <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-12 py-6 flex justify-between items-center text-[11px] tracking-[0.5em] uppercase font-bold">
+                <span>HITCHYARD</span>
+                <div className="hidden md:flex space-x-12">
+                  <a href="#protocol" className="hover:opacity-50 transition">The Protocol</a>
+                  <a href="/register" className="hover:opacity-50 transition font-black text-[#0B1F1A]">Apply</a>
+                  <a href="/login" className="hover:opacity-50 transition">Sign In</a>
+                </div>
+              </nav>
+
+              {/* HERO: The Big Visual Statement */}
+              <section className="relative h-screen flex items-center justify-center pt-20">
+                <div className="absolute inset-0 z-0 p-8">
+                  <img 
+                    src="https://images.unsplash.com/photo-1519003300449-424ad0ee0456?q=80&w=2500&auto=format&fit=crop" 
+                    className="w-full h-full object-cover grayscale brightness-110" 
+                    alt="Elite Logistics"
+                  />
+                  {/* Subtle White Gradient Overlay */}
+                  <div className="absolute inset-0 bg-white/20" />
+                </div>
+                <div className="relative z-10 text-center">
+                  <h1 className="text-[14vw] leading-none font-black tracking-[-0.05em] uppercase text-[#1A1D21]">
+                    HITCHYARD
+                  </h1>
+                  <p className="text-[13px] tracking-[0.8em] font-bold uppercase mt-4">
+                    The Sovereign Standard in Freight
+                  </p>
+                </div>
+              </section>
+
+              {/* PILLAR I: VETTING (The Art Gallery Space) */}
+              <section id="protocol" className="py-[300px] bg-white text-center px-10 border-b border-gray-100">
+                <h2 className="text-[10vw] font-black tracking-tighter leading-none uppercase mb-16">
+                  VETTING
+                </h2>
+                <div className="max-w-xl mx-auto">
+                  <p className="text-[14px] leading-loose tracking-[0.3em] uppercase opacity-70">
+                    We reject 90% of applicants. The Grit Club represents the absolute exclusion of risk for the Salt Lake market.
+                  </p>
+                </div>
+              </section>
+
+              {/* FULL WIDTH IMAGE BREAK (Like a Catalog Spread) */}
+              <section className="h-[90vh] w-full relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2500&auto=format&fit=crop" 
+                  className="w-full h-full object-cover grayscale"
+                  alt="The Machine"
+                />
+              </section>
+
+              {/* PILLAR II: PRECISION */}
+              <section className="py-[300px] bg-white text-center px-10">
+                <h2 className="text-[10vw] font-black tracking-tighter leading-none uppercase mb-16">
+                  PRECISION
+                </h2>
+                <div className="max-w-xl mx-auto">
+                  <p className="text-[14px] leading-loose tracking-[0.3em] uppercase opacity-70">
+                    Market-locked rates. Total financial transparency. A sovereign engine designed for enterprise predictability.
+                  </p>
+                </div>
+              </section>
+
+              {/* THE GRIT CLUB: The Only Green Section (Exclusivity) */}
+              <section className="py-[250px] bg-[#0B1F1A] text-white text-center">
+                <h3 className="text-[7vw] font-black tracking-tighter uppercase mb-6">THE GRIT CLUB</h3>
+                <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">By Invitation Only</p>
+        
+                <a 
+                  href="/register" 
+                  className="inline-block px-24 py-8 border-2 border-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-white hover:text-[#0B1F1A] transition-all duration-500"
+                >
+                  Apply For Admission
+                </a>
+              </section>
+
+              {/* FOOTER: Minimalist Disclaimer */}
+              <footer className="bg-white py-40 text-center">
+                <div className="text-[10px] tracking-[0.5em] opacity-30 uppercase">
+                  HITCHYARD LLC • Licensed Freight Broker • Sovereign Protocol 01
+                </div>
+              </footer>
+            </main>
+          );
+        }
 
