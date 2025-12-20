@@ -34,12 +34,10 @@ export default function SovereignFunnel() {
         </div>
         <div className="relative z-10 text-center max-w-5xl">
           <h1 className="text-[10vw] md:text-[8vw] leading-none font-black tracking-tighter uppercase mb-8">
-            RECLAIM <br />
-            CERTAINTY.
+            ORDER RESTORED.
           </h1>
           <p className="text-[16px] md:text-[20px] tracking-[0.2em] font-light uppercase max-w-2xl mx-auto leading-relaxed">
-            The industry is in chaos. Rates are volatile. Trust is gone. We
-            built the Sovereign Protocol to fix it.
+            Chaos recedes. Volatility is governed. Settlement is certain.
           </p>
           <div className="mt-12 flex justify-center">
             <div className="h-[100px] w-[1px] bg-[#1A1D21]/20"></div>
@@ -52,13 +50,12 @@ export default function SovereignFunnel() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
             <h2 className="text-6xl font-black uppercase tracking-tighter">
-              The Broker <br />
-              Failure.
+              Market <br />
+              Disorder.
             </h2>
             <p className="text-lg opacity-80 leading-relaxed">
-              Standard brokers profit from your desperation. They hide margins,
-              slow-walk payments, and gamble with your cargo. In a recession,
-              you can't afford "standard."
+              Fragmented infrastructure breeds mediocrity. Chaos distorts rates.
+              Opaque settlement erodes planning. We operate above the noise.
             </p>
           </div>
           <div className="aspect-video bg-[#1A1D21] flex items-center justify-center text-white p-12 text-center border-8 border-gray-50">
@@ -78,8 +75,8 @@ export default function SovereignFunnel() {
                 Vetting
               </h3>
               <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                We filter the noise. Only the top 10% of carriers move Sovereign
-                freight.
+                We implement governance of capacity. The lower ninety is
+                excluded. Legacy-grade reliability.
               </p>
             </div>
             <div className="space-y-6">
@@ -87,7 +84,8 @@ export default function SovereignFunnel() {
                 Precision
               </h3>
               <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                Market-locked rates. No haggling. No surprises. Financial law.
+                We enforce protocol: market-locked rates and transparent
+                settlement. Empire-grade predictability.
               </p>
             </div>
             <div className="space-y-6">
@@ -95,8 +93,8 @@ export default function SovereignFunnel() {
                 Velocity
               </h3>
               <p className="text-[11px] tracking-[0.3em] uppercase opacity-60">
-                Automated settlement. QuickPay is not an option; it is the
-                standard.
+                We accelerate settlement. Cash moves on schedule. The system
+                endures.
               </p>
             </div>
           </div>
@@ -106,7 +104,7 @@ export default function SovereignFunnel() {
       {/* THE CTA: The Grit Club Funnel */}
       <section className="py-60 bg-white text-center px-10">
         <h2 className="text-[6vw] font-black tracking-tighter uppercase mb-12">
-          Join the Elite.
+          The Sovereign Circle.
         </h2>
         <p className="text-[12px] tracking-[0.6em] mb-20 opacity-50 uppercase">
           BY INVITATION ONLY
@@ -115,7 +113,7 @@ export default function SovereignFunnel() {
           href="/register"
           className="inline-block px-24 py-8 bg-[#0B1F1A] text-white text-[11px] tracking-[1em] font-bold uppercase hover:bg-[#1A1D21] transition-all duration-500"
         >
-          Apply for Admission
+          Request Access to the Protocol
         </a>
       </section>
 
