@@ -79,12 +79,16 @@ export async function GET(req: NextRequest) {
         .map((inv: any) => {
           const matchingBill = openBills.find((bill: any) => bill.DocNumber === inv.DocNumber);
           if (matchingBill) {
+            const baseAmount = inv.TotalAmt;
+            const amountWithTax = baseAmount * 1.0845;
+            const finalTotal = amountWithTax * 1.029;
             return {
               loadNumber: inv.DocNumber,
-              shipperPaid: inv.TotalAmt,
+              shipperPaid: baseAmount,
               carrierOwed: matchingBill.TotalAmt,
               carrierName: matchingBill.VendorRef?.name,
               billId: matchingBill.Id,
+              finalTotal: finalTotal,
             };
           }
           return null;

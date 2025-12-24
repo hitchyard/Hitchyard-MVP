@@ -9,6 +9,7 @@ interface PayoutRow {
   carrierOwed: number;
   carrierName?: string;
   billId?: string;
+  finalTotal?: number;
 }
 
 export default function PayoutsTable() {
@@ -42,6 +43,7 @@ export default function PayoutsTable() {
           carrierOwed: p.carrierOwed ?? 0,
           carrierName: p.carrierName ?? "Unknown",
           billId: p.billId ?? p.billID ?? undefined,
+          finalTotal: p.finalTotal ?? undefined,
         }));
       });
 
@@ -109,6 +111,9 @@ export default function PayoutsTable() {
                 Carrier Name
               </th>
               <th className="text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[#1A1D21]">
+                Invoice Total
+              </th>
+              <th className="text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-[#1A1D21]">
                 Action
               </th>
             </tr>
@@ -120,6 +125,7 @@ export default function PayoutsTable() {
                 <td className="px-4 py-3 text-[#1A1D21] text-sm">{formatMoney(row.shipperPaid)}</td>
                 <td className="px-4 py-3 text-[#1A1D21] text-sm">{formatMoney(row.carrierOwed)}</td>
                 <td className="px-4 py-3 text-[#1A1D21] text-sm">{row.carrierName}</td>
+                <td className="px-4 py-3 text-[#1A1D21] text-sm font-semibold">{row.finalTotal ? formatMoney(row.finalTotal) : "—"}</td>
                 <td className="px-4 py-3">
                   <a
                     href={row.billId ? `https://app.meliopayments.com/pay/bills/${row.billId}` : "https://app.meliopayments.com/pay/bills"}
