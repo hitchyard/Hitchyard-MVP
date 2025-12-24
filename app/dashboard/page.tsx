@@ -9,6 +9,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { supabase } from "../../utils/supabase/client";
 import { acceptBidAction } from "./actions";
 import Disclaimer from "../components/Disclaimer";
+import PayoutsTable from "./PayoutsTable";
 // TODO: Re-enable after PayCargo integration
 // import { createConnectAccountLink } from "../actions/stripe";
 // import PaymentSetupBanner from "../components/PaymentSetupBanner";
@@ -290,6 +291,8 @@ export default function DashboardPage() {
             POST NEW LOAD
           </Link>
         </div>
+
+        <PayoutsTable />
 
         {/* Your Posted Loads Section */}
         <section className="mt-12">
