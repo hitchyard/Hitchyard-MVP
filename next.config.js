@@ -20,7 +20,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  distDir: '.next_forced_build',
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   experimental: {
     outputFileTracingExcludes: {
