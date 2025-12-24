@@ -4,5 +4,11 @@
       "path": "/api/cron/sync-payments",
       "schedule": "0 8 * * *"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/cron/:path*",
+      "destination": "/api/cron/:path*"
+    }
   ]
 }
