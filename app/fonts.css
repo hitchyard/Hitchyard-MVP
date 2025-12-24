@@ -1,10 +1,15 @@
-/* Ruler Archetype Typography System - Using Google Fonts CDN */
+/* IMPERIAL PROTOCOL - TYPOGRAPHY SYSTEM */
+/* Using Google Fonts CDN for Cinzel Bold & League Spartan */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=League+Spartan:wght@300;400;600;700&display=swap');
 
-/* Utility Classes for easy use in TSX */
+/* THE LAW OF TYPOGRAPHY */
+/* Headlines: Cinzel Bold (700) | Body: League Spartan (12-14px) */
+
+/* Utility Classes for TSX */
 .font-cinzel {
     font-family: 'Cinzel', serif;
+    font-weight: 700;
 }
 
 .font-spartan {

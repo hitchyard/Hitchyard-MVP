@@ -9,60 +9,63 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Core brand colors - Ruler Archetype (Shorthand)
-        'charcoal': '#1A1D21',            // PRIMARY: Authority for core platform/safety
-        'forest': '#0B1F1A',              // SECONDARY: Trust for financial/vetting/payments
-        'white': '#FFFFFF',               // Contrast for logos/text
+        // IMPERIAL PROTOCOL - THE LAW OF COLOR
+        charcoal: '#1A1D21',            // AUTHORITY: Primary brand color
+        forest: '#0B1F1A',              // VERIFIED: Financial/Trust status
+        'pure-white': '#FFFFFF',        // High contrast
         
         // Aliases for backward compatibility
         'charcoal-black': '#1A1D21',
         'hitchyard-charcoal': '#1A1D21',
         'deep-forest-green': '#0B1F1A',
         'hitchyard-green': '#0B1F1A',
-        'pure-white': '#FFFFFF',
         
-        // Light Mode Surface & Text Colors (A&F-style)
-        'surface': '#FFFFFF',
+        // Surface colors
+        surface: '#FFFFFF',
         'surface-secondary': '#F8F8F8',
         'secondary-surface': '#F8F8F8',
         'text-primary': '#1A1D21',
         'text-secondary': '#4B5563',
         'off-white-bg': '#F5F5F7',
       },
-      borderRadius: {
-        'none': '0',                        // Ruler Archetype: Stability through geometry
-      },
       fontFamily: {
-        // TYPOGRAPHY SYSTEM - Ruler Archetype
-        // Primary: Cinzel (serif) for headings - HITCHYARD, authoritative titles
-        'serif': ['Cinzel', 'serif'],
-        'cinzel': ['Cinzel', 'serif'],
-        'cinzel-bold': ['Cinzel', 'serif'],
-        // Secondary: League Spartan (sans-serif) for body text, UI elements
-        'sans': ['League Spartan', 'sans-serif'],
-        'league-spartan': ['League Spartan', 'sans-serif'],
-        'spartan': ['League Spartan', 'sans-serif'],
+        // IMPERIAL PROTOCOL - THE LAW OF TYPOGRAPHY
+        cinzel: ['Cinzel', 'serif'],           // Headlines: Cinzel Bold
+        spartan: ['League Spartan', 'sans-serif'],  // Body: League Spartan
+      },
+      letterSpacing: {
+        imperial: '0.6em',  // Headlines tracking
+        command: '0.4em',   // Secondary tracking
+        wide: '0.2em',      // Body tracking
+      },
+      borderRadius: {
+        none: '0',
       },
       spacing: {
-        // LAYOUT RULE: Enforce ample spacing and thick margins
-        '12': '3rem',
-        '16': '4rem',
-        '20': '5rem',
-        '24': '6rem',
+        // THE LAW OF SPACE: Art Gallery spacing
+        '200': '50rem',  // py-[200px] = 800px vertical
       },
     },
   },
   plugins: [
-    function({ addBase, addUtilities }) {
+    function({ addBase, addUtilities, theme }) {
+      // Global enforcement: Zero border radius
       addBase({
-        // IMPERIAL AUTHORITY: Zero border radius globally
-        'button, input, textarea, select, div, a': {
-          'border-radius': '0 !important',
+        '*': {
+          borderRadius: '0 !important',
+          boxShadow: 'none !important',
+        },
+        'button, input, textarea, select': {
+          borderRadius: '0 !important',
         },
       });
+      
       addUtilities({
         '.rounded-none': {
-          'border-radius': '0 !important',
+          borderRadius: '0 !important',
+        },
+        '.no-shadow': {
+          boxShadow: 'none !important',
         },
       });
     },

@@ -2,31 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font imports for Hitchyard A&F High-Luxury Aesthetic */
-/* Cinzel: 400, 700 (bold), 800, 900 | League Spartan: 300, 400, 600, 700 */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=League+Spartan:wght@300;400;600;700&display=swap');
+/* IMPERIAL PROTOCOL: FONT IMPORTS */
+/* Cinzel Bold for Headlines | League Spartan 12-14px for Body */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=League+Spartan:wght@300;400;600;700&display=swap');
 
-/* A&F HIGH-LUXURY AESTHETIC - Global Styles */
+/* IMPERIAL PROTOCOL - RULER ARCHETYPE AESTHETIC */
 :root {
-  /* Brand Colors */
-  --brand-charcoal: #1A1D21;      /* PRIMARY: Authority */
-  --brand-forest: #0B1F1A;        /* SECONDARY: Trust/CTAs */
-  --contrast-white: #FFFFFF;      /* Contrast */
+  /* THE LAW OF COLOR */
+  --brand-charcoal: #1A1D21;      /* AUTHORITY: Primary */
+  --brand-forest: #0B1F1A;        /* VERIFIED STATUS: Financial/Trust */
+  --contrast-white: #FFFFFF;      /* High Contrast */
   
-  /* IMPERIAL AUTHORITY: Zero border radius */
+  /* THE LAW OF GEOMETRY: Zero Border Radius */
   --radius: 0;
 }
 
-/* ZERO BORDER RADIUS ENFORCEMENT */
+/* GLOBAL ENFORCEMENT: THE LAW OF GEOMETRY */
 * {
   border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Disable all shadows and gradients */
+*::before,
+*::after {
+  box-shadow: none !important;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 14px; /* A&F body text: 12-14px */
+  font-size: 14px; /* Body text: League Spartan 12-14px */
 }
 
 html {
@@ -39,6 +46,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'League Spartan', sans-serif;
   font-size: 14px;
+  background-color: var(--contrast-white);
   color: var(--brand-charcoal);
 }
 
@@ -49,28 +57,36 @@ body {
   z-index: 10;
   pointer-events: none;
   mix-blend-mode: soft-light;
-  opacity: 0.04; /* 35mm film paper grain */
+  opacity: 0.05; /* 35mm film paper grain */
   background-image: url('https://grainy-gradients.vercel.app/noise.svg');
   background-repeat: repeat;
   background-size: 200px 200px;
 }
 
-/* Cinzel Bold for all headlines - Imperial Authority */
+/* THE LAW OF TYPOGRAPHY */
+/* Headlines: Cinzel Bold, ALL CAPS, tracking-[0.4em] */
 h1, h2, h3 {
   font-family: 'Cinzel', serif;
-  font-weight: 900; /* Sovereign Black */
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.4em; /* Abercrombie directive */
 }
 
 h4, h5, h6 {
   font-family: 'Cinzel', serif;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.4em;
 }
 
-/* Ensure Cinzel Bold loads correctly */
+/* Body text: League Spartan (12px-14px) */
+p, span, div {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Cinzel Bold utility */
 .font-cinzel-bold,
 .font-serif.font-bold {
   font-family: 'Cinzel', serif;
@@ -88,10 +104,11 @@ a:hover {
   opacity: 0.6;
 }
 
-/* Form elements - no borders, no rounded corners */
+/* Form elements: Imperial geometry */
 input, textarea, select, button {
   font-family: inherit;
-  border-radius: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Remove all card shadows and borders globally */
@@ -100,4 +117,20 @@ input, textarea, select, button {
   border: none;
   box-shadow: none;
   border-radius: 0;
+}
+
+/* FADE-IN-UP ANIMATION - 0.4s for list items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
 }

@@ -1,47 +1,32 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 /**
- * NAVIGATION - A&F HIGH-LUXURY AESTHETIC
- * Transparent nav with white H favicon and minimal text links
+ * IMPERIAL NAVIGATION - COMMAND VOCABULARY
+ * High-authority terminology for the Ruler Archetype
  */
 export default function Navigation() {
   const router = useRouter();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="max-w-7xl mx-auto px-12 py-8 flex items-center justify-between">
-        {/* Left: White H Favicon */}
-        <button 
+      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Left: H Mark */}
+        <button
           onClick={() => router.push('/')}
-          className="text-white text-2xl font-serif font-bold tracking-wider hover:opacity-80 transition-opacity"
+          aria-label="Home"
+          className="text-charcoal text-[12px] font-cinzel font-bold tracking-imperial uppercase hover:opacity-70"
         >
           H
         </button>
-
-        {/* Right: Minimal Text Links */}
-        <div className="flex items-center gap-12">
-          <button
-            onClick={() => router.push('/register')}
-            className="text-white text-[10px] font-sans uppercase tracking-[0.3em] hover:opacity-60 transition-opacity"
-          >
-            Apply
-          </button>
-          <button
-            onClick={() => router.push('/loads')}
-            className="text-white text-[10px] font-sans uppercase tracking-[0.3em] hover:opacity-60 transition-opacity"
-          >
-            Loads
-          </button>
-          <button
-            onClick={() => router.push('/login')}
-            className="text-white text-[10px] font-sans uppercase tracking-[0.3em] hover:opacity-60 transition-opacity"
-          >
-            Sign In
-          </button>
-        </div>
+        {/* Right: LOGIN */}
+        <button
+          onClick={() => router.push('/login')}
+          className="text-charcoal text-[10px] font-spartan uppercase tracking-command hover:opacity-70"
+        >
+          LOGIN
+        </button>
       </div>
     </nav>
   );

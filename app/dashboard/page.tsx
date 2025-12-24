@@ -72,7 +72,7 @@ function AcceptBidButton({
       <input type="hidden" name="bid_id" value={bidId} />
       <SubmitButton />
       {showSuccess && (
-        <span className="text-sm text-white bg-deep-green px-3 py-1 rounded-none">Load assigned</span>
+        <span className="text-[10px] text-white bg-[#0B1F1A] px-3 py-1 rounded-none uppercase tracking-[0.1em]">LOAD ASSIGNED</span>
       )}
       {state.error && <span className="text-sm text-red-500">{state.error}</span>}
     </form>
@@ -85,9 +85,9 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="px-4 py-2 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] font-semibold disabled:opacity-60"
+      className="px-4 py-2 bg-charcoal-black text-white rounded-none hover:bg-[#0B1F1A] font-semibold text-[12px] uppercase tracking-[0.1em] disabled:opacity-60"
     >
-      {pending ? "Assigning..." : "Accept Bid"}
+      {pending ? "ASSIGNING..." : "ACCEPT BID"}
     </button>
   );
 }
@@ -262,12 +262,12 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen p-8">
+    <main className="min-h-screen p-8 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-semibold font-spartan text-white mb-2">
-          Welcome, {firstName || "User"}
+        <h1 className="text-4xl font-serif font-bold text-charcoal-black uppercase tracking-[0.4em] mb-2">
+          COMMAND CENTER
         </h1>
-        <p className="text-gray-400 mb-8">Manage and post your loads here.</p>
+        <p className="text-[12px] font-sans text-[#1A1D21]/60 uppercase tracking-[0.1em] mb-8">WELCOME, {firstName || "USER"}</p>
 
         {/* TODO: Re-enable after PayCargo integration */}
         {/* Payment Setup Banner for Shippers */}
@@ -285,46 +285,46 @@ export default function DashboardPage() {
         <div className="mt-8 mb-12">
           <Link
             href="/post-load"
-            className="inline-flex items-center justify-center px-6 py-3 bg-deep-green text-white rounded-none hover:bg-[#0e2b26] focus:ring-2 focus:ring-charcoal-black transition font-semibold"
+            className="inline-flex items-center justify-center px-6 py-3 bg-charcoal-black text-white rounded-none hover:bg-[#0B1F1A] focus:ring-2 focus:ring-charcoal-black transition font-semibold uppercase tracking-[0.1em] text-[12px]"
           >
-            Post a New Load
+            POST NEW LOAD
           </Link>
         </div>
 
         {/* Your Posted Loads Section */}
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold font-spartan text-white mb-6">
-            Your Posted Loads
+          <h2 className="text-2xl font-serif font-bold text-charcoal-black mb-6 uppercase tracking-[0.4em]">
+            YOUR POSTED LOADS
           </h2>
 
           {loads.length === 0 ? (
-            <div className="bg-white bg-opacity-5 rounded-none p-8 text-center">
-              <p className="text-gray-400">
-                No loads posted yet. Start by{" "}
-                <Link href="/post-load" className="text-deep-green hover:underline">
-                  posting your first load
+            <div className="bg-white border border-gray-200 rounded-none p-8 text-center">
+              <p className="text-[#1A1D21]/60 text-[12px] uppercase tracking-[0.1em]">
+                NO LOADS POSTED YET. START BY{" "}
+                <Link href="/post-load" className="text-[#0B1F1A] hover:underline font-bold">
+                  POSTING YOUR FIRST LOAD
                 </Link>
                 .
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-none border border-gray-700">
-              <table className="w-full bg-white bg-opacity-5">
+            <div className="overflow-x-auto rounded-none border border-gray-200">
+              <table className="w-full bg-white">
                 <thead>
-                  <tr className="border-b border-gray-700 bg-charcoal-black">
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-white">
+                  <tr className="border-b border-gray-200 bg-white">
+                    <th className="text-left px-6 py-4 text-[12px] font-sans font-semibold text-charcoal-black uppercase tracking-[0.1em]">
                       Origin ZIP
                     </th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-white">
+                    <th className="text-left px-6 py-4 text-[12px] font-sans font-semibold text-charcoal-black uppercase tracking-[0.1em]">
                       Destination ZIP
                     </th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-white">
+                    <th className="text-left px-6 py-4 text-[12px] font-sans font-semibold text-charcoal-black uppercase tracking-[0.1em]">
                       Weight (lbs)
                     </th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-white">
+                    <th className="text-left px-6 py-4 text-[12px] font-sans font-semibold text-charcoal-black uppercase tracking-[0.1em]">
                       Status
                     </th>
-                    <th className="text-left px-6 py-4 text-sm font-semibold text-white">
+                    <th className="text-left px-6 py-4 text-[12px] font-sans font-semibold text-charcoal-black uppercase tracking-[0.1em]">
                       Posted
                     </th>
                   </tr>
@@ -333,18 +333,16 @@ export default function DashboardPage() {
                   {loads.map((load, index) => (
                     <React.Fragment key={load.id}>
                       <tr
-                        className={`border-b border-gray-700 ${
-                          index % 2 === 0 ? "bg-opacity-3" : "bg-opacity-1"
-                        } hover:bg-opacity-5 transition`}
+                        className={`border-b border-gray-200 hover:bg-gray-50 transition`}
                       >
-                        <td className="px-6 py-4 text-gray-200">{load.origin_zip}</td>
-                        <td className="px-6 py-4 text-gray-200">{load.destination_zip}</td>
-                        <td className="px-6 py-4 text-gray-200">{load.load_weight.toLocaleString()}</td>
+                        <td className="px-6 py-4 text-[#1A1D21]">{load.origin_zip}</td>
+                        <td className="px-6 py-4 text-[#1A1D21]">{load.destination_zip}</td>
+                        <td className="px-6 py-4 text-[#1A1D21]">{load.load_weight.toLocaleString()}</td>
                         <td className="px-6 py-4">
                           <span
-                            className={`inline-block px-3 py-1 rounded-none text-xs font-semibold ${
+                            className={`inline-block px-3 py-1 rounded-none text-[10px] font-sans font-bold uppercase tracking-[0.1em] ${
                               load.status === "posted"
-                                ? "bg-deep-green text-white"
+                                ? "bg-[#0B1F1A] text-white"
                                 : load.status === "assigned"
                                 ? "bg-blue-600 text-white"
                                 : "bg-gray-600 text-white"
@@ -353,25 +351,25 @@ export default function DashboardPage() {
                             {load.status.charAt(0).toUpperCase() + load.status.slice(1)}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-400 text-sm">{new Date(load.created_at).toLocaleDateString()}</td>
+                        <td className="px-6 py-4 text-[#1A1D21]/60 text-[12px]">{new Date(load.created_at).toLocaleDateString()}</td>
                       </tr>
 
-                      <tr className="border-b border-gray-800">
-                        <td colSpan={5} className="px-6 py-4 bg-white bg-opacity-2">
+                      <tr className="border-b border-gray-200">
+                        <td colSpan={5} className="px-6 py-4 bg-gray-50">
                           <div className="max-w-4xl">
-                            <h4 className="text-sm font-semibold text-white mb-3">Received Bids</h4>
+                            <h4 className="text-[12px] font-sans font-semibold text-charcoal-black mb-3 uppercase tracking-[0.1em]">RECEIVED BIDS</h4>
                             {(!bidsMap[load.id] || bidsMap[load.id].length === 0) ? (
-                              <p className="text-gray-400">No bids yet for this load.</p>
+                              <p className="text-[#1A1D21]/60 text-[12px] uppercase tracking-[0.1em]">NO BIDS YET FOR THIS LOAD.</p>
                             ) : (
                               <ul className="space-y-3">
                                 {bidsMap[load.id].map((bid) => (
-                                  <li key={bid.id} className="flex items-center justify-between bg-white bg-opacity-3 rounded-none p-3">
+                                  <li key={bid.id} className="flex items-center justify-between bg-white border border-gray-200 rounded-none p-3">
                                     <div>
-                                      <div className="text-gray-200 font-medium">Carrier: {bid.carrier_id}</div>
-                                      <div className="text-gray-400 text-sm">Placed: {new Date(bid.created_at).toLocaleString()}</div>
+                                      <div className="text-[#1A1D21] font-medium text-[12px]">CARRIER: {bid.carrier_id}</div>
+                                      <div className="text-[#1A1D21]/60 text-[10px] uppercase tracking-[0.1em]">PLACED: {new Date(bid.created_at).toLocaleString()}</div>
                                     </div>
                                     <div className="flex items-center gap-4">
-                                      <div className="text-white font-semibold">${bid.bid_amount.toFixed(2)}</div>
+                                      <div className="text-charcoal-black font-semibold">${bid.bid_amount.toFixed(2)}</div>
                                       <AcceptBidButton
                                         loadId={bid.load_id}
                                         bidId={bid.id}

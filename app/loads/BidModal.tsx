@@ -65,11 +65,11 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
         onClick={onClose} 
       />
 
-      {/* BIDDING PROTOCOL CONTAINER */}
-      <div className="relative w-full max-w-5xl mx-4 bg-charcoal-black rounded-none py-[200px] px-12">
+      {/* BIDDING PROTOCOL CONTAINER - Stark White */}
+      <div className="relative w-full max-w-5xl mx-4 bg-white rounded-none py-[100px] px-12">
         {/* GRIT CLUB COMPLIANCE BADGE - Top Right */}
-        <div className="absolute top-8 right-8 bg-[#0B1F1A] px-6 py-4">
-          <p className="text-white font-sans text-xs uppercase tracking-[0.3em] font-bold">
+        <div className="absolute top-8 right-8 bg-[#0B1F1A] px-6 py-4 rounded-none">
+          <p className="text-white font-sans text-[10px] uppercase tracking-[0.4em] font-bold">
             GRIT CLUB COMPLIANCE SECURED
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
         {/* CLOSE BUTTON - Top Left */}
         <button
           onClick={onClose}
-          className="absolute top-8 left-8 text-white/40 hover:text-white transition-colors font-sans text-xs uppercase tracking-[0.3em]"
+          className="absolute top-8 left-8 text-[#1A1D21]/40 hover:text-[#1A1D21] transition-colors font-sans text-[10px] uppercase tracking-[0.4em] rounded-none"
         >
           CLOSE
         </button>
@@ -85,17 +85,17 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
         {/* SUCCESS STATE */}
         {success ? (
           <div className="text-center py-20">
-            <h2 className="text-5xl md:text-6xl font-serif font-bold uppercase text-white tracking-[0.5em] mb-8">
+            <h2 className="text-5xl md:text-6xl font-serif font-bold uppercase text-[#1A1D21] tracking-[0.4em] mb-8">
               BID SUBMITTED
             </h2>
-            <p className="text-2xl font-serif uppercase text-deep-forest-green tracking-[0.4em]">
+            <p className="text-2xl font-serif uppercase text-[#0B1F1A] tracking-[0.4em]">
               STAND BY FOR ASSIGNMENT
             </p>
           </div>
         ) : !isVerified || trustScore <= 70 ? (
           /* REJECTION LOGIC - Unverified or Low Trust Carriers */
           <div className="text-center py-20">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold uppercase text-white/20 tracking-[0.5em]">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold uppercase text-[#1A1D21]/30 tracking-[0.4em]">
               ACCESS RESTRICTED. VETTING REQUIRED.
             </h2>
           </div>
@@ -103,10 +103,10 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
           /* BIDDING FORM - Verified Carriers */
           <form onSubmit={handleSubmit} className="space-y-16">
             <div className="text-center">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold uppercase text-white mb-4 tracking-[0.5em]">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold uppercase text-[#1A1D21] mb-4 tracking-[0.4em]">
                 BIDDING PROTOCOL
               </h2>
-              <p className="text-xs font-sans uppercase text-white/40 tracking-[0.3em]">
+              <p className="text-[10px] font-sans uppercase text-[#1A1D21]/40 tracking-[0.4em]">
                 LOAD ID: {loadId.slice(0, 8)}
               </p>
             </div>
@@ -123,24 +123,24 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
                 value={bidAmount}
                 onChange={(e) => setBidAmount(e.target.value)}
                 placeholder="ENTER BID AMOUNT"
-                className="w-full border-b-2 border-white/20 bg-transparent text-5xl font-serif text-center py-12 text-white placeholder:text-white/20 focus:border-white outline-none transition-colors duration-300"
+                className="w-full border-b-2 border-[#1A1D21]/20 bg-transparent text-5xl font-serif text-center py-12 text-[#1A1D21] placeholder:text-[#1A1D21]/20 focus:border-[#1A1D21] outline-none transition-colors duration-300 rounded-none"
                 disabled={loading}
               />
             </div>
 
             {/* ERROR MESSAGE */}
             {message && (
-              <div className="text-center text-sm font-sans text-white/60 uppercase tracking-wide">
+              <div className="text-center text-[12px] font-sans text-[#1A1D21]/60 uppercase tracking-[0.1em]">
                 {message}
               </div>
             )}
 
-            {/* SUBMIT BUTTON */}
+            {/* SUBMIT BUTTON - Charcoal with Forest Green hover */}
             <div className="flex justify-center">
               <button
                 type="submit"
                 disabled={loading || !bidAmount}
-                className="bg-[#0B1F1A] text-white font-sans font-bold text-sm py-6 px-16 hover:bg-white hover:text-charcoal-black transition-all duration-300 uppercase tracking-[0.3em] disabled:opacity-30 disabled:cursor-not-allowed rounded-none"
+                className="bg-[#1A1D21] text-white font-sans font-bold text-[12px] py-6 px-16 hover:bg-[#0B1F1A] transition-all duration-300 uppercase tracking-[0.1em] disabled:opacity-30 disabled:cursor-not-allowed rounded-none"
               >
                 {loading ? "PROCESSING..." : "SUBMIT BID"}
               </button>

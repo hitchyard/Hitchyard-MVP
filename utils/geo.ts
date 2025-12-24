@@ -50,6 +50,48 @@ interface OperatingIdentifiers {
 }
 
 /**
+ * Check if a load's origin or destination is within 250 miles of Salt Lake City (84101)
+ * This identifies "Sweet Spot" loads - REGISTERED RADIUS loads
+ * @param originZip Load origin ZIP code
+ * @param destZip Load destination ZIP code
+ * @returns true if either endpoint is within 250 miles of SLC
+ */
+export function isInSweetSpot(originZip: string, destZip: string): boolean {
+  try {
+    const slcCoordinates = zipCodeMap["84101"];
+    if (!slcCoordinates) return false;
+
+    const originCoords = zipCodeMap[originZip?.trim()];
+    const destCoords = zipCodeMap[destZip?.trim()];
+
+    if (originCoords) {
+      const originDistance = haversineDistance(
+        originCoords.lat,
+        originCoords.lon,
+        slcCoordinates.lat,
+        slcCoordinates.lon
+      );
+      if (originDistance <= TARGET_RADIUS_MILES) return true;
+    }
+
+    if (destCoords) {
+      const destDistance = haversineDistance(
+        destCoords.lat,
+        destCoords.lon,
+        slcCoordinates.lat,
+        slcCoordinates.lon
+      );
+      if (destDistance <= TARGET_RADIUS_MILES) return true;
+    }
+
+    return false;
+  } catch (err) {
+    console.error("Error checking sweet spot:", err);
+    return false;
+  }
+}
+
+/**
  * Check if a user's ZIP code is within 250 miles of the anchor ZIP (84101)
  * and verify they have a DOT number or a state operating ID.
  * @param userZip The user's ZIP code

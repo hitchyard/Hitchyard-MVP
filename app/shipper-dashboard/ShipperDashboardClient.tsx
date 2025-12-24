@@ -126,18 +126,26 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
       {/* NAVIGATION - Authority Top Bar */}
       <nav className="bg-charcoal-black border-b border-white/10 py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-serif font-bold tracking-[0.8em] uppercase text-white">
-            HITCHYARD
-          </h1>
-          <div className="flex gap-6 font-sans text-sm font-medium text-white">
+          <div className="flex items-center gap-4">
+            <h1 className="text-2xl font-serif font-bold tracking-[0.4em] uppercase text-white">
+              HITCHYARD
+            </h1>
+            <span className="text-white/40 font-sans text-[10px] uppercase tracking-[0.4em]">
+              // SYSTEM ACTIVE
+            </span>
+          </div>
+          <div className="flex gap-6 font-sans text-[10px] font-medium text-white uppercase tracking-[0.4em]">
             <a href="/shipper-dashboard" className="text-deep-forest-green">
-              DASHBOARD
+              COMMAND CENTER
             </a>
             <a href="/post-load" className="hover:text-deep-forest-green transition">
               POST LOAD
             </a>
             <a href="#" className="hover:text-deep-forest-green transition">
-              PROFILE
+              PROTOCOL
+            </a>
+            <a href="#" className="hover:text-deep-forest-green transition">
+              SETTLEMENTS
             </a>
           </div>
         </div>
@@ -164,18 +172,18 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
           {/* HEADER SECTION */}
           <div className="flex justify-between items-center mb-12">
             <div>
-              <h2 className="text-5xl md:text-6xl font-serif font-extrabold uppercase tracking-[0.8em] text-charcoal-black mb-2">
-                LOAD MANAGEMENT CENTER
+              <h2 className="text-5xl md:text-6xl font-serif font-extrabold uppercase tracking-[0.4em] text-charcoal-black mb-2">
+                COMMAND CENTER
               </h2>
-              <p className="text-lg font-sans text-[#1A1D21]">
-                {loads.length} active load{loads.length !== 1 ? "s" : ""} • {bids.length} total bid{bids.length !== 1 ? "s" : ""}
+              <p className="text-[12px] font-sans text-[#1A1D21] uppercase tracking-[0.1em]">
+                {loads.length} ACTIVE LOAD{loads.length !== 1 ? "S" : ""} • {bids.length} TOTAL BID{bids.length !== 1 ? "S" : ""}
               </p>
             </div>
             
             {/* POST LOAD BUTTON */}
             <button
               onClick={handlePostLoad}
-              className="bg-charcoal-black text-white font-sans font-semibold text-base px-8 py-4 hover:bg-deep-forest-green transition-all duration-300 uppercase tracking-wide flex items-center gap-2"
+              className="bg-charcoal-black text-white font-sans font-semibold text-[12px] px-8 py-4 hover:bg-[#0B1F1A] transition-all duration-300 uppercase tracking-[0.1em] flex items-center gap-2 rounded-none"
             >
               <Plus className="w-5 h-5" />
               POST LOAD
@@ -186,15 +194,15 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
           {loads.length === 0 ? (
             <div className="text-center py-20 bg-white">
               <Package className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-              <h3 className="text-2xl font-serif font-bold uppercase text-charcoal-black mb-2">
+              <h3 className="text-2xl font-serif font-bold uppercase text-charcoal-black mb-2 tracking-[0.4em]">
                 NO LOADS POSTED
               </h3>
-              <p className="text-gray-500 font-sans mb-6">
+              <p className="text-gray-500 font-sans text-[12px] mb-6 uppercase tracking-[0.1em]">
                 Start by posting your first load to the marketplace.
               </p>
               <button
                 onClick={handlePostLoad}
-                className="bg-charcoal-black text-white font-sans font-semibold px-6 py-3 hover:bg-deep-forest-green transition uppercase"
+                className="bg-charcoal-black text-white font-sans font-semibold text-[12px] px-6 py-3 hover:bg-[#0B1F1A] transition uppercase tracking-[0.1em] rounded-none"
               >
                 POST YOUR FIRST LOAD
               </button>
@@ -204,22 +212,22 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
               <table className="w-full">
                 <thead className="bg-white">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Load Details
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Route
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Weight
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Bids
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-sans font-semibold text-[#1A1D21] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-[12px] font-sans font-semibold text-[#1A1D21] uppercase tracking-[0.1em]">
                       Action
                     </th>
                   </tr>
@@ -273,7 +281,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                           {pendingBids.length > 0 && load.status === "open" ? (
                             <button
                               onClick={() => setSelectedLoadId(load.id === selectedLoadId ? null : load.id)}
-                              className="bg-deep-forest-green text-white font-sans font-semibold text-xs px-4 py-2 hover:bg-green-800 transition uppercase"
+                              className="bg-[#0B1F1A] text-white font-sans font-semibold text-[12px] px-4 py-2 hover:bg-green-800 transition uppercase tracking-[0.1em] rounded-none"
                             >
                               {load.id === selectedLoadId ? "HIDE BIDS" : "REVIEW BIDS"}
                             </button>
@@ -292,7 +300,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
           {/* BID REVIEW SECTION */}
           {selectedLoadId && (
             <div className="mt-8 bg-white border border-gray-100 rounded-none p-6">
-              <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.8em] text-charcoal-black mb-6">
+              <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.4em] text-charcoal-black mb-6">
                 BIDS RECEIVED
               </h3>
               <div className="space-y-4">
@@ -317,7 +325,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                       <button
                         onClick={() => handleAcceptBid(selectedLoadId, bid.id, bid.bid_amount)}
                         disabled={processingBidId === bid.id}
-                        className="bg-deep-forest-green text-white font-sans font-semibold text-sm px-6 py-3 hover:bg-green-800 transition uppercase disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                        className="bg-charcoal-black text-white font-sans font-semibold text-[12px] px-6 py-3 hover:bg-[#0B1F1A] transition uppercase tracking-[0.1em] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 rounded-none"
                       >
                         {processingBidId === bid.id ? (
                           <>

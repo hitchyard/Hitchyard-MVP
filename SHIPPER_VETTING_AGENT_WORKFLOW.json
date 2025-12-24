@@ -1,0 +1,285 @@
+{
+  "agent_name": "HITCHYARD SHIPPER VETTING PROTOCOL",
+  "archetype": "RULER - Gatekeeper of Imperial Authority",
+  "directive": "Protect the Imperial Network from bad debt. Zero tolerance for non-compliance.",
+  "version": "1.0.0",
+  "activation_date": "2025-12-24",
+
+  "workflow": {
+    "phase_1_identification": {
+      "name": "IDENTIFY SHIPPER",
+      "description": "Query the shipper identity and operational records",
+      "steps": [
+        {
+          "id": "step_1_1",
+          "action": "RETRIEVE_SHIPPER_PROFILE",
+          "inputs": ["shipper_id", "company_name"],
+          "data_sources": ["supabase.user_profiles", "supabase.shipper_details"],
+          "output_fields": [
+            "shipper_id",
+            "company_name",
+            "mc_number",
+            "dot_number",
+            "ein"
+          ]
+        },
+        {
+          "id": "step_1_2",
+          "action": "QUERY_DAT_AUTHORITY",
+          "inputs": ["mc_number", "dot_number"],
+          "endpoint": "https://api.dat.com/shipper/verify",
+          "output_fields": [
+            "authority_status",
+            "verified_at",
+            "carrier_violations_count"
+          ]
+        }
+      ]
+    },
+
+    "phase_2_metrics_extraction": {
+      "name": "FETCH METRICS",
+      "description": "Extract critical financial and operational health signals",
+      "steps": [
+        {
+          "id": "step_2_1",
+          "action": "EXTRACT_CREDIT_SCORE",
+          "description": "Pull credit score from Ansonia integration",
+          "data_source": "user_profiles.ansonia_credit_score",
+          "range": "0-100",
+          "interpretation": {
+            "elite": "87-100",
+            "acceptable": "80-86",
+            "rejected": "0-79"
+          }
+        },
+        {
+          "id": "step_2_2",
+          "action": "EXTRACT_DAYS_TO_PAY",
+          "description": "Average days from invoice to payment (DTP)",
+          "data_source": "user_profiles.ansonia_dtp_days",
+          "range": "0-365",
+          "interpretation": {
+            "elite": "0-30",
+            "acceptable": "31-40",
+            "rejected": "41+"
+          }
+        },
+        {
+          "id": "step_2_3",
+          "action": "EVALUATE_PAYMENT_HISTORY",
+          "description": "Analyze historical payment patterns",
+          "data_source": "payment_records",
+          "metrics": [
+            "on_time_payment_rate",
+            "average_delay_days",
+            "disputed_invoices_count"
+          ]
+        },
+        {
+          "id": "step_2_4",
+          "action": "ASSESS_FILE_COMPLETENESS",
+          "description": "Determine if shipper has sufficient history",
+          "data_source": "shipper_details",
+          "check": "loads_completed >= 1 AND registered_days >= 30",
+          "status_if_false": "THIN_FILE"
+        }
+      ]
+    },
+
+    "phase_3_absolute_constraints": {
+      "name": "APPLY ABSOLUTE CONSTRAINTS",
+      "description": "Enforce the four laws of vetting with zero exceptions",
+      "rules": [
+        {
+          "rule_id": "rule_1_denial",
+          "name": "AUTOMATIC DENIAL",
+          "condition": "credit_score < 80 OR dtp_days > 40",
+          "action": "DENY_ACCESS",
+          "severity": "CRITICAL",
+          "voice": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: [SCORE]. DTP: [DTP] DAYS. ACCESS DENIED. NETWORK INTEGRITY PRESERVED.",
+          "notification": {
+            "shipper": "Your application does not meet our underwriting standards. Appeal available upon request.",
+            "internal": "DENIAL_LOGGED. Credit/DTP threshold breach."
+          },
+          "metadata": {
+            "flag_for_review": false,
+            "allow_reapplication": true,
+            "reapplication_window_days": 90
+          }
+        },
+        {
+          "rule_id": "rule_2_elite",
+          "name": "GRANT ELITE STATUS",
+          "condition": "credit_score >= 87 AND dtp_days <= 30",
+          "action": "GRANT_ELITE_STATUS",
+          "severity": "AUTHORITY",
+          "voice": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: [SCORE]. DTP: [DTP] DAYS. ELITE STATUS GRANTED. IMMEDIATE ACCESS AUTHORIZED.",
+          "benefits": [
+            "Immediate platform access",
+            "Priority load matching queue",
+            "Rate lock guarantee",
+            "Dedicated account manager",
+            "Extended payment terms (NET 45)"
+          ],
+          "trust_tier": "TIER_1_ELITE"
+        },
+        {
+          "rule_id": "rule_3_standard",
+          "name": "GRANT STANDARD ACCESS",
+          "condition": "credit_score >= 80 AND credit_score < 87 AND dtp_days <= 40",
+          "action": "GRANT_STANDARD_ACCESS",
+          "severity": "APPROVED",
+          "voice": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: [SCORE]. DTP: [DTP] DAYS. STANDARD ACCESS GRANTED. TERMS ENFORCED.",
+          "benefits": [
+            "Platform access",
+            "Standard load matching",
+            "Rate lock available",
+            "Payment terms NET 30"
+          ],
+          "trust_tier": "TIER_2_STANDARD",
+          "monitoring": "Quarterly credit review"
+        },
+        {
+          "rule_id": "rule_4_thin_file",
+          "name": "THIN FILE PROTOCOL",
+          "condition": "loads_completed < 1 OR registered_days < 30",
+          "action": "REQUIRE_PREPAYMENT",
+          "severity": "CONDITIONAL",
+          "voice": "PROTOCOL INITIATED. SHIPPER FILE INCOMPLETE. INSUFFICIENT OPERATIONAL HISTORY. PREPAYMENT PROTOCOL ACTIVATED.",
+          "requirements": [
+            "100% prepayment on all loads",
+            "No payment terms extended",
+            "Monthly trust score reassessment",
+            "Minimum 10 loads completed before tier upgrade"
+          ],
+          "trust_tier": "TIER_0_PROVISIONAL",
+          "upgrade_trigger": "loads_completed >= 10 AND on_time_payment_rate >= 0.95"
+        }
+      ]
+    },
+
+    "phase_4_decision_output": {
+      "name": "GENERATE VETTING DECISION",
+      "description": "Output structured decision with commanding authority",
+      "output_schema": {
+        "decision_id": "uuid",
+        "decision_timestamp": "ISO-8601",
+        "shipper_id": "string",
+        "shipper_name": "string",
+        "vetting_status": "GRANTED | DENIED | CONDITIONAL",
+        "access_tier": "TIER_0_PROVISIONAL | TIER_1_ELITE | TIER_2_STANDARD",
+        "metrics": {
+          "credit_score": "number (0-100)",
+          "dtp_days": "number",
+          "on_time_rate": "percentage",
+          "payment_disputes": "count"
+        },
+        "decision_rules_applied": ["rule_id_array"],
+        "trust_score": "number (0-100)",
+        "protocol_statement": "commanding voice output",
+        "permissions": {
+          "can_post_loads": "boolean",
+          "can_use_rate_lock": "boolean",
+          "payment_terms_days": "number",
+          "load_posting_limit_daily": "number | null"
+        },
+        "monitoring": {
+          "review_schedule": "quarterly | monthly | weekly",
+          "alert_triggers": ["credit_drop_5_points", "payment_missed", "dispute_filed"],
+          "escalation_contact": "internal_compliance_team"
+        },
+        "valid_until": "ISO-8601 datetime (365 days from now)"
+      },
+      "example_output": {
+        "decision_id": "vetting-2025-12-24-001",
+        "shipper_id": "shipper_abc123",
+        "shipper_name": "MegaCorp Logistics Inc",
+        "vetting_status": "GRANTED",
+        "access_tier": "TIER_1_ELITE",
+        "metrics": {
+          "credit_score": 92,
+          "dtp_days": 18,
+          "on_time_rate": 98,
+          "payment_disputes": 0
+        },
+        "decision_rules_applied": ["rule_2_elite"],
+        "trust_score": 92,
+        "protocol_statement": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: 92. DTP: 18 DAYS. ELITE STATUS GRANTED. IMMEDIATE ACCESS AUTHORIZED. THE IMPERIAL NETWORK WELCOMES YOUR PARTICIPATION.",
+        "permissions": {
+          "can_post_loads": true,
+          "can_use_rate_lock": true,
+          "payment_terms_days": 45,
+          "load_posting_limit_daily": null
+        },
+        "monitoring": {
+          "review_schedule": "quarterly",
+          "alert_triggers": ["credit_drop_5_points", "payment_missed", "dispute_filed"],
+          "escalation_contact": "vetting@hitchyard.io"
+        },
+        "valid_until": "2026-12-24T00:00:00Z"
+      }
+    }
+  },
+
+  "voice_protocol": {
+    "tone": "Commanding, Certain, Authoritative, Elite",
+    "archetype_rules": [
+      "Always lead with 'PROTOCOL INITIATED'",
+      "State metrics with precision (exact scores, exact days)",
+      "Use ALL CAPS for decision status",
+      "Never apologize or soften language",
+      "Position Hitchyard as the authority, not the applicant"
+    ],
+    "example_statements": {
+      "elite_grant": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: 89. DTP: 22 DAYS. ELITE STATUS GRANTED. YOU HAVE BEEN SELECTED FOR THE IMPERIAL NETWORK.",
+      "standard_grant": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: 82. DTP: 35 DAYS. STANDARD ACCESS GRANTED. TERMS: NET 30. COMPLIANCE REQUIRED.",
+      "denial": "PROTOCOL INITIATED. SHIPPER CREDIT SCORE: 75. DTP: 48 DAYS. ACCESS DENIED. YOUR APPLICATION DOES NOT MEET HITCHYARD UNDERWRITING STANDARDS.",
+      "thin_file": "PROTOCOL INITIATED. SHIPPER OPERATIONAL HISTORY: 0 LOADS. 15 DAYS REGISTERED. INSUFFICIENT DATA. PREPAYMENT PROTOCOL ACTIVATED. EARN YOUR ACCESS."
+    }
+  },
+
+  "integration_points": {
+    "api_endpoint": "POST /api/vetting/shipper-credit-check",
+    "database_tables": [
+      "user_profiles",
+      "shipper_details",
+      "payment_records",
+      "vetting_decisions"
+    ],
+    "external_apis": [
+      "Ansonia (credit scores, DTP)",
+      "DAT (authority verification)",
+      "Supabase (operational data)"
+    ],
+    "webhooks": [
+      "on_vetting_decision_made",
+      "on_trust_tier_updated",
+      "on_monitoring_alert_triggered"
+    ]
+  },
+
+  "compliance": {
+    "standards_followed": [
+      "Fair Credit Reporting Act (FCRA)",
+      "Equal Credit Opportunity Act (ECOA)",
+      "Dodd-Frank Wall Street Reform and Consumer Protection Act"
+    ],
+    "audit_logging": {
+      "enabled": true,
+      "retention_days": 2555,
+      "fields": [
+        "vetting_decision_id",
+        "shipper_id",
+        "decision_timestamp",
+        "decision_rules_triggered",
+        "final_status"
+      ]
+    },
+    "appeal_process": {
+      "enabled": true,
+      "deadline_days": 30,
+      "escalation_to": "compliance@hitchyard.io"
+    }
+  }
+}

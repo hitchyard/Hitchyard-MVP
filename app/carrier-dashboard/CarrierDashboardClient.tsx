@@ -5,6 +5,7 @@ import { Package, MapPin, Calendar, Weight, DollarSign, Truck } from "lucide-rea
 import { createClient } from "@supabase/supabase-js";
 import BidModal from "../loads/BidModal";
 import Disclaimer from "../components/Disclaimer";
+import { isInSweetSpot } from "@/utils/geo";
 
 interface Load {
   id: string;
@@ -162,26 +163,34 @@ export default function CarrierDashboardClient({
           {/* NAVIGATION - Authority Top Bar */}
           <nav className="bg-charcoal-black border-b border-white/10 py-4 px-6">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
-              <h1 className="text-2xl font-serif font-bold uppercase text-white tracking-[0.8em]">
-                HITCHYARD
-              </h1>
-              <div className="flex gap-6 font-sans text-sm font-medium text-white items-center">
+              <div className="flex items-center gap-4">
+                <h1 className="text-2xl font-serif font-bold uppercase text-white tracking-[0.4em]">
+                  HITCHYARD
+                </h1>
+                <span className="text-white/40 font-sans text-[10px] uppercase tracking-[0.4em]">
+                  // SYSTEM ACTIVE
+                </span>
+              </div>
+              <div className="flex gap-6 font-sans text-[10px] font-medium text-white items-center uppercase tracking-[0.4em]">
                 {/* VETTING COMPLETE BADGE */}
                 {vettingStatus === 'ACTIVE' && ansoniaCreditScore !== null && (
                   <div className="bg-[#0B1F1A] px-4 py-2 rounded-none">
-                    <span className="text-white font-sans text-xs uppercase tracking-[0.2em] font-bold">
+                    <span className="text-white font-sans text-[10px] uppercase tracking-[0.2em] font-bold">
                       ✓ VETTING COMPLETE
                     </span>
                   </div>
                 )}
                 <a href="/carrier-dashboard" className="text-deep-forest-green">
-                  DASHBOARD
+                  COMMAND CENTER
                 </a>
                 <a href="/loads" className="hover:text-deep-forest-green transition">
                   MY BIDS
                 </a>
+                <a href="/vetting" className="hover:text-deep-forest-green transition">
+                  PROTOCOL
+                </a>
                 <a href="#" className="hover:text-deep-forest-green transition">
-                  PROFILE
+                  SETTLEMENTS
                 </a>
               </div>
             </div>
@@ -245,10 +254,10 @@ export default function CarrierDashboardClient({
 
         {/* HEADER SECTION */}
         <div className="mb-20 text-center">
-          <h2 className="text-5xl md:text-6xl font-serif font-bold uppercase tracking-[0.8em] text-white mb-6">
-            AVAILABLE LANES
+          <h2 className="text-5xl md:text-6xl font-serif font-bold uppercase tracking-[0.4em] text-white mb-6">
+            THE SELECTION
           </h2>
-          <p className="text-sm font-sans text-white uppercase tracking-[0.8em]">
+          <p className="text-[12px] font-sans text-white uppercase tracking-[0.1em]">
             {loads.length} VERIFIED LOAD{loads.length !== 1 ? "S" : ""}
           </p>
         </div>
@@ -277,10 +286,13 @@ export default function CarrierDashboardClient({
                 </div>
               </div>
             )}
-            {loads.map((load) => (
+            {loads.map((load, index) => {
+              const inSweetSpot = isInSweetSpot(load.origin_zip, load.destination_zip);
+              return (
               <div
                 key={load.id}
-                className={`bg-white/5 p-12 ${vettingStatus === 'PENDING' ? 'pointer-events-none filter blur-[1px]' : ''} hover:bg-white/10 transition-all duration-700 rounded-none relative`}
+                className={`bg-white/5 p-12 ${vettingStatus === 'PENDING' ? 'pointer-events-none filter blur-[1px]' : ''} hover:bg-white/10 transition-all duration-700 rounded-none relative animate-fade-in-up ${inSweetSpot ? 'border border-[#0B1F1A]' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* VERIFIED BADGE - Deep Forest Green */}
                 <div className="absolute top-6 right-6 bg-[#0B1F1A] px-4 py-2">
@@ -288,6 +300,14 @@ export default function CarrierDashboardClient({
                     VERIFIED
                   </span>
                 </div>
+                {/* SWEET SPOT INDICATOR - Registered Radius */}
+                {inSweetSpot && (
+                  <div className="absolute top-6 left-6 border border-[#0B1F1A] px-3 py-1">
+                    <span className="text-[#0B1F1A] font-sans text-[10px] uppercase tracking-[0.2em] font-bold">
+                      [ REGISTERED RADIUS ]
+                    </span>
+                  </div>
+                )}
                 {/* LOAD TITLE - Cinzel Large */}
                 <h3 className="text-3xl font-serif font-bold uppercase text-white mb-10 tracking-[0.8em] pr-32">
                   {load.commodity_type || "FREIGHT"}
@@ -355,7 +375,8 @@ export default function CarrierDashboardClient({
                   APPLY TO LOAD
                 </button>
               </div>
-            ))}
+            );
+            })}
           </div>
         )}
       </main>
