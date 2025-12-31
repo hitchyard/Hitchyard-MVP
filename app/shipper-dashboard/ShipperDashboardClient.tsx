@@ -58,7 +58,6 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
     setErrorMessage(null);
 
     try {
-      // Call PayCargo payment authorization server action
       const result = await acceptBidAndPay({
         loadId,
         bidId,
@@ -321,7 +320,7 @@ export default function ShipperDashboardClient({ loads, bids, userId }: ShipperD
                         </div>
                       </div>
                       
-                      {/* ACCEPT BID BUTTON - PayCargo Integration */}
+                      {/* ACCEPT BID BUTTON */}
                       <button
                         onClick={() => handleAcceptBid(selectedLoadId, bid.id, bid.bid_amount)}
                         disabled={processingBidId === bid.id}

@@ -96,7 +96,7 @@ export default function BidModal({ loadId, open, onClose, onSuccess, isVerified 
           /* REJECTION LOGIC - Unverified or Low Trust Carriers */
           <div className="text-center py-20">
             <h2 className="text-4xl md:text-5xl font-serif font-bold uppercase text-[#1A1D21]/30 tracking-[0.4em]">
-              ACCESS RESTRICTED. VETTING REQUIRED.
+              ACCESS RESTRICTED. COMPLIANCE REQUIRED.
             </h2>
           </div>
         ) : (

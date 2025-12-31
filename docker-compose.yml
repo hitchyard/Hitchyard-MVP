@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  dify-api:
+    image: langgenius/dify-api:latest
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=${DIFY_DATABASE_URL}
+      - REDIS_URL=redis://redis:6379/0
+      - WORKER_ENABLED=true
+    ports:
+      - "8000:8000"
+
+  dify-web:
+    image: langgenius/dify-web:latest
+    depends_on:
+      - dify-api
+    environment:
+      - API_URL=http://dify-api:8000
+    ports:
+      - "8080:3000"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - dify_db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  docuseal:
+    image: docusealco/docuseal:latest
+    environment:
+      - DATABASE_URL=${DOCUSEAL_DATABASE_URL}
+      - SECRET_KEY_BASE=${DOCUSEAL_SECRET_KEY_BASE}
+    ports:
+      - "4000:3000"
+
+  nginx:
+    image: nginx:1.25-alpine
+    depends_on:
+      - dify-web
+      - dify-api
+      - docuseal
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      # Uncomment and provide certs for TLS
+      # - ./certs/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro
+      # - ./certs/privkey.pem:/etc/nginx/certs/privkey.pem:ro
+
+volumes:
+  dify_db_data:

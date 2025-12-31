@@ -6,6 +6,7 @@ import { createClient } from "@supabase/supabase-js";
 import BidModal from "../loads/BidModal";
 import Disclaimer from "../components/Disclaimer";
 import { isInSweetSpot } from "@/utils/geo";
+import { DocusealForm } from "@docuseal/react";
 
 interface Load {
   id: string;
@@ -50,6 +51,7 @@ export default function CarrierDashboardClient({
   const [trustScore, setTrustScore] = useState(initialTrustScore || 98);
   const [ansoniaCreditScore, setAnsoniaCreditScore] = useState<number | null>(98);
   const [ansoniaDtpDays, setAnsoniaDtpDays] = useState<number | null>(12);
+  const [allowedToOperate, setAllowedToOperate] = useState<"Y" | "N" | "UNKNOWN">("UNKNOWN");
 
   // Set up real-time subscription to user_profiles changes
   useEffect(() => {
@@ -94,7 +96,94 @@ export default function CarrierDashboardClient({
     };
   }, [supabaseConfigured]);
 
-  const isVerified = insuranceVerified && mcNumberVerified;
+  // Fetch FMCSA compliance (Green Light) using MC from registrations
+  useEffect(() => {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return;
+    const sb = createClient(supabaseUrl, supabaseKey);
+
+    (async () => {
+      const { data: auth } = await sb.auth.getUser();
+      const userId = auth.user?.id;
+      if (!userId) return;
+      const { data: reg } = await sb.from('registrations').select('mc_number').eq('user_id', userId).single();
+      const mc = reg?.mc_number;
+      if (!mc) return;
+      try {
+        const res = await fetch('/api/compliance', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mcNumber: mc }),
+        });
+        const json = await res.json();
+        if (json?.success && json?.data?.allowedToOperate) {
+          setAllowedToOperate(json.data.allowedToOperate);
+          setFmCarrierName(json?.data?.carrierName);
+          setFmCarrierMc(json?.data?.mcNumber || mc);
+          // If GREEN LIGHT, ensure Docuseal embed renders
+          setDocusealUrl(process.env.NEXT_PUBLIC_DOCUSEAL_FORM_URL || null);
+        }
+      } catch (e) {
+        console.error('FMCSA compliance fetch failed', e);
+      }
+    })();
+  }, []);
+
+  const isVerified = (allowedToOperate === 'Y') || (insuranceVerified && mcNumberVerified);
+
+  // Docuseal prefill values from registrations
+  const [docusealPrefill, setDocusealPrefill] = useState<{ [key: string]: string | undefined }>({});
+  const [docusealUrl, setDocusealUrl] = useState<string | null>(null);
+  const [fmCarrierName, setFmCarrierName] = useState<string | undefined>(undefined);
+  const [fmCarrierMc, setFmCarrierMc] = useState<string | undefined>(undefined);
+  const [fmCarrierName, setFmCarrierName] = useState<string | undefined>(undefined);
+  const [fmCarrierMc, setFmCarrierMc] = useState<string | undefined>(undefined);
+  const [datManualRequired, setDatManualRequired] = useState<boolean>(false);
+
+  useEffect(() => {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) return;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    setDocusealUrl(process.env.NEXT_PUBLIC_DOCUSEAL_FORM_URL || null);
+    const today = new Date().toISOString().split('T')[0];
+
+    (async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      const userId = auth.user?.id;
+      if (!userId) {
+        setDocusealPrefill({ date: today });
+        return;
+      }
+      const { data: reg } = await supabase
+        .from('registrations')
+        .select('company_name, mc_number')
+        .eq('user_id', userId)
+        .single();
+      setDocusealPrefill({
+        'CARRIER': fmCarrierName ?? reg?.company_name ?? undefined,
+        'MC#': fmCarrierMc ?? reg?.mc_number ?? undefined,
+        'date': today,
+      });
+
+      const mcForDat = fmCarrierMc ?? reg?.mc_number;
+      if (mcForDat) {
+        try {
+          const res = await fetch('/api/dat/status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mcNumber: mcForDat }),
+          });
+          const json = await res.json();
+          setDatManualRequired(Boolean(json?.manualRequired));
+        } catch (e) {
+          setDatManualRequired(true);
+        }
+      }
+    })();
+  }, [fmCarrierName, fmCarrierMc]);
 
   const handleApplyToLoad = (load: Load) => {
     setSelectedLoad(load);
@@ -172,11 +261,11 @@ export default function CarrierDashboardClient({
                 </span>
               </div>
               <div className="flex gap-6 font-sans text-[10px] font-medium text-white items-center uppercase tracking-[0.4em]">
-                {/* VETTING COMPLETE BADGE */}
-                {vettingStatus === 'ACTIVE' && ansoniaCreditScore !== null && (
+                {/* GREEN LIGHT / COMPLIANCE BADGE */}
+                {isVerified && (
                   <div className="bg-[#0B1F1A] px-4 py-2 rounded-none">
                     <span className="text-white font-sans text-[10px] uppercase tracking-[0.2em] font-bold">
-                      ✓ VETTING COMPLETE
+                      ✓ GREEN LIGHT: COMPLIANCE VERIFIED
                     </span>
                   </div>
                 )}
@@ -200,31 +289,52 @@ export default function CarrierDashboardClient({
       <section className="py-[200px] border-b border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-5xl md:text-6xl font-serif font-bold uppercase text-white mb-12 tracking-[0.8em]">
-            STATUS
+            QUALIFICATION STATUS
           </h2>
-          {!insuranceVerified || !mcNumberVerified ? (
+          {!isVerified ? (
             <>
               <p className="text-3xl md:text-4xl font-serif uppercase text-deep-forest-green tracking-[0.8em] mb-12">
-                VETTING IN PROGRESS
+                QUALIFICATION IN PROGRESS
               </p>
               <p className="text-sm font-sans text-white leading-relaxed max-w-2xl mx-auto tracking-[0.8em] mb-12 uppercase">
-                Your carrier profile is under review. You may browse available loads,
-                but bidding will be enabled once your insurance and MC number are verified.
+                Your compliance is under review. You may browse available loads,
+                but bidding will be enabled once your FMCSA and insurance are verified.
               </p>
               <div className="space-y-4 text-xs font-sans text-white uppercase tracking-[0.8em]">
+                {allowedToOperate !== 'Y' && <p>• FMCSA COMPLIANCE PENDING</p>}
                 {!insuranceVerified && <p>• INSURANCE VERIFICATION PENDING</p>}
-                {!mcNumberVerified && <p>• MC NUMBER VERIFICATION PENDING</p>}
               </div>
+              {datManualRequired && (
+                <div className="flex items-center gap-2 mt-6 justify-center">
+                  <span className="px-2 py-1 text-xs font-bold text-blue-700 bg-blue-100 border border-blue-400 rounded animate-pulse">
+                    DAT Manual Verification Pending
+                  </span>
+                  <span className="text-xs text-gray-400 italic">
+                    Check MC# {fmCarrierMc ?? (docusealPrefill['MC#'] || '')} in DAT One App
+                  </span>
+                </div>
+              )}
             </>
           ) : (
             <p className="text-3xl md:text-4xl font-serif uppercase text-deep-forest-green tracking-[0.8em]">
               VERIFIED
             </p>
           )}
+          {/* Docuseal Signature Panel */}
+          <div className="mt-16">
+            <h3 className="text-sm font-sans text-white uppercase tracking-[0.8em] mb-6">BROKER–CARRIER AGREEMENT</h3>
+            {isVerified && docusealUrl ? (
+              <div className="bg-white p-6">
+                <DocusealForm src={docusealUrl} initialValues={docusealPrefill} />
+              </div>
+            ) : (
+              <p className="text-white/60 font-sans text-xs uppercase tracking-[0.6em]">Docuseal portal URL not configured</p>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ANSONIA CREDIT SCORE DISPLAY */}
+      {/* CREDIT PROFILE DISPLAY */}
       {ansoniaCreditScore !== null && (
         <section className="py-[200px] border-b border-white/5">
           <div className="max-w-4xl mx-auto px-6 text-center">

@@ -192,3 +192,18 @@ Before deploying to Vercel, ensure:
 - [ ] Deployment triggers on push to main branch
 
 **Once complete, your Hitchyard app will be securely deployed!** 🚀
+
+---
+
+## 📦 Output Directory on Vercel
+
+- Next.js builds to `.next` by default. Do not set `dist/` or any custom output directory in Vercel project settings.
+- Ensure your Vercel project Framework preset is set to Next.js and the **Build Command** is `next build` (default) and **Output Directory** left to automatic.
+- If you previously configured `dist/`, revert to default. You can verify locally with:
+
+```bash
+npm run build
+node scripts/verify-vercel-rendering.js
+```
+
+The diagnostic will confirm `.next` exists and warn if `dist/` is present.

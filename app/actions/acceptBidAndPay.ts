@@ -1,10 +1,11 @@
-// PAYCARGO PAYMENT AUTHORIZATION SERVER ACTION
-// Secure server-side payment processing for bid acceptance
+// QUICKBOOKS + MELIO SETTLEMENT SERVER ACTION
+// Creates QuickBooks Invoice (Shipper, Net 7) and Bill (Carrier, Net 0 via ACH)
 
 "use server";
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { getValidTokens } from "@/app/api/quickbooks/utils/tokens";
 
 interface AcceptBidAndPayInput {
   loadId: string;
@@ -130,78 +131,131 @@ export async function acceptBidAndPay({
       };
     }
 
-    // STEP 5: PayCargo API - Initiate Transaction
-    const paycargoApiKey = process.env.PAYCARGO_API_KEY;
-    const paycargoBaseUrl = process.env.PAYCARGO_BASE_URL || "https://api.paycargo.com/v1";
-
-    if (!paycargoApiKey) {
-      return {
-        success: false,
-        error: "Payment service configuration error. Please contact support.",
-      };
+    // STEP 5: QuickBooks API - Create Invoice (Shipper) + Bill (Carrier)
+    const realmId = process.env.QB_REALM_ID;
+    if (!realmId) {
+      return { success: false, error: "QuickBooks realm ID not configured." };
     }
 
-    let paycargoTransactionId: string;
+    const accessToken = await getValidTokens(realmId);
+    const isProduction = process.env.QB_ENVIRONMENT === "production";
+    const qbBaseUrl = isProduction
+      ? "https://quickbooks.api.intuit.com"
+      : "https://sandbox-quickbooks.api.intuit.com";
 
-    try {
-      const paycargoResponse = await fetch(`${paycargoBaseUrl}/transactions/initiate`, {
+    // Resolve Customer (Shipper) and Vendor (Carrier) references
+    const defaultCustomerRef = process.env.QB_DEFAULT_CUSTOMER_ID; // fallback ID
+    const defaultVendorRef = process.env.QB_DEFAULT_VENDOR_ID; // fallback ID
+    if (!defaultCustomerRef || !defaultVendorRef) {
+      console.warn("QB_DEFAULT_CUSTOMER_ID or QB_DEFAULT_VENDOR_ID missing. Using defaults may fail.");
+    }
+
+    // Compute Net 7 DueDate
+    const today = new Date();
+    const dueDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0];
+
+    // Build Invoice for Shipper (Net 7)
+    const invoiceBody = {
+      Invoice: {
+        DocNumber: loadId,
+        PrivateNote: `Freight Charges for Load ${loadId}`,
+        CustomerRef: { value: defaultCustomerRef },
+        Line: [
+          {
+            DetailType: "SalesItemLineDetail",
+            Amount: winningBidAmount,
+            Description: "Freight Charges",
+            SalesItemLineDetail: {
+              ItemRef: { value: process.env.QB_FREIGHT_ITEM_ID || "1" },
+              TaxCodeRef: { value: "NON" }, // Non-taxable
+            },
+          },
+        ],
+        TxnDate: new Date().toISOString().split("T")[0],
+        DueDate: dueDate, // Net 7
+        SalesTermRef: { value: process.env.QB_NET7_TERM_ID || "3" },
+        TotalAmt: winningBidAmount,
+      },
+    };
+
+    // Build Bill for Carrier (Net 0 / due today)
+    const billBody = {
+      Bill: {
+        PrivateNote: `Carrier Settlement for Load ${loadId}`,
+        VendorRef: { value: defaultVendorRef },
+        Line: [
+          {
+            DetailType: "AccountBasedExpenseLineDetail",
+            Amount: winningBidAmount,
+            Description: "Carrier Settlement - Freight",
+            AccountBasedExpenseLineDetail: {
+              AccountRef: { value: process.env.QB_CARRIER_EXPENSE_ACCOUNT_ID || "7" },
+              TaxCodeRef: { value: "NON" },
+            },
+          },
+        ],
+        TxnDate: new Date().toISOString().split("T")[0],
+        DueDate: new Date().toISOString().split("T")[0], // Net 0
+        DocNumber: loadId,
+      },
+    };
+
+    // POST Invoice
+    const invRes = await fetch(
+      `${qbBaseUrl}/v3/company/${realmId}/invoice?minorversion=70`,
+      {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${paycargoApiKey}`,
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          amount: winningBidAmount,
-          currency: "USD",
-          loadId: loadId,
-          bidderId: bidData.carrier_id,
-          shipperId: user.id,
-          description: `Payment authorization for Load ${loadId}`,
-          metadata: {
-            platform: "hitchyard",
-            loadId: loadId,
-            bidId: bidId,
-          },
-        }),
-      });
-
-      // STEP 6: Handle PayCargo Response
-      if (!paycargoResponse.ok) {
-        const errorData = await paycargoResponse.json().catch(() => ({}));
-        console.error("PayCargo API Error:", errorData);
-        
-        return {
-          success: false,
-          error: `Payment authorization failed: ${errorData.message || "PayCargo service unavailable"}`,
-        };
+        body: JSON.stringify(invoiceBody),
       }
+    );
 
-      const paycargoData = await paycargoResponse.json();
-      paycargoTransactionId = paycargoData.transactionId || paycargoData.id || `PC-${Date.now()}`;
-
-      // Verify transaction was authorized
-      if (paycargoData.status !== "AUTHORIZED" && paycargoData.status !== "SUCCESS") {
-        return {
-          success: false,
-          error: `Payment authorization incomplete. Status: ${paycargoData.status}`,
-        };
-      }
-
-    } catch (paycargoError) {
-      console.error("PayCargo Network Error:", paycargoError);
-      return {
-        success: false,
-        error: "Payment service connection failed. Please try again.",
-      };
+    if (!invRes.ok) {
+      const text = await invRes.text();
+      console.error("QuickBooks Invoice error:", text);
+      return { success: false, error: `Invoice creation failed: ${text}` };
     }
 
-    // STEP 7: Update Load Status in Database
+    const invData = await invRes.json();
+    const qbInvoiceId = invData?.Invoice?.Id;
+
+    // POST Bill
+    const billRes = await fetch(
+      `${qbBaseUrl}/v3/company/${realmId}/bill?minorversion=70`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(billBody),
+      }
+    );
+
+    if (!billRes.ok) {
+      const text = await billRes.text();
+      console.error("QuickBooks Bill error:", text);
+      return { success: false, error: `Bill creation failed: ${text}` };
+    }
+
+    const billData = await billRes.json();
+    const qbBillId = billData?.Bill?.Id;
+
+    // STEP 6: Update Load Status in Database
     const { error: updateLoadError } = await supabase
       .from("loads")
       .update({
         status: "AUTHORIZED",
         assigned_carrier_id: bidData.carrier_id,
-        paycargo_transaction_id: paycargoTransactionId,
+        qb_invoice_id: qbInvoiceId,
+        qb_bill_id: qbBillId,
         updated_at: new Date().toISOString(),
       })
       .eq("id", loadId);
@@ -241,11 +295,11 @@ export async function acceptBidAndPay({
       console.error("Other bids rejection error:", rejectOthersError);
     }
 
-    // STEP 10: Return Success
+    // STEP 7: Return Success
     return {
       success: true,
-      message: "Payment Authorized. Load Assigned.",
-      transactionId: paycargoTransactionId,
+      message: "Invoice + Bill created. Load Assigned.",
+      transactionId: qbInvoiceId,
     };
 
   } catch (error) {

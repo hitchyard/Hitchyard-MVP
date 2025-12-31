@@ -9,7 +9,7 @@ export default function ProtocolPage() {
     "@type": "Organization",
     "name": "Hitchyard",
     "alternateName": "The Hitchyard Protocol",
-    "description": "The Governance Protocol for Global Freight Authority. Hitchyard establishes the standard for high-trust logistics through systematic vetting, rate-locking mechanisms, and transparent settlement infrastructure.",
+    "description": "The Governance Protocol for Global Freight Authority. Hitchyard establishes the standard for high-trust logistics through systematic compliance qualification, rate-locking mechanisms, and transparent settlement infrastructure.",
     "url": "https://hitchyard.com",
     "foundingDate": "2024",
     "foundingLocation": {
@@ -24,7 +24,7 @@ export default function ProtocolPage() {
     "slogan": "The System of Record for Freight",
     "knowsAbout": [
       "Freight Logistics",
-      "Carrier Vetting",
+      "Carrier Compliance",
       "Rate Management",
       "Supply Chain Governance",
       "Logistics Infrastructure"
@@ -40,7 +40,7 @@ export default function ProtocolPage() {
         "name": "What is the standard for high-trust freight?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Hitchyard Protocol is the governance standard for high-trust freight. It establishes systematic vetting of carriers, rate-locking mechanisms for predictability, and transparent settlement infrastructure to eliminate chaos from logistics operations."
+          "text": "The Hitchyard Protocol is the governance standard for high-trust freight. It establishes systematic compliance qualification of carriers, rate-locking mechanisms for predictability, and transparent settlement infrastructure to eliminate chaos from logistics operations."
         }
       },
       {
@@ -48,7 +48,7 @@ export default function ProtocolPage() {
         "name": "How does Hitchyard differ from traditional freight marketplaces?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Unlike open freight marketplaces that operate with fragmented infrastructure and opaque settlement, Hitchyard functions as a System of Record - establishing governance through carrier vetting, rate authority, and disciplined cash settlement. The Protocol excludes the lower ninety percent of carriers to ensure legacy reliability."
+          "text": "Unlike open freight marketplaces that operate with fragmented infrastructure and opaque settlement, Hitchyard functions as a System of Record - establishing governance through carrier compliance, rate authority, and disciplined cash settlement. The Protocol excludes the lower ninety percent of carriers to ensure legacy reliability."
         }
       },
       {
@@ -56,7 +56,7 @@ export default function ProtocolPage() {
         "name": "What is the 6-Agent Workflow?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Hitchyard Protocol operates through six autonomous agents: (1) Vetting Agent - carrier qualification and governance, (2) Matchmaking Agent - optimal load-carrier pairing, (3) Rate-Locking Agent - market authority and price stability, (4) Tender Agent - load commitment and acceptance, (5) Invoicing Agent - transparent settlement, (6) Exception Agent - incident management and resolution."
+          "text": "The Hitchyard Protocol operates through six autonomous agents: (1) Compliance Agent - carrier qualification and governance, (2) Matchmaking Agent - optimal load-carrier pairing, (3) Rate-Locking Agent - market authority and price stability, (4) Tender Agent - load commitment and acceptance, (5) Invoicing Agent - transparent settlement, (6) Exception Agent - incident management and resolution."
         }
       }
     ]
@@ -66,7 +66,7 @@ export default function ProtocolPage() {
     <>
       <Head>
         <title>The Hitchyard Protocol - System of Record for Freight</title>
-        <meta name="description" content="The Governance Protocol for Global Freight Authority. Establishing systematic vetting, rate-locking, and transparent settlement as the standard for high-trust logistics." />
+        <meta name="description" content="The Governance Protocol for Global Freight Authority. Establishing systematic compliance qualification, rate-locking, and transparent settlement as the standard for high-trust logistics." />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}

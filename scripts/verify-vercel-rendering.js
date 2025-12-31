@@ -168,6 +168,37 @@ console.log(`   ⚠️  Warnings: ${warned}`);
 console.log(`   ❌ Failed: ${failed}`);
 console.log(`   📝 Total Checks: ${checks.length}\n`);
 
+// 5. Check build output directory expectations
+console.log('📦 Checking build output directory expectations...\n');
+try {
+  const fs = require('fs');
+  const path = require('path');
+  const nextDir = path.join(__dirname, '..', '.next');
+  const distDir = path.join(__dirname, '..', 'dist');
+
+  const hasNext = fs.existsSync(nextDir);
+  const hasDist = fs.existsSync(distDir);
+
+  if (hasNext) {
+    console.log('✅ .next directory present (Next.js default)');
+    checks.push({ name: 'Next Output (.next)', status: 'pass' });
+  } else {
+    console.log('❌ .next directory missing after build');
+    checks.push({ name: 'Next Output (.next)', status: 'fail' });
+  }
+
+  if (hasDist) {
+    console.log('⚠️  Found dist directory — ensure Vercel is not configured to use it.');
+    checks.push({ name: 'Dist Directory Present', status: 'warn' });
+  } else {
+    console.log('✅ No dist directory detected (expected for Next.js)');
+    checks.push({ name: 'Dist Directory Absent', status: 'pass' });
+  }
+} catch (error) {
+  console.log('⚠️  Could not verify output directories:', error.message);
+  checks.push({ name: 'Output Directory Check', status: 'warn' });
+}
+
 if (failed === 0) {
   console.log('✅ ALL CRITICAL CHECKS PASSED - Ready for Vercel deployment!\n');
   console.log('🚀 Next Steps:');

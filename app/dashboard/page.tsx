@@ -10,14 +10,9 @@ import { supabase } from "../../utils/supabase/client";
 import { acceptBidAction } from "./actions";
 import Disclaimer from "../components/Disclaimer";
 import PayoutsTable from "./PayoutsTable";
-// TODO: Re-enable after PayCargo integration
-// import { createConnectAccountLink } from "../actions/stripe";
-// import PaymentSetupBanner from "../components/PaymentSetupBanner";
 
 interface UserProfile {
   first_name: string | null;
-  stripe_account_id: string | null;
-  stripe_payment_method_id: string | null;
   user_role: string | null;
 }
 
@@ -93,61 +88,11 @@ function SubmitButton() {
   );
 }
 
-// TODO: Re-enable after PayCargo integration
-/* function PayoutSetupBanner({ stripeAccountId }: { stripeAccountId: string | null }) {
-  const router = useRouter();
-  const [isPending, startTransition] = React.useTransition();
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSetupPayouts = () => {
-    setError(null);
-    startTransition(async () => {
-      try {
-        const result = await createConnectAccountLink();
-        if (result.error) {
-          setError(result.error);
-        } else if (result.url) {
-          router.push(result.url);
-        }
-      } catch (err) {
-        setError((err as Error)?.message ?? "Failed to create payout link");
-      }
-    });
-  };
-
-  if (stripeAccountId) {
-    return null;
-  }
-
-  return (
-    <div className="bg-yellow-50 border-l-4 border-deep-green p-6 mb-8 rounded-none ">
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-charcoal-black mb-2">
-            Payout Setup Required
-          </h3>
-          <p className="text-gray-700 mb-4">
-            You must connect a payout method to receive payments for accepted loads. Click below to set up your Stripe account.
-          </p>
-          <button
-            onClick={handleSetupPayouts}
-            disabled={isPending}
-            className="px-6 py-3 bg-deep-green text-white font-semibold rounded-none hover:bg-[#0e2b26] disabled:opacity-60 transition"
-          >
-            {isPending ? "Redirecting..." : "Set Up Payouts (Required)"}
-          </button>
-          {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
-        </div>
-      </div>
-    </div>
-  );
-} */
+// Legacy payout banners removed (Stripe/PayCargo purged)
 
 export default function DashboardPage() {
   const router = useRouter();
   const [firstName, setFirstName] = useState<string | null>(null);
-  const [stripeAccountId, setStripeAccountId] = useState<string | null>(null);
-  const [stripePaymentMethodId, setStripePaymentMethodId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loads, setLoads] = useState<Load[]>([]);
   const [bidsMap, setBidsMap] = useState<Record<string, Bid[]>>({});
@@ -175,7 +120,7 @@ export default function DashboardPage() {
         // Fetch user profile
         const { data, error: profileError } = await sb
           .from("user_profiles")
-          .select("first_name, stripe_account_id, stripe_payment_method_id, user_role")
+          .select("first_name, user_role")
           .eq("id", user.id)
           .single();
 
@@ -184,8 +129,6 @@ export default function DashboardPage() {
         } else if (data) {
           const profile = data as UserProfile;
           setFirstName(profile.first_name);
-          setStripeAccountId(profile.stripe_account_id);
-          setStripePaymentMethodId(profile.stripe_payment_method_id);
           setUserRole(profile.user_role);
         }
 
@@ -270,18 +213,7 @@ export default function DashboardPage() {
         </h1>
         <p className="text-[12px] font-sans text-[#1A1D21]/60 uppercase tracking-[0.1em] mb-8">WELCOME, {firstName || "USER"}</p>
 
-        {/* TODO: Re-enable after PayCargo integration */}
-        {/* Payment Setup Banner for Shippers */}
-        {/* {userRole === "shipper" && (
-          <PaymentSetupBanner
-            stripePaymentMethodId={stripePaymentMethodId}
-            userRole={userRole}
-            onPaymentAdded={() => setRefreshKey((k) => k + 1)}
-          />
-        )} */}
-
-        {/* Payout Setup Banner for Carriers */}
-        {/* {userRole === "carrier" && <PayoutSetupBanner stripeAccountId={stripeAccountId} />} */}
+        {/* Payments handled via QuickBooks/Melio. No Stripe UI here. */}
 
         <div className="mt-8 mb-12">
           <Link
