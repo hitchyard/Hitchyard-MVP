@@ -54,12 +54,11 @@ interface OperatingIdentifiers {
  * This identifies "Sweet Spot" loads - REGISTERED RADIUS loads
  * @param originZip Load origin ZIP code
  * @param destZip Load destination ZIP code
- * @returns true if either endpoint is within 250 miles of SLC
+// ...existing code...
  */
 export function isInSweetSpot(originZip: string, destZip: string): boolean {
   try {
-    const slcCoordinates = zipCodeMap["84101"];
-    if (!slcCoordinates) return false;
+    // SLC logic removed
 
     const originCoords = zipCodeMap[originZip?.trim()];
     const destCoords = zipCodeMap[destZip?.trim()];
@@ -68,8 +67,7 @@ export function isInSweetSpot(originZip: string, destZip: string): boolean {
       const originDistance = haversineDistance(
         originCoords.lat,
         originCoords.lon,
-        slcCoordinates.lat,
-        slcCoordinates.lon
+        // SLC logic removed
       );
       if (originDistance <= TARGET_RADIUS_MILES) return true;
     }
@@ -78,8 +76,7 @@ export function isInSweetSpot(originZip: string, destZip: string): boolean {
       const destDistance = haversineDistance(
         destCoords.lat,
         destCoords.lon,
-        slcCoordinates.lat,
-        slcCoordinates.lon
+        // SLC logic removed
       );
       if (destDistance <= TARGET_RADIUS_MILES) return true;
     }

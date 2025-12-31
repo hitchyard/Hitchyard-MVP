@@ -84,7 +84,7 @@ export async function generateBOL(bol: BillOfLading): Promise<Buffer> {
       doc.text(`SCAC Code: ${bol.carrier.scacCode || 'N/A'}`, 55, doc.y + 39);
       doc.text(`Trailer #: ${bol.carrier.trailerNumber}`, 55, doc.y + 56);
       doc.text(`Terms: ${bol.terms}`, 55, doc.y + 73);
-      doc.text(`F.O.B. Point: ${bol.fobPoint} (Exempt from Sales Tax)`, 55, doc.y + 90, {
+      doc.text(`F.O.B. Point: ${bol.fobPoint}`, 55, doc.y + 90, {
         color: '#008000', // Green for tax-exempt callout
       });
 

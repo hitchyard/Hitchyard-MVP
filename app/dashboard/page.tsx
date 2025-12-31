@@ -88,7 +88,7 @@ function SubmitButton() {
   );
 }
 
-// Legacy payout banners removed (Stripe/PayCargo purged)
+// ...existing code...
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -213,7 +213,7 @@ export default function DashboardPage() {
         </h1>
         <p className="text-[12px] font-sans text-[#1A1D21]/60 uppercase tracking-[0.1em] mb-8">WELCOME, {firstName || "USER"}</p>
 
-        {/* Payments handled via QuickBooks/Melio. No Stripe UI here. */}
+        {/* Payments handled via QuickBooks/Melio. */}
 
         <div className="mt-8 mb-12">
           <Link

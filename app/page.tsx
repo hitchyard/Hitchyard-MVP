@@ -46,7 +46,14 @@ const faqs = [
   },
 ];
 
+import { useEffect } from 'react';
+
 export default function CarrierRegistrationPage() {
+    // Ensure root loads registration/landing page
+    useEffect(() => {
+      // If you want to force redirect to /register, uncomment below:
+      // window.location.replace('/register');
+    }, []);
   const [mcNumber, setMcNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
