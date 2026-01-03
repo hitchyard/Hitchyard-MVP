@@ -1,12 +1,15 @@
 {
   "scripts": {
-    "dev": "next dev -p 3000 -H 0.0.0.0"
+    "dev": "next dev -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "validate:env": "node scripts/validate-supabase-env.js",
     "verify:rendering": "node scripts/verify-vercel-rendering.js"
   },
+    "engines": {
+      "node": "20.x"
+    },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.48.0",

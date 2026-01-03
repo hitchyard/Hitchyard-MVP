@@ -54,6 +54,25 @@ export default function CarrierRegistrationPage() {
       // If you want to force redirect to /register, uncomment below:
       // window.location.replace('/register');
     }, []);
+
+  // Trust partner logos (replace with actual logo URLs in /public if available)
+  const trustPartners = [
+    {
+      name: 'TriumphPay',
+      logo: '/video/triumphpay-logo.png',
+      url: 'https://triumphpay.com/',
+    },
+    {
+      name: 'RMIS',
+      logo: '/video/rmis-logo.png',
+      url: 'https://www.rmis.com/',
+    },
+    {
+      name: 'DAT RateView',
+      logo: '/video/dat-logo.png',
+      url: 'https://www.dat.com/solutions/rateview',
+    },
+  ];
   const [mcNumber, setMcNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -101,13 +120,35 @@ export default function CarrierRegistrationPage() {
       setLoading(false);
     }
   };
+
   return (
     <main className="w-full">
-      {/* Hero */}
-      <section className="py-[200px] bg-charcoal text-white text-center px-6">
-        <h1 className="font-cinzel font-bold text-[10vw] tracking-[0.7em] uppercase">HITCHYARD</h1>
-        <h2 className="font-cinzel font-bold text-4xl tracking-[0.6em] uppercase mt-8">Get Paid Net 0.</h2>
-        <p className="font-spartan text-sm tracking-wide mt-4">Sign up in 60 seconds.</p>
+      {/* Moneyball Hero Branding */}
+      <section className="py-[120px] bg-charcoal text-white text-center px-6 border-b border-white/10">
+        <h1 className="font-cinzel font-bold text-[8vw] tracking-[0.7em] uppercase">HITCHYARD <span className="text-forest">MONEYBALL</span></h1>
+        <h2 className="font-cinzel font-bold text-3xl tracking-[0.5em] uppercase mt-8">Regional Freight Optimized by Moneyball Metrics</h2>
+        <p className="font-spartan text-lg tracking-wide mt-6 max-w-2xl mx-auto">
+          The <span className="text-forest font-bold">Moneyball Score</span> is a transparent, data-driven rating for every carrier—combining compliance, payment, and performance into a single metric. Move with confidence, get paid instantly, and build trust with every load.
+        </p>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-12">
+          {trustPartners.map((partner) => (
+            <a
+              key={partner.name}
+              href={partner.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group"
+            >
+              <img
+                src={partner.logo}
+                alt={partner.name + ' logo'}
+                className="h-14 w-auto mb-2 grayscale group-hover:grayscale-0 transition duration-200"
+                style={{ maxWidth: 120 }}
+              />
+              <span className="text-xs font-spartan tracking-wide text-white/70 group-hover:text-forest transition">{partner.name}</span>
+            </a>
+          ))}
+        </div>
         <div className="mt-10 max-w-md mx-auto flex gap-3">
           <input
             type="text"

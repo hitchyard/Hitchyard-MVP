@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { calculateMoneyballScore } from "@/app/lib/moneyballScore";
+import Image from "next/image";
 import { Package, MapPin, Calendar, Weight, DollarSign, Truck } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 import BidModal from "../loads/BidModal";
@@ -41,6 +43,53 @@ export default function CarrierDashboardClient({
   vettingStatus: initialVettingStatus,
   trustScore: initialTrustScore
 }: CarrierDashboardClientProps) {
+  // Moneyball metrics state
+  const [driverReliability, setDriverReliability] = useState<number | null>(null);
+  const [loadEfficiency, setLoadEfficiency] = useState<number | null>(null);
+  const [relationshipYield, setRelationshipYield] = useState<number | null>(null);
+  const [aiMatchSuccess, setAiMatchSuccess] = useState<number | null>(null);
+  const [moneyballScore, setMoneyballScore] = useState<number | null>(null);
+    // Fetch carrier performance metrics (Moneyball)
+    useEffect(() => {
+      async function fetchPerformance() {
+        try {
+          const res = await fetch("/api/carrier-history", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ carrierId: "self" }) });
+          const json = await res.json();
+          if (json.success && json.data) {
+            // All metrics normalized to 1-10 for Moneyball formula
+            // R: Driver Reliability (on-time %)
+            const reliability = Math.round((json.data.load_completion_rate || 0) * 10); // 0-1 -> 0-10
+            setDriverReliability(reliability);
+            // E: Load Completion Efficiency (revenue per hour, fallback to loads completed)
+            const efficiency = json.data.load_efficiency ? Math.round(json.data.load_efficiency) : Math.min(10, Math.round((json.data.total_loads_completed || 0) / 10));
+            setLoadEfficiency(efficiency);
+            // Y: Relationship Yield (repeat load %)
+            let yieldScore = null;
+            if (json.data.total_loads_completed > 0) {
+              yieldScore = Math.round(((json.data.total_loads_completed - json.data.total_loads_failed) / json.data.total_loads_completed) * 10);
+            }
+            setRelationshipYield(yieldScore);
+            // S: AI Match Success (if available, else fallback to 8)
+            setAiMatchSuccess(typeof json.data.ai_match_success === 'number' ? Math.round(json.data.ai_match_success * 10) : 8);
+            // Calculate Moneyball Score
+            const score = calculateMoneyballScore({
+              reliability: reliability || 0,
+              efficiency: efficiency || 0,
+              yieldRate: yieldScore || 0,
+              aiMatch: typeof json.data.ai_match_success === 'number' ? Math.round(json.data.ai_match_success * 10) : 8
+            });
+            setMoneyballScore(Number(score.toFixed(2)));
+          }
+        } catch (e) {
+          setDriverReliability(null);
+          setLoadEfficiency(null);
+          setRelationshipYield(null);
+          setAiMatchSuccess(null);
+          setMoneyballScore(null);
+        }
+      }
+      fetchPerformance();
+    }, []);
   const [selectedLoad, setSelectedLoad] = useState<Load | null>(null);
   const [bidModalOpen, setBidModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -334,30 +383,61 @@ export default function CarrierDashboardClient({
         </div>
       </section>
 
-      {/* CREDIT PROFILE DISPLAY */}
-      {ansoniaCreditScore !== null && (
-        <section className="py-[200px] border-b border-white/5">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h3 className="text-sm font-sans text-white uppercase tracking-[0.8em] mb-6">ANSONIA CREDIT PROFILE</h3>
-            <div className="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
-              <div className="bg-white/5 p-6 rounded-none">
-                <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">CREDIT SCORE</p>
-                <p className="text-4xl font-serif font-bold text-white">{ansoniaCreditScore}</p>
-                <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">
-                  {ansoniaCreditScore > 87 ? 'EXCELLENT' : ansoniaCreditScore >= 70 ? 'ACCEPTABLE' : 'REVIEW REQUIRED'}
-                </p>
-              </div>
-              {ansoniaDtpDays !== null && (
-                <div className="bg-white/5 p-6 rounded-none">
-                  <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">DAYS TO PAY</p>
-                  <p className="text-4xl font-serif font-bold text-white">{ansoniaDtpDays}</p>
-                  <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">AVERAGE</p>
-                </div>
-              )}
+      {/* HITCHYARD MONEYBALL METRIC DASHBOARD */}
+      <section className="py-[100px] border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.6em] text-white mb-10">Hitchyard Moneyball Score</h3>
+          <div className="flex flex-col items-center justify-center mb-8">
+            <div className="bg-green-900/80 rounded-full w-40 h-40 flex flex-col items-center justify-center border-4 border-green-400 shadow-lg">
+              <span className="text-6xl font-serif font-bold text-white">{moneyballScore !== null ? moneyballScore : '--'}</span>
+              <span className="text-xs font-sans text-white/70 uppercase tracking-[0.4em] mt-2">/ 10</span>
+            </div>
+            <p className="text-white font-sans text-sm mt-4">Composite score based on reliability, efficiency, relationships, and AI match success.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white/5 p-6 rounded-none">
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">Driver Reliability</p>
+              <p className="text-3xl font-serif font-bold text-white">{driverReliability !== null ? driverReliability : '--'}</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">(R) 40%</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-none">
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">Efficiency</p>
+              <p className="text-3xl font-serif font-bold text-white">{loadEfficiency !== null ? loadEfficiency : '--'}</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">(E) 30%</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-none">
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">Relationship Yield</p>
+              <p className="text-3xl font-serif font-bold text-white">{relationshipYield !== null ? relationshipYield : '--'}</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">(Y) 20%</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-none">
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mb-3">AI Match Success</p>
+              <p className="text-3xl font-serif font-bold text-white">{aiMatchSuccess !== null ? aiMatchSuccess : '--'}</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.8em] mt-3">(S) 10%</p>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+      {/* PAYMENT SELECTION COMPONENT */}
+      <section className="py-12 border-b border-white/10">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <h3 className="text-xl font-serif font-bold uppercase tracking-[0.4em] text-white mb-6">Choose Your Payout</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white/5 p-6 rounded-none flex flex-col items-center">
+              <p className="text-lg font-serif font-bold text-white mb-2">Standard Pay</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.6em] mb-2">ACH Transfer (Free)</p>
+              <p className="text-xs font-sans text-white mb-4">5–7 business days</p>
+              <span className="inline-block bg-green-700 text-white text-xs px-3 py-1 rounded">No Fee</span>
+            </div>
+            <div className="bg-white/5 p-6 rounded-none flex flex-col items-center">
+              <p className="text-lg font-serif font-bold text-white mb-2">QuickPay</p>
+              <p className="text-xs font-sans text-white uppercase tracking-[0.6em] mb-2">Same-Day Payout</p>
+              <p className="text-xs font-sans text-white mb-4">1.5% fee • Cutoff: 2:00 PM MST</p>
+              <span className="inline-block bg-yellow-500 text-black text-xs px-3 py-1 rounded">Instant</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* MAIN CONTENT */}
       <main className="max-w-7xl mx-auto px-6 py-24">
@@ -490,7 +570,20 @@ export default function CarrierDashboardClient({
           </div>
         )}
       </main>
-      {/* IMPERIAL DISCLAIMER FOOTER */}
+      {/* TRUST PARTNERS FOOTER */}
+      <footer className="bg-charcoal-black border-t border-white/10 py-10 mt-20">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 px-6">
+          <div className="flex flex-col items-center md:items-start">
+            <p className="text-xs font-sans text-white/70 uppercase tracking-[0.4em] mb-2">Trusted Partners</p>
+            <div className="flex gap-6 items-center">
+              <Image src="/logos/triumphpay.png" alt="TriumphPay" width={90} height={32} />
+              <Image src="/logos/rmis.png" alt="RMIS" width={70} height={32} />
+              <Image src="/logos/dat.png" alt="DAT RateView" width={70} height={32} />
+            </div>
+          </div>
+          <div className="text-xs text-white/40 font-sans mt-4 md:mt-0">© {new Date().getFullYear()} Hitchyard. All rights reserved.</div>
+        </div>
+      </footer>
       <Disclaimer />
 
       {/* BIDDING PROTOCOL MODAL */}
