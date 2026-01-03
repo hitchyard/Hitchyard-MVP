@@ -123,12 +123,12 @@ export default function CarrierRegistrationPage() {
 
   return (
     <main className="w-full">
-      {/* Moneyball Hero Branding */}
+      {/* Performance Index Hero Branding */}
       <section className="py-[120px] bg-charcoal text-white text-center px-6 border-b border-white/10">
-        <h1 className="font-cinzel font-bold text-[8vw] tracking-[0.7em] uppercase">HITCHYARD <span className="text-forest">MONEYBALL</span></h1>
-        <h2 className="font-cinzel font-bold text-3xl tracking-[0.5em] uppercase mt-8">Regional Freight Optimized by Moneyball Metrics</h2>
+        <h1 className="font-cinzel font-bold text-[8vw] tracking-[0.7em] uppercase">HITCHYARD <span className="text-forest">PERFORMANCE INDEX</span></h1>
+        <h2 className="font-cinzel font-bold text-3xl tracking-[0.5em] uppercase mt-8">Regional Freight Optimized by Performance Intelligence</h2>
         <p className="font-spartan text-lg tracking-wide mt-6 max-w-2xl mx-auto">
-          The <span className="text-forest font-bold">Moneyball Score</span> is a transparent, data-driven rating for every carrier—combining compliance, payment, and performance into a single metric. Move with confidence, get paid instantly, and build trust with every load.
+          The <span className="text-forest font-bold">Hitchyard Performance Index (HPI)</span> is a proprietary, data-driven rating for every carrier—combining compliance, payment, and operational performance into a single, trusted metric. Move with confidence, accelerate settlements, and build lasting partnerships with every load.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-12">
           {trustPartners.map((partner) => (

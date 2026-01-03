@@ -43,20 +43,20 @@ export default function CarrierDashboardClient({
   vettingStatus: initialVettingStatus,
   trustScore: initialTrustScore
 }: CarrierDashboardClientProps) {
-  // Moneyball metrics state
+  // Proprietary efficiency metrics state
   const [driverReliability, setDriverReliability] = useState<number | null>(null);
   const [loadEfficiency, setLoadEfficiency] = useState<number | null>(null);
   const [relationshipYield, setRelationshipYield] = useState<number | null>(null);
   const [aiMatchSuccess, setAiMatchSuccess] = useState<number | null>(null);
-  const [moneyballScore, setMoneyballScore] = useState<number | null>(null);
-    // Fetch carrier performance metrics (Moneyball)
+  const [performanceIndex, setPerformanceIndex] = useState<number | null>(null);
+    // Fetch carrier performance metrics (Proprietary Efficiency Metrics)
     useEffect(() => {
       async function fetchPerformance() {
         try {
           const res = await fetch("/api/carrier-history", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ carrierId: "self" }) });
           const json = await res.json();
           if (json.success && json.data) {
-            // All metrics normalized to 1-10 for Moneyball formula
+            // All metrics normalized to 1-10 for HPI formula
             // R: Driver Reliability (on-time %)
             const reliability = Math.round((json.data.load_completion_rate || 0) * 10); // 0-1 -> 0-10
             setDriverReliability(reliability);
@@ -71,21 +71,21 @@ export default function CarrierDashboardClient({
             setRelationshipYield(yieldScore);
             // S: AI Match Success (if available, else fallback to 8)
             setAiMatchSuccess(typeof json.data.ai_match_success === 'number' ? Math.round(json.data.ai_match_success * 10) : 8);
-            // Calculate Moneyball Score
+            // Calculate Hitchyard Performance Index (HPI)
             const score = calculateMoneyballScore({
               reliability: reliability || 0,
               efficiency: efficiency || 0,
               yieldRate: yieldScore || 0,
               aiMatch: typeof json.data.ai_match_success === 'number' ? Math.round(json.data.ai_match_success * 10) : 8
             });
-            setMoneyballScore(Number(score.toFixed(2)));
+            setPerformanceIndex(Number(score.toFixed(2)));
           }
         } catch (e) {
           setDriverReliability(null);
           setLoadEfficiency(null);
           setRelationshipYield(null);
           setAiMatchSuccess(null);
-          setMoneyballScore(null);
+          setPerformanceIndex(null);
         }
       }
       fetchPerformance();
@@ -383,16 +383,16 @@ export default function CarrierDashboardClient({
         </div>
       </section>
 
-      {/* HITCHYARD MONEYBALL METRIC DASHBOARD */}
+      {/* HITCHYARD PERFORMANCE INDEX DASHBOARD */}
       <section className="py-[100px] border-b border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.6em] text-white mb-10">Hitchyard Moneyball Score</h3>
+          <h3 className="text-2xl font-serif font-bold uppercase tracking-[0.6em] text-white mb-10">Hitchyard Performance Index (HPI)</h3>
           <div className="flex flex-col items-center justify-center mb-8">
             <div className="bg-green-900/80 rounded-full w-40 h-40 flex flex-col items-center justify-center border-4 border-green-400 shadow-lg">
-              <span className="text-6xl font-serif font-bold text-white">{moneyballScore !== null ? moneyballScore : '--'}</span>
+              <span className="text-6xl font-serif font-bold text-white">{performanceIndex !== null ? performanceIndex : '--'}</span>
               <span className="text-xs font-sans text-white/70 uppercase tracking-[0.4em] mt-2">/ 10</span>
             </div>
-            <p className="text-white font-sans text-sm mt-4">Composite score based on reliability, efficiency, relationships, and AI match success.</p>
+            <p className="text-white font-sans text-sm mt-4">Composite index based on reliability, efficiency, relationship yield, and AI match success. Proprietary efficiency metrics for high-trust logistics.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="bg-white/5 p-6 rounded-none">
