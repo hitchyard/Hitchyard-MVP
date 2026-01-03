@@ -123,12 +123,12 @@ export default function CarrierRegistrationPage() {
 
   return (
     <main className="w-full">
-      {/* Performance Index Hero Branding */}
+      {/* Performance Score Hero Branding */}
       <section className="py-[120px] bg-charcoal text-white text-center px-6 border-b border-white/10">
-        <h1 className="font-cinzel font-bold text-[8vw] tracking-[0.7em] uppercase">HITCHYARD <span className="text-forest">PERFORMANCE INDEX</span></h1>
-        <h2 className="font-cinzel font-bold text-3xl tracking-[0.5em] uppercase mt-8">Regional Freight Optimized by Performance Intelligence</h2>
+        <h1 className="font-cinzel font-bold text-[8vw] tracking-[0.7em] uppercase">HITCHYARD <span className="text-forest">PERFORMANCE SCORE</span></h1>
+        <h2 className="font-cinzel font-bold text-3xl tracking-[0.5em] uppercase mt-8">Regional Freight Powered by Performance</h2>
         <p className="font-spartan text-lg tracking-wide mt-6 max-w-2xl mx-auto">
-          The <span className="text-forest font-bold">Hitchyard Performance Index (HPI)</span> is a proprietary, data-driven rating for every carrier—combining compliance, payment, and operational performance into a single, trusted metric. Move with confidence, accelerate settlements, and build lasting partnerships with every load.
+          The <span className="text-forest font-bold">Hitchyard Performance Score (HPS)</span> is a clear, data-driven rating for every carrier—combining compliance, payment, and operational results into a single, trusted score. Move with confidence, get paid faster, and build lasting partnerships with every load.
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-12">
           {trustPartners.map((partner) => (
