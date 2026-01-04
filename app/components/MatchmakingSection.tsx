@@ -30,8 +30,8 @@ export default function MatchmakingSection({ carrierId }: MatchmakingSectionProp
   }, [carrierId]);
 
   return (
-    <section className="w-full flex flex-col items-center justify-center bg-[#1A1D21] py-[200px] px-6" style={{ borderRadius: 0 }}>
-      <h2 className="font-cinzel font-bold uppercase text-3xl md:text-4xl tracking-[0.6em] text-white mb-10 text-center" style={{ letterSpacing: '0.6em' }}>
+    <section className="w-full flex flex-col items-center justify-center bg-charcoal py-imperial px-6 rounded-none">
+      <h2 className="font-cinzel font-bold uppercase text-3xl md:text-4xl tracking-imperial text-white mb-10 text-center">
         PROTOCOL: OPTIMIZING CARRIER ALLOCATION
       </h2>
       {loading ? (
@@ -46,7 +46,7 @@ export default function MatchmakingSection({ carrierId }: MatchmakingSectionProp
               </h3>
               <ul className="space-y-3">
                 {lanes.map((lane, idx) => (
-                  <li key={idx} className="font-spartan text-base text-gray-200 bg-[#23272A] px-6 py-4 rounded-none" style={{ borderRadius: 0 }}>
+                  <li key={idx} className="font-spartan text-base text-gray-200 bg-charcoal/80 px-6 py-4 rounded-none">
                     {lane}
                   </li>
                 ))}

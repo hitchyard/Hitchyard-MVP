@@ -30,12 +30,10 @@ export default function VettingStatus({ carrierId }: VettingStatusProps) {
 
   return (
     <section
-      className="w-full flex flex-col items-center justify-center bg-[#1A1D21] py-[200px] px-6"
-      style={{ borderRadius: 0 }}
+      className="w-full flex flex-col items-center justify-center bg-charcoal py-imperial px-6 rounded-none"
     >
       <h2
-        className="font-cinzel font-bold uppercase text-3xl md:text-4xl tracking-[0.6em] text-white mb-10 text-center"
-        style={{ letterSpacing: '0.6em' }}
+        className="font-cinzel font-bold uppercase text-3xl md:text-4xl tracking-imperial text-white mb-10 text-center"
       >
         {loading
           ? 'STATUS: VETTING IN PROGRESS'
@@ -45,8 +43,7 @@ export default function VettingStatus({ carrierId }: VettingStatusProps) {
       </h2>
       {isVetted && (
         <span
-          className="px-8 py-4 font-spartan text-lg font-bold uppercase rounded-none bg-[#0B1F1A] text-green-300 tracking-[0.3em]"
-          style={{ borderRadius: 0, letterSpacing: '0.3em' }}
+          className="px-8 py-4 font-spartan text-lg font-bold uppercase rounded-none bg-forest text-green-300 tracking-[0.3em]"
         >
           VERIFIED AUTHORITY
         </span>

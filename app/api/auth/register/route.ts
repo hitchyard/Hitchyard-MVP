@@ -111,9 +111,10 @@ export async function POST(req: NextRequest) {
       console.error('Vetting Request Insert Error (non-blocking):', vettingInsertError);
     }
 
-    // --- STEP 3: Sync to Airtable (Fire and Forget) ---
-    // Don't block registration if Airtable sync fails
-    fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/sync-airtable`, {
+    // --- STEP 3: Sync to Salesforce (Fire and Forget) ---
+    // Don't block registration if Salesforce sync fails
+    // This creates the Carrier__c record and triggers the Onboarding Agent
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/sync-salesforce`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -123,8 +124,10 @@ export async function POST(req: NextRequest) {
         zip_code: zipCode,
         cargo_policy: cargoPolicyNumber,
         auto_policy: autoLiabilityPolicyNumber,
+        ein: parsedBody.ein,
+        dot_number: dotNumber,
       }),
-    }).catch((err) => console.error('Airtable sync failed (non-blocking):', err));
+    }).catch((err) => console.error('Salesforce sync failed (non-blocking):', err));
 
     // --- STEP 4: Trigger Supabase Edge Function for Ansonia Credit Check (Fire and Forget) ---
     // Call Supabase Edge Function to check carrier credit

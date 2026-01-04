@@ -25,14 +25,14 @@ export default async function LoadStatusRow({ loadId }: { loadId: string }) {
   const badge = bol?.status ? (statusMap[bol.status] || statusMap.default) : statusMap.PENDING;
 
   return (
-    <div className="flex items-center gap-4 p-4 border rounded-lg bg-white shadow-sm">
+    <div className="flex items-center gap-4 p-4 border rounded-none bg-surface">
       <div className="flex-1">
         <p className="font-bold text-slate-800">Load ID: {loadId}</p>
       </div>
 
       {/* STATUS BADGE */}
       <div>
-        <span className={`px-3 py-1 rounded-full text-xs font-bold ${badge.color} ${badge.textColor}`}>
+        <span className={`px-3 py-1 rounded-none text-xs font-bold ${badge.color} ${badge.textColor}`}>
           {badge.text}
         </span>
       </div>

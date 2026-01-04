@@ -9,22 +9,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // IMPERIAL PROTOCOL - THE LAW OF COLOR
-        charcoal: '#1A1D21',            // AUTHORITY: Primary brand color
-        forest: '#0B1F1A',              // VERIFIED: Financial/Trust status
-        'pure-white': '#FFFFFF',        // High contrast
-        
+        // IMPERIAL PROTOCOL - THE LAW OF COLOR (CSS variables for v0 Design Mode)
+        charcoal: 'var(--brand-charcoal)',            // AUTHORITY: Primary brand color
+        forest: 'var(--brand-forest)',                // VERIFIED: Financial/Trust status
+        'pure-white': 'var(--contrast-white)',        // High contrast
         // Aliases for backward compatibility
-        'charcoal-black': '#1A1D21',
-        'hitchyard-charcoal': '#1A1D21',
-        'deep-forest-green': '#0B1F1A',
-        'hitchyard-green': '#0B1F1A',
-        
+        'charcoal-black': 'var(--brand-charcoal)',
+        'hitchyard-charcoal': 'var(--brand-charcoal)',
+        'deep-forest-green': 'var(--brand-forest)',
+        'hitchyard-green': 'var(--brand-forest)',
         // Surface colors
-        surface: '#FFFFFF',
+        surface: 'var(--contrast-white)',
         'surface-secondary': '#F8F8F8',
         'secondary-surface': '#F8F8F8',
-        'text-primary': '#1A1D21',
+        'text-primary': 'var(--brand-charcoal)',
         'text-secondary': '#4B5563',
         'off-white-bg': '#F5F5F7',
       },
@@ -43,7 +41,8 @@ module.exports = {
       },
       spacing: {
         // THE LAW OF SPACE: Art Gallery spacing
-        '200': '50rem',  // py-[200px] = 800px vertical
+        'imperial': '800px', // py-imperial = 800px vertical
+        '200': '50rem',
       },
     },
   },

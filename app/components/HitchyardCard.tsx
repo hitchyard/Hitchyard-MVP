@@ -16,8 +16,7 @@ const HitchyardCard: React.FC<HitchyardCardProps> = ({ imageSrc, title, subtitle
   return (
     <a 
       href={href}
-      className="group block bg-white rounded-none overflow-hidden text-center
-                 transition-all duration-500 ease-in-out"
+      className="group block bg-surface rounded-none overflow-hidden text-center transition-all duration-500 ease-in-out"
     >
       <div className="overflow-hidden mb-8">
         {/* High-contrast symmetrical image - no borders */}
@@ -29,7 +28,7 @@ const HitchyardCard: React.FC<HitchyardCardProps> = ({ imageSrc, title, subtitle
       </div>
       
       {/* Text block: Extreme spacing, no borders */}
-      <div className="px-12 py-8 text-center">
+      <div className="px-12 py-imperial text-center">
         {/* Title: Cinzel Bold uppercase with wide tracking */}
         <h3 className="text-2xl font-serif font-bold text-charcoal uppercase tracking-[0.3em] mb-6">
           {title}

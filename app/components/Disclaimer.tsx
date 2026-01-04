@@ -5,7 +5,7 @@
  */
 export default function Disclaimer() {
   return (
-    <div className="w-full bg-charcoal border-t border-white/10 py-8">
+    <div className="w-full bg-charcoal border-t border-white/10 py-imperial">
       <p className="w-full px-12 text-center text-white/30 text-[9px] font-sans uppercase tracking-[0.5em] leading-relaxed">
         HITCHYARD IS A LICENSED FREIGHT BROKER AND IS NOT A MOTOR CARRIER
       </p>

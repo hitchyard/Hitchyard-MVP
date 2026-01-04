@@ -43,7 +43,7 @@ export default function AcceptBidButton({ load }: { load: any }) {
     <button
       onClick={handleAction}
       disabled={loading}
-      className="w-full py-3 rounded bg-blue-600 text-white font-bold hover:bg-blue-700 disabled:bg-slate-400 transition-colors"
+      className="w-full py-3 rounded-none bg-blue-600 text-white font-bold hover:bg-blue-700 disabled:bg-slate-400 transition-colors"
     >
       {loading ? "Processing Documents..." : "Finalize & Send Invoice"}
     </button>
